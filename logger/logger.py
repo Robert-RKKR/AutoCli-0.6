@@ -183,9 +183,9 @@ class Logger:
         except:
             # If there was a problem during log creation process, return False:
             return False
-
-        # Return created log object:
-        return new_log
+        else:
+            # Return created log object:
+            return new_log
 
     def _create_log_details_objects(self, additional_data, log):
         """ Create new log details in Database """
