@@ -1,0 +1,46 @@
+ /*   --------------------------   */
+/*   -----   MOBILE   -----   */
+
+
+    /*   -----   MEDIA >= 960px   -----   */
+    @media only screen and (min-width: 960px) {
+
+        #content-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        #page-left {
+            display: flex;
+        }
+
+    }
+
+
+    /*   -----   MEDIA >= 1300px   -----   */
+    @media only screen and (min-width: 1300px) {
+
+        #content-grid {
+            grid-template-columns: repeat(3, 1fr);
+        }
+
+}
+
+
+    /*   -----   MEDIA >= 1800px   -----   */
+    @media only screen and (min-width: 1800px) {
+
+        #content-grid {
+            grid-template-columns: repeat(4, 1fr);
+        }
+
+}
+
+
+    /*   -----   MEDIA >= 2200px   -----   */
+    @media only screen and (min-width: 2200px) {
+
+        #content-grid {
+            grid-template-columns: repeat(5, 1fr);
+        }
+
+}

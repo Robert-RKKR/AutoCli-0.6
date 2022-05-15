@@ -1,0 +1,236 @@
+ /*   ------------------------------------   */
+/*   ----     MAIN PAGE SETTINGS     ----   */
+body {
+    display: flex;
+    flex-direction: row;
+    background: var(--color_background_page);
+    height: 100vh;
+    color: var(--color_font_gray_dark);
+    font-family: 'Alegreya Sans SC', sans-serif;
+    text-decoration: none;
+}
+
+
+    /*   -----   PAGE SCROLL   -----   */
+    ::-webkit-scrollbar {
+        width: 7px;
+    }
+
+    ::-webkit-scrollbar-track {
+        background: var(--color_strong_blue);
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background: var(--color_page_left_two);
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+        background: var(--color_page_left_two);
+    }
+
+
+    /*   -----   PAGE LEFT   -----   */
+    #page-left {
+        background: var(--color_page_left_two);
+        width: var(--page_left);
+        color: var(--color_font_white);
+    }
+
+    #page-header {
+        background: var(--color_page_left_one);
+        height: var(--page_distance_top);
+    }
+
+
+    /*   -----   PAGE RIGHT   -----   */
+    #page-right {
+        width: 100%;
+    }
+
+
+        /*   -----   PAGE TOP   -----   */
+        #page-top {
+            background: var(--color_page_top);
+            height: var(--page_distance_top);
+        }
+
+
+        /*   -----   PAGE BOTTOM   -----   */
+        #page-bottom {
+            height: var(--page_distance_bottom);
+            overflow-y: scroll;
+        }
+
+
+
+
+
+
+/*   ---------------------------   */
+/*   ----     PAGE LEFT     ----   */
+#page-left {
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+#page-left svg, img {
+    fill: var(--color_font_white);
+    cursor: pointer;
+    width: var(--size_super_big);
+    height: var(--size_super_big);
+}
+
+#page-left a {
+    color: var(--color_font_white);
+}
+
+    /*   -----   MAIN PAGE HEADER   -----   */
+    #page-header {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+    }
+
+    #page-header h2 {
+        font-size: 1.8em;
+    }
+
+    #page-header svg {
+        height: 80%;
+        width: 20%;
+        max-width: 50px;
+        margin: 0px var(--size_medium) 0px var(--size_medium);
+    }
+
+
+    /*   -----   MAIN MENU   -----   */
+    .menu-link, .submenu-link {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        font-size: var(--font_small);
+    }
+
+    .menu-link:hover, .submenu-link:hover {
+        background: var(--color_page_left_one);
+    }
+
+    .menu-link {
+        padding: 15px 10px 15px 30px;
+    }
+
+    .submenu-link {
+        padding: 15px 10px 15px 40px;
+    }
+
+    .menu-svg {
+        margin-right: 10px;
+    }
+
+    /*   -----   ACTIVE MENU   -----   */
+    .menu-active {
+        background: var(--color_page_left_one);
+    }
+
+    .menu-active a:hover {
+        background: var(--color_page_left_two);
+    }
+
+    /*   -----   COLLAPSE MENU   -----   */
+    .collapse-menu-link::after {
+        content: " >";
+    }
+
+
+    /*   -----   LANGUAGE   -----   */
+    #page-left-bottom {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        background: var(--color_page_left_one);
+    }
+
+    #page-left-bottom a {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+    }
+
+    #page-left-bottom a:hover {
+        background: var(--color_page_left_two);
+    }
+
+
+
+
+
+
+/*   ----------------------------   */
+/*   ----     PAGE RIGHT     ----   */
+
+
+    /*   -----   PAGE TOP   -----   */
+    #page-top {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0px var(--size_super_big);
+    }
+
+    #sidebar-close {
+        border-radius: 10px;
+        cursor: pointer;
+        padding: 10px;
+        height: 35px;
+        width: 35px;
+    }
+
+    #sidebar-close:hover {
+        background: var(--color_light_green);
+    }
+
+    #page-name > h2 {
+        color: var(--color_font_gray_dark);
+        text-transform: uppercase;
+        font-size: var(--font_medium);
+    }
+
+    #user-menu img {
+        border-radius: 10px;
+        cursor: pointer;
+        padding: 10px;
+        height: 45px;
+        width: 45px;
+    }
+
+    #user-menu img:hover {
+        background: var(--color_light_green);
+    }
+
+
+    /*   -----   PAGE BOTTOM   -----   */
+    #page-bottom {
+        box-sizing: border-box;
+        background: var(--color_page_background);
+        padding: var(--size_medium);
+    }
+
+
+    /*   -----   PAGE CONTENT   -----   */
+    #page-content > div {
+        margin-bottom: var(--size_medium);
+    }
+
+    /*   -----   PAGE FOOTER   -----   */
+    #page-footer {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        padding: var(--size_big);
+        margin-bottom: 0px;
+    }

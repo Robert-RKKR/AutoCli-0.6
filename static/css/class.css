@@ -1,0 +1,184 @@
+:root {
+    
+    /* Colors */
+
+        /* Main colors */
+        --color_page_left_one: #677acf;
+        --color_page_left_two: #7386d5;
+        --color_page_top: #8cd3aa;
+        --color_page_background: #e1eaeb;
+        --color_box_background: #ffffff;
+        --color_gray_background: #efefef;
+
+        /* Main font colors */
+        --color_font_white: #ffffff;
+        --color_font_gray: #6a6464;
+        --color_font_gray_dark: #545353;
+
+        /* Light colors */
+        --color_light_blue: #d8eaf9;
+        --color_light_green: #d9f3e6;
+        --color_light_yellow: #fcf5e6;
+        --color_light_gray: #acb7d0;
+        --color_light_red: #fbe6f3;
+
+        /* Strong colors */
+        --color_strong_blue: #73a6ff;
+        --color_strong_green: #8cd3aa;
+        --color_strong_yellow: #f5cd7f;
+        --color_strong_gray: #5a769a;
+        --color_strong_red: #f27e93;
+
+    /* Dimensions */
+    --page_distance_top: 8vh;
+    --page_distance_bottom: 92vh;
+    --page_left: 250px;
+    --size_small: 5px;
+    --size_medium: 10px;
+    --size_big: 20px;
+    --size_super_big: 30px;
+
+    /* Font size */
+    --font_small: 1em;
+    --font_medium: 1.2em;
+    --font_big: 1.3em;
+}
+
+.display-flex {
+    display: flex!Important;
+}
+
+.collapse {
+    display: none!Important;
+}
+
+
+/*   -----   GRID   -----   */
+.grid-box {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: var(--size_medium);
+    background: var(--color_box_background);
+    box-shadow: 0 .125rem .25rem rgba(0,0,0,.075);
+}
+
+.grid-padding {
+    padding: var(--size_medium);
+}
+
+.grid-panel {
+    height: 30px;
+}
+
+/*   -----   PADDING / MARGIN   -----   */
+.left-padding {
+    padding-left: var(--size_small);
+}
+
+.right-padding {
+    padding-right: var(--size_small);
+}
+
+.left-margin {
+    margin-left: var(--size_small);
+}
+
+.right-margin {
+    margin-right: var(--size_small);
+}
+
+.top-margin {
+    margin-top: var(--size_small);
+}
+
+/*   -----   LABEL   -----   */
+[label] {
+    position: relative;
+}
+
+[label]::before {
+    content: attr(label);
+    opacity: 0;
+    visibility: hidden;
+    position: absolute;
+    top: 40px;
+    background: var(--color_light_blue);
+    color: var(--color_font_gray_dark);
+    padding: 5px;
+    border: 2px #ccc solid;
+    transition: .5s ease-in-out;
+    transition-delay: 1s;
+    transition-property: opacity, visibility;
+}
+
+[label]:hover::before {
+    opacity: 1;
+    visibility: visible;
+}
+
+
+/*   -----   BUTTON   -----   */
+.button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--size_medium);
+    border: none;
+    font-size: var(--font_small);
+    color: var(--color_font_gray_dark);
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.button:hover {
+    background: var(--color_strong_gray);
+    color: var(--color_page_background)
+}
+
+.blue-button {
+    background: var(--color_strong_blue);
+}
+
+.green-button {
+    background: var(--color_strong_green);
+}
+
+.red-button {
+    background: var(--color_strong_red);
+}
+
+.yellow-button {
+    background: var(--color_strong_yellow);
+}
+
+
+    /*   -----   CLICK ANIMATION   -----   */
+    .click-animation {
+        transition: transform 100ms;
+        cursor: pointer;
+    }
+
+    .click-animation:active {
+        transform: scale(0.9);
+    }
+
+
+    /*   -----   ACTION BUTTON   -----   */
+    .action-button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: var(--size_medium);
+        cursor: pointer;
+        height: 30px;
+        width: 30px;
+    }
+    
+    .action-button:hover {
+        background: var(--color_strong_red);
+    }
+
+    .active-action-button {
+        background: var(--color_strong_red)
+    }
+    
