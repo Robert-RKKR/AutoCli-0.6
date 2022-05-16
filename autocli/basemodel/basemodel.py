@@ -5,13 +5,47 @@ from django.utils.translation import gettext_lazy as _
 from django.db import models
 
 # Managers Import:
-from .managers import ActiveManager
-from .managers import NotDeleted
+from .managers import BasicManager
 
 
 # Validators Import:
 from .validators import DescriptionValueValidator
 from .validators import NameValueValidator
+
+
+# Base models class:
+class SimpleBaseModel(models.Model):
+
+    class Meta:
+        
+        # Model name values:
+        verbose_name = _('Model')
+        verbose_name_plural = _('Models')
+
+        # Abstract class value:
+        abstract = True
+
+    # Class name value:
+    class_name = Meta.verbose_name
+
+    # Model data time information:
+    created = models.DateTimeField(
+        verbose_name=_('Created'),
+        help_text=_(f'{class_name} create date.'),
+        auto_now_add=True
+    )
+    updated = models.DateTimeField(
+        verbose_name=_('Updated'),
+        help_text=_(f'{class_name} last update date.'),
+        auto_now=True
+    )
+    
+    # Model objects manager:
+    objects = BasicManager()
+
+    # Model representation:
+    def __str__(self) -> str:
+        return self.pk
 
 
 # Base models class:
@@ -29,6 +63,7 @@ class BaseModel(models.Model):
     # Model validators:
     name_validator = NameValueValidator()
     description_validator = DescriptionValueValidator()
+    # Class name value:
     class_name = Meta.verbose_name
 
     # Model data time information:
@@ -82,7 +117,7 @@ class BaseModel(models.Model):
     )
 
     # Model objects manager:
-    objects = NotDeleted()
+    objects = BasicManager()
 
     # Model representation:
     def __str__(self) -> str:

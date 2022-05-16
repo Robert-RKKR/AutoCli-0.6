@@ -5,7 +5,7 @@ from django.db import models
 # Base Model Import:
 from autocli.basemodel.basemodel import BaseModel
 
-# Other models Import:
+# Models Import:
 from inventory.models.credential_model import Credential
 from inventory.models.device_model import Device
 

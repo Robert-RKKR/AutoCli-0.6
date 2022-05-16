@@ -26,20 +26,20 @@ DEVICE_ICONS = (
 )
 
 COLOR_ICONS = (
-    (0, (f'{COLOR_PATH}switch.svg')),
-    (1, (f'{COLOR_PATH}border_router.svg')),
-    (2, (f'{COLOR_PATH}chassis.svg')),
-    (3, (f'{COLOR_PATH}console.svg')),
-    (4, (f'{COLOR_PATH}firewall.svg')),
-    (5, (f'{COLOR_PATH}router.svg')),
-    (6, (f'{COLOR_PATH}router_firewall.svg')),
-    (7, (f'{COLOR_PATH}router_wifi_1.svg')),
-    (8, (f'{COLOR_PATH}router_wifi_2.svg')),
-    (9, (f'{COLOR_PATH}stack.svg')),
-    (10, (f'{COLOR_PATH}stack_firewall_1.svg')),
-    (11, (f'{COLOR_PATH}stack_firewall_2.svg')),
-    (12, (f'{COLOR_PATH}stack_firewall_2.svg')),
-    (13, (f'{COLOR_PATH}stack_firewall_2.svg')),
+    (0, (f'{COLOR_PATH}color0.svg')),
+    (1, (f'{COLOR_PATH}color1.svg')),
+    (2, (f'{COLOR_PATH}color2.svg')),
+    (3, (f'{COLOR_PATH}color3.svg')),
+    (4, (f'{COLOR_PATH}color4.svg')),
+    (5, (f'{COLOR_PATH}color5.svg')),
+    (6, (f'{COLOR_PATH}color6.svg')),
+    (7, (f'{COLOR_PATH}color7.svg')),
+    (8, (f'{COLOR_PATH}color8.svg')),
+    (9, (f'{COLOR_PATH}color9.svg')),
+    (10, (f'{COLOR_PATH}color10.svg')),
+    (11, (f'{COLOR_PATH}color11.svg')),
+    (12, (f'{COLOR_PATH}color12.svg')),
+    (13, (f'{COLOR_PATH}color13.svg')),
 )
 
 USER_ICONS = (
