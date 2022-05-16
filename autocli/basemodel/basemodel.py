@@ -29,16 +29,17 @@ class BaseModel(models.Model):
     # Model validators:
     name_validator = NameValueValidator()
     description_validator = DescriptionValueValidator()
+    class_name = Meta.verbose_name
 
     # Model data time information:
     created = models.DateTimeField(
         verbose_name=_('Created'),
-        help_text=_('Object create date.'),
+        help_text=_(f'{class_name} create date.'),
         auto_now_add=True
     )
     updated = models.DateTimeField(
         verbose_name=_('Updated'),
-        help_text=_('Object last update date.'),
+        help_text=_(f'{class_name} last update date.'),
         auto_now=True
     )
 
@@ -46,19 +47,19 @@ class BaseModel(models.Model):
     deleted = models.BooleanField(default=False)
     root = models.BooleanField(
         verbose_name=_('Root'),
-        help_text=_('Root object is not deletable.'),
+        help_text=_(f'{class_name} with root option cannot be deleted.'),
         default=False
     )
     active = models.BooleanField(
         verbose_name=_('Active'),
-        help_text=_(f'Status of {Meta.verbose_name} object.'),
+        help_text=_(f'Status of {class_name} object.'),
         default=True
     )
 
     # Main model values:
     name = models.CharField(
         verbose_name=_('Name'),
-        help_text=_('Xxx.'),
+        help_text=_(f'{class_name} name.'),
         max_length=32,
         blank=False,
         unique=True,
@@ -72,8 +73,8 @@ class BaseModel(models.Model):
     )
     description = models.CharField(
         verbose_name=_('Description'),
-        help_text=_('Xxx.'),
-        max_length=256, default=f'{Meta.verbose_name} description.',
+        help_text=_(f'{class_name} description.'),
+        max_length=256, default=f'{class_name} description.',
         validators=[description_validator],
         error_messages={
             'invalid': 'Enter the correct description value. It must contain 8 to 256 digits, letters and special characters -, _, . or spaces.',

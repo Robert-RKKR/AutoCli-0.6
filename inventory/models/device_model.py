@@ -12,8 +12,9 @@ from inventory.models.credential_model import Credential
 from inventory.validators import HostnameValueValidator
 
 # Constants Import:
-from inventory.constants import DEVICETYPES
+from automation.connections.device_types import DEVICE_TYPE
 from inventory.constants import DEVICE_ICONS
+from inventory.constants import COLOR_ICONS
 
 
 
@@ -34,18 +35,6 @@ class Device(BaseModel):
     # Validators:
     hostname_validator = HostnameValueValidator()
 
-    # Device status:
-    ssh_status = models.BooleanField(
-        verbose_name=_('SSH status'),
-        help_text=_('Status of SSH connection to the device.'),
-        default=False
-    )
-    https_status = models.BooleanField(
-        verbose_name=_('HTTPS status'),
-        help_text=_('Status of HTTPS connection to the device.'),
-        default=False
-    )
-
     # Main model values:
     hostname = models.CharField(
         verbose_name=_('Hostname'),
@@ -64,13 +53,19 @@ class Device(BaseModel):
     device_type = models.IntegerField(
         verbose_name=_('Device type'),
         help_text=_('Type of network device system.'),
-        choices=DEVICETYPES,
+        choices=DEVICE_TYPE,
         default=0
     )
     ico = models.IntegerField(
-        verbose_name=_('Device Icon'),
+        verbose_name=_('Device icon'),
         help_text=_('Network device graphic representation.'),
         choices=DEVICE_ICONS,
+        default=0
+    )
+    color = models.IntegerField(
+        verbose_name=_('Color'),
+        help_text=_('Color graphic representation.'),
+        choices=COLOR_ICONS,
         default=0
     )
     ssh_port = models.IntegerField(
@@ -82,6 +77,18 @@ class Device(BaseModel):
         verbose_name=_('HTTPS port'),
         help_text=_('HTTPS protocol port number.'),
         default=443
+    )
+
+    # Device status:
+    ssh_status = models.BooleanField(
+        verbose_name=_('SSH status'),
+        help_text=_('Status of SSH connection to the device.'),
+        default=False
+    )
+    https_status = models.BooleanField(
+        verbose_name=_('HTTPS status'),
+        help_text=_('Status of HTTPS connection to the device.'),
+        default=False
     )
 
     # Security and credentials:

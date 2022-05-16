@@ -11,6 +11,7 @@ from inventory.models.device_model import Device
 
 # Constants Import:
 from inventory.constants import FOLDER_ICONS
+from inventory.constants import COLOR_ICONS
 
 
 # Folder model:
@@ -23,13 +24,21 @@ class Folder(BaseModel):
         verbose_name = _('Folder')
         verbose_name_plural = _('Folders')
 
-    # All defaults main values:
+    # All main values:
     ico = models.IntegerField(
-        verbose_name=_('Default device Icon'),
-        help_text=_('Folder default network device graphic representation.'),
+        verbose_name=_('Folder icon'),
+        help_text=_('Folder graphic representation.'),
         choices=FOLDER_ICONS,
         default=0
     )
+    color = models.IntegerField(
+        verbose_name=_('Color'),
+        help_text=_('Color graphic representation.'),
+        choices=COLOR_ICONS,
+        default=0
+    )
+
+    # All defaults security and credentials:
     ssh_port = models.IntegerField(
         verbose_name=_('Default SSH port'),
         help_text=_('Folder default SSH protocol port number.'),
@@ -40,8 +49,6 @@ class Folder(BaseModel):
         help_text=_('Folder default HTTPS protocol port number.'),
         default=443
     )
-
-    # All defaults security and credentials:
     credential = models.ForeignKey(
         Credential,
         verbose_name=_('Default credential'),

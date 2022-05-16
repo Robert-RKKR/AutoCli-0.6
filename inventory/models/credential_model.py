@@ -7,6 +7,7 @@ from autocli.basemodel.basemodel import BaseModel
 
 # Constants Import:
 from inventory.constants import USER_ICONS
+from inventory.constants import COLOR_ICONS
 
 
 # Credential model:
@@ -41,8 +42,14 @@ class Credential(BaseModel):
         blank=True
     )
     ico = models.IntegerField(
-        verbose_name=_('Credential Icon'),
+        verbose_name=_('Credential icon'),
         help_text=_('Credential graphical representation.'),
         choices=USER_ICONS,
+        default=0
+    )
+    color = models.IntegerField(
+        verbose_name=_('Color'),
+        help_text=_('Color graphic representation.'),
+        choices=COLOR_ICONS,
         default=0
     )

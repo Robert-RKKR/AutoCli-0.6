@@ -5,6 +5,7 @@ from django.utils.translation import gettext_lazy as _
 DEVICE_PATH = 'static/ico/model/devices/'
 FOLDER_PATH = 'static/ico/model/folders/'
 USER_PATH = 'static/ico/model/users/'
+COLOR_PATH = 'static/ico/model/colors/'
 
 DEVICE_ICONS = (
     (0, (f'{DEVICE_PATH}switch.svg')),
@@ -22,6 +23,23 @@ DEVICE_ICONS = (
     (12, (f'{DEVICE_PATH}switch.svg')),
     (13, (f'{DEVICE_PATH}wifi-connection.svg')),
     (14, (f'{DEVICE_PATH}wireless-router.svg')),
+)
+
+COLOR_ICONS = (
+    (0, (f'{COLOR_PATH}switch.svg')),
+    (1, (f'{COLOR_PATH}border_router.svg')),
+    (2, (f'{COLOR_PATH}chassis.svg')),
+    (3, (f'{COLOR_PATH}console.svg')),
+    (4, (f'{COLOR_PATH}firewall.svg')),
+    (5, (f'{COLOR_PATH}router.svg')),
+    (6, (f'{COLOR_PATH}router_firewall.svg')),
+    (7, (f'{COLOR_PATH}router_wifi_1.svg')),
+    (8, (f'{COLOR_PATH}router_wifi_2.svg')),
+    (9, (f'{COLOR_PATH}stack.svg')),
+    (10, (f'{COLOR_PATH}stack_firewall_1.svg')),
+    (11, (f'{COLOR_PATH}stack_firewall_2.svg')),
+    (12, (f'{COLOR_PATH}stack_firewall_2.svg')),
+    (13, (f'{COLOR_PATH}stack_firewall_2.svg')),
 )
 
 USER_ICONS = (
@@ -80,14 +98,4 @@ FOLDER_ICONS = (
     (16, (f'{FOLDER_PATH}folder-17.svg')),
     (17, (f'{FOLDER_PATH}folder-18.svg')),
     (18, (f'{FOLDER_PATH}folder-18.svg')),
-)
-
-DEVICETYPES = (
-    (0, _('Undefinded')),
-    (1, _('Autodetect')),
-    (2, _('Cisco IOS')),
-    (3, _('Cisco XR')),
-    (4, _('Cisco XE')),
-    (5, _('Cisco NXOS')),
-    (6, _('Cisco ASA')),
 )
