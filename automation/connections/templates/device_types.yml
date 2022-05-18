@@ -8,6 +8,13 @@
       - show interfaces
       - show interfaces switchport
       - show ip interface
+      - show cdp neighbors
+      - show clock
+      - show access-list
+      - show ip access-list
+      - show ip route
+      - show inventory
+      - show vrf
 2:
     representation: Cisco XE
     textfsm: cisco_ios

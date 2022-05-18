@@ -40,6 +40,9 @@ class SimpleBaseModel(models.Model):
         auto_now=True
     )
     
+    # Model status values:
+    deleted = models.BooleanField(default=False)
+    
     # Model objects manager:
     objects = BasicManager()
 

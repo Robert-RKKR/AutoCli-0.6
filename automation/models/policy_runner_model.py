@@ -16,42 +16,33 @@ STATUS = (
 )
 
 
-# Policy manager model:
-class PolicyManager(SimpleBaseModel):
+# Policy runner model:
+class PolicyRunner(SimpleBaseModel):
     """ Xxx. """
 
     class Meta:
         
         # Model name values:
-        verbose_name = _('Policy manager')
-        verbose_name_plural = _('Policy managers')
+        verbose_name = _('Policy runner')
+        verbose_name_plural = _('Policy runner')
 
-    # Corelation witch policy model:
+    # Corelation with policy model:
     policy = models.ForeignKey(
         Policy,
-        verbose_name=_('Xxx'),
-        help_text=_('Xxx.'),
+        verbose_name=_('Policy'),
+        help_text=_('Corelated policy.'),
         on_delete=models.CASCADE
     )
 
-    # Policy manager status declaration:
+    # Status values:
     status = models.IntegerField(
         verbose_name=_('Update status'),
-        help_text=_('Policy manager status.'),
+        help_text=_('Policy runner status.'),
         choices=STATUS,
         default=0
     )
-
-    # 
-    result = models.JSONField(
-        verbose_name=_('Xxx'),
-        help_text=_('Xxx.'),
-        blank=True,
-        null=True
-    )
-    tasks_ids = models.JSONField(
-        verbose_name=_('Xxx'),
-        help_text=_('Xxx.'),
-        blank=True,
-        null=True
+    result_status = models.BooleanField(
+        verbose_name=_('Result status'),
+        help_text=_('A positive result means that all of the commands output match TextFSM and Regex expression.'),
+        default=False
     )

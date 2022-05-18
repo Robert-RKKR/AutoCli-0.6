@@ -26,10 +26,23 @@ class DeviceUpdate(SimpleBaseModel):
         verbose_name = _('Device update')
         verbose_name_plural = _('Device updates')
 
-    # All main values:
+    # Corelation with other models:
+    device = models.ForeignKey(
+        Device,
+        verbose_name=_('Device'),
+        help_text=_('The network device affected by the update.'),
+        on_delete=models.CASCADE
+    )
+
+    # Status values:
     status = models.IntegerField(
         verbose_name=_('Update status'),
         help_text=_('Device update status.'),
         choices=STATUS,
         default=0
+    )
+    result_status = models.BooleanField(
+        verbose_name=_('Result status'),
+        help_text=_('A positive result means that all commands updates was collected.'),
+        default=False
     )

@@ -24,6 +24,9 @@ from .device_types import collect_device_type_name_from_id
 # Logger import:
 from logger.logger import Logger
 
+# Constance Import:
+from automation.constants import COMMANDS
+
 # Logger class initiation:
 logger = Logger('SSH Netconf connection')
 
@@ -126,7 +129,10 @@ class NetCon(Connection):
 
                     if autodetect:    
                         # Collect information about device type:
-                        return self.connection.autodetect()
+                        device_type = self.connection.autodetect()
+                        self.connection_status = False
+                        self.connection = False
+                        return device_type
                     else: # Return connection:
                         return self.connection
 
@@ -243,7 +249,7 @@ class NetCon(Connection):
         # Collect template data:
         device_type_command = collect_device_type_commands_from_id(self.device_type)
         command_filename = f'{device_type_command}_{command_no_space}.textfsm'
-        path = f'autocore/connections/commands/{device_type_command}/{command_filename}'
+        path = f'{COMMANDS}/{device_type_command}/{command_filename}'
 
         try: # Try to parse collected data from Text FSM:
             with open(path) as template:
@@ -255,6 +261,8 @@ class NetCon(Connection):
         except FileNotFoundError as error:
             self._log_error(logger, error)
         except textfsm.TextFSMError as error:
+            self._log_error(logger, error)
+        except textfsm.TextFSMTemplateError as error:
             self._log_error(logger, error)
         else:
             return fsm_result
@@ -321,6 +329,7 @@ class NetCon(Connection):
                     self.task_id, self.device_name)
                 # Update device type attribute:
                 self.device_type = device_name_id
+                self.supported_device = True
                 # Return collected device type name:
                 return discovered_device_type
         

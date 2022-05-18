@@ -16,7 +16,7 @@ from inventory.models.folder_model import Folder
 
 # Policy model:
 class Policy(BaseModel):
-    """ Xxx. """
+    """ Policy model is used by task like source of information to run policy manager task. """
 
     class Meta:
         
@@ -27,8 +27,8 @@ class Policy(BaseModel):
     # Corelation witch scheduler model:
     scheduler = models.ForeignKey(
         IntervalSchedule,
-        verbose_name=_('Xxx'),
-        help_text=_('Xxx.'),
+        verbose_name=_('Scheduler'),
+        help_text=_('Task scheduler.'),
         on_delete=models.CASCADE,
         null=True,
         blank=True
@@ -37,19 +37,22 @@ class Policy(BaseModel):
     # Relationships with other models:
     devices = models.ManyToManyField(
         Device,
-        verbose_name=_('Xxx'),
+        verbose_name=_('Corelated device/s'),
         help_text=_('Xxx.'),
+        null=True,
         blank=True
     )
     folders = models.ManyToManyField(
         Folder,
-        verbose_name=_('Xxx'),
+        verbose_name=_('Corelated folder/s'),
         help_text=_('Xxx.'),
+        null=True,
         blank=True
     )
     templates = models.ManyToManyField(
         Template,
-        verbose_name=_('Xxx'),
+        verbose_name=_('Corelated template/s'),
         help_text=_('Xxx.'),
+        null=True,
         blank=True
     )

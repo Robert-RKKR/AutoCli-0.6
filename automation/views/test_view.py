@@ -5,14 +5,15 @@ from django.shortcuts import render
 from logger.logger import Logger
 
 # Task Import:
-from automation.tasks import test_task
+from automation.task import test_task
+from automation.tasks.collect_device_data import collect_device_data
 
 # Logger initialization:
 logger = Logger('Page')
 
 def automation(request):
 
-    logger.info('Hello, welcome on RKKR page :)')
+    logger.info('------------------------------------')
 
     # Collect data to display:
     data = {
@@ -20,7 +21,8 @@ def automation(request):
         'log': '',
     }
 
-    data['output'] = test_task.delay()
+    # data['output'] = test_task.delay([True, False])
+    data['output'] = collect_device_data(1)
     
     # GET method:
     return render(request, 'basic.html', data)

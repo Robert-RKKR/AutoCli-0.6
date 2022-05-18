@@ -11,9 +11,9 @@ from channels.layers import get_channel_layer
 channel_layer = get_channel_layer()
 
 @shared_task(bind=True, track_started=True, name='Test task')
-def test_task(self) -> bool:
-    
-    output = f'RKKR {self.request.id}'
+def test_task(self, value) -> bool:
+    value = str(value)
+    output = f'RKKR {self.request.id}, {value}'
 
     time.sleep(2)
 
