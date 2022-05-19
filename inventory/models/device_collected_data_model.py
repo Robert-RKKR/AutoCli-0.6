@@ -34,6 +34,16 @@ class DeviceCollectedData(SimpleBaseModel):
         help_text=_('A positive result means that command updates was collected.'),
         default=False
     )
+    raw_data_status = models.BooleanField(
+        verbose_name=_('Raw data status'),
+        help_text=_('A positive result means that command updates was collected.'),
+        default=False
+    )
+    processed_data_status = models.BooleanField(
+        verbose_name=_('Processed data status'),
+        help_text=_('A positive result means that command updates was collected.'),
+        default=False
+    )
 
     # Main model values:
     command_name = models.CharField(

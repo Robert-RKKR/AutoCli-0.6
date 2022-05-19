@@ -39,7 +39,7 @@ class SimpleBaseModel(models.Model):
         help_text=_(f'{class_name} last update date.'),
         auto_now=True
     )
-    
+
     # Model status values:
     deleted = models.BooleanField(default=False)
     
@@ -47,8 +47,8 @@ class SimpleBaseModel(models.Model):
     objects = BasicManager()
 
     # Model representation:
-    def __str__(self) -> str:
-        return self.pk
+    def __repr__(self) -> str:
+        return f'{self.pk}: {self.created}'
 
 
 # Base models class:
@@ -123,5 +123,5 @@ class BaseModel(models.Model):
     objects = BasicManager()
 
     # Model representation:
-    def __str__(self) -> str:
+    def __repr__(self) -> str:
         return self.name

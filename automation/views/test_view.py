@@ -8,6 +8,9 @@ from logger.logger import Logger
 from automation.task import test_task
 from automation.tasks.collect_device_data import collect_device_data
 
+# Models Import:
+from inventory.models.device_collected_data_model import DeviceCollectedData
+
 # Logger initialization:
 logger = Logger('Page')
 
