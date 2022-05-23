@@ -50,9 +50,12 @@ class SimpleBaseModel(models.Model):
     def __repr__(self) -> str:
         return f'{self.pk}: {self.created}'
 
+    def __str__(self) -> str:
+        return  f'{self.pk}: {self.created}'
+
 
 # Base models class:
-class BaseModel(models.Model):
+class BaseModel(SimpleBaseModel):
 
     class Meta:
         
@@ -66,23 +69,11 @@ class BaseModel(models.Model):
     # Model validators:
     name_validator = NameValueValidator()
     description_validator = DescriptionValueValidator()
+    
     # Class name value:
     class_name = Meta.verbose_name
 
-    # Model data time information:
-    created = models.DateTimeField(
-        verbose_name=_('Created'),
-        help_text=_(f'{class_name} create date.'),
-        auto_now_add=True
-    )
-    updated = models.DateTimeField(
-        verbose_name=_('Updated'),
-        help_text=_(f'{class_name} last update date.'),
-        auto_now=True
-    )
-
     # Model status values:
-    deleted = models.BooleanField(default=False)
     root = models.BooleanField(
         verbose_name=_('Root'),
         help_text=_(f'{class_name} with root option cannot be deleted.'),
@@ -118,10 +109,3 @@ class BaseModel(models.Model):
             'invalid': 'Enter the correct description value. It must contain 8 to 256 digits, letters and special characters -, _, . or spaces.',
         },
     )
-
-    # Model objects manager:
-    objects = BasicManager()
-
-    # Model representation:
-    def __repr__(self) -> str:
-        return self.name

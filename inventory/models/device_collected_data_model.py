@@ -21,7 +21,7 @@ class DeviceCollectedData(SimpleBaseModel):
 
     
     # Corelation witch device model:
-    update = models.ForeignKey(
+    device_update = models.ForeignKey(
         DeviceUpdate,
         verbose_name=_('Update model'),
         help_text=_('Corelated update model.'),
@@ -31,17 +31,17 @@ class DeviceCollectedData(SimpleBaseModel):
     # Status values:
     result_status = models.BooleanField(
         verbose_name=_('Result status'),
-        help_text=_('A positive result means that command updates was collected.'),
+        help_text=_('A positive result means that the command output was successfully received and processed.'),
         default=False
     )
     raw_data_status = models.BooleanField(
         verbose_name=_('Raw data status'),
-        help_text=_('A positive result means that command updates was collected.'),
+        help_text=_('A positive result means that the raw data collection process has been successfully completed.'),
         default=False
     )
     processed_data_status = models.BooleanField(
         verbose_name=_('Processed data status'),
-        help_text=_('A positive result means that command updates was collected.'),
+        help_text=_('A positive result means that the process of processing the data was completed successfully.'),
         default=False
     )
 

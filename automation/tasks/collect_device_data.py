@@ -135,7 +135,7 @@ def collect_device_data(self, devices: int or str = False) -> bool:
         elif isinstance(devices, list):
             for device in devices:
                 # Collect data from device:
-                response = single_device_update(devices, self.request.id)
+                response = single_device_update(device, self.request.id)
                 # Collect data to raport:
                 devices_count += 1
                 if response['count'] > 0:

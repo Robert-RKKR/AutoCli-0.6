@@ -5,16 +5,18 @@ from django.db import models
 # Base Model Import:
 from autocli.basemodel.basemodel import BaseModel
 
+# Other models Import:
+from inventory.models.color_model import Color
+
 # Constants Import:
 from inventory.constants import USER_ICONS
-from inventory.constants import COLOR_ICONS
 
 
 # Credential model:
 class Credential(BaseModel):
     """ 
-        The Credential specifies the login information (Login, password)
-        needed in the login process when connecting to network devices.
+    The Credential specifies the login information (Login, password)
+    needed in the login process when connecting to network devices.
     """
 
     class Meta:
@@ -47,9 +49,13 @@ class Credential(BaseModel):
         choices=USER_ICONS,
         default=0
     )
-    color = models.IntegerField(
+    
+    # Corelation witch color model:
+    color = models.ForeignKey(
+        Color,
         verbose_name=_('Color'),
-        help_text=_('Color graphic representation.'),
-        choices=COLOR_ICONS,
-        default=0
+        help_text=_('Corelated color.'),
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True
     )

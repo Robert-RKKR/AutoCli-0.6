@@ -6,24 +6,24 @@ from django.db import models
 from autocli.basemodel.basemodel import BaseModel
 
 # Other models Import:
+from inventory.models.device_type_model import DeviceType
 from inventory.models.credential_model import Credential
+from inventory.models.color_model import Color
 
 # Validators Import:
 from inventory.validators import HostnameValueValidator
 
 # Constants Import:
-from automation.connections.device_types import DEVICE_TYPE
 from inventory.constants import DEVICE_ICONS
-from inventory.constants import COLOR_ICONS
 
 
 
 # Device model:
 class Device(BaseModel):
     """ 
-        Devices is the main component of the AutoCli application,
-        it contains basic network Information about devices that
-        are not collected directly from the devices themselves.
+    Devices is the main component of the AutoCli application,
+    it contains basic network Information about devices that
+    are not collected directly from the devices themselves.
     """
 
     class Meta:
@@ -50,22 +50,10 @@ class Device(BaseModel):
             'invalid': _('Enter a valid IP address or DNS resolvable hostname. It must contain 4 to 32 digits, letters and special characters -, _, . or spaces.'),
         },
     )
-    device_type = models.IntegerField(
-        verbose_name=_('Device type'),
-        help_text=_('Type of network device system.'),
-        choices=DEVICE_TYPE,
-        default=0
-    )
     ico = models.IntegerField(
         verbose_name=_('Device icon'),
         help_text=_('Network device graphic representation.'),
         choices=DEVICE_ICONS,
-        default=0
-    )
-    color = models.IntegerField(
-        verbose_name=_('Color'),
-        help_text=_('Color graphic representation.'),
-        choices=COLOR_ICONS,
         default=0
     )
     ssh_port = models.IntegerField(
@@ -77,6 +65,26 @@ class Device(BaseModel):
         verbose_name=_('HTTPS port'),
         help_text=_('HTTPS protocol port number.'),
         default=443
+    )
+
+    # Corelation witch device type model:
+    device_type = models.ForeignKey(
+        DeviceType,
+        verbose_name=_('Device type'),
+        help_text=_('Type of network device system.'),
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True
+    )
+
+    # Corelation witch color model:
+    color = models.ForeignKey(
+        Color,
+        verbose_name=_('Color'),
+        help_text=_('Corelated color.'),
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True
     )
 
     # Device status:

@@ -39,20 +39,17 @@ class Policy(BaseModel):
         Device,
         verbose_name=_('Corelated device/s'),
         help_text=_('Xxx.'),
-        null=True,
         blank=True
     )
     folders = models.ManyToManyField(
         Folder,
         verbose_name=_('Corelated folder/s'),
         help_text=_('Xxx.'),
-        null=True,
         blank=True
     )
     templates = models.ManyToManyField(
         Template,
         verbose_name=_('Corelated template/s'),
         help_text=_('Xxx.'),
-        null=True,
         blank=True
     )
