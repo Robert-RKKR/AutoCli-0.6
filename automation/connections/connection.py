@@ -107,12 +107,12 @@ class Connection:
         else:
             self._raise_exception('The provided repeat connection variable must be a intiger.')
 
-        # Verify if the specified headers variable is a dictinary:
+        # Verify if the specified headers variable is a dictionary:
         if headers is None or isinstance(headers, dict):
             # Celery task ID declaration:
             self.headers = headers
         else:
-            self._raise_exception('The provided headers variable must be a dictinary.')
+            self._raise_exception('The provided headers variable must be a dictionary.')
 
         # Connection status declaration:
         self.connection_status = None

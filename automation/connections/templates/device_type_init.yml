@@ -1,0 +1,57 @@
+---
+  - pk: 1
+    root: true
+    name: Cisco IOS
+    description: Cisco IOS device
+    netmiko_name: cisco_ios
+    napalm_name: cisco_ios
+    ico: 1
+  - pk: 2
+    root: true
+    name: Cisco XE
+    description: Cisco XE device
+    netmiko_name: cisco_xe
+    napalm_name: ios
+    ico: 2
+  - pk: 3
+    root: true
+    name: Cisco XR
+    description: Cisco XR device
+    netmiko_name: cisco_xr
+    napalm_name: iosxr
+    ico: 3
+  - pk: 4
+    root: true
+    name: Cisco NXOS
+    description: Cisco NXOS device
+    netmiko_name: cisco_nxos
+    napalm_name: nxos
+    ico: 4
+  - pk: 5
+    root: true
+    name: Cisco ASA
+    description: Cisco ASA device
+    netmiko_name: cisco_asa
+    napalm_name: null
+    ico: 5
+  - pk: 6
+    root: true
+    name: Cisco WLC
+    description: Cisco WLC device
+    netmiko_name: cisco_wlc
+    napalm_name: null
+    ico: 6
+  - pk: 7
+    root: true
+    name: FortiNet OS
+    description: FortiNet OS device
+    netmiko_name: fortinet_os
+    napalm_name: null
+    ico: 7
+  - pk: 99
+    root: true
+    name: Unsupported
+    description: Unsupported device
+    netmiko_name: null
+    napalm_name: null
+    ico: 99

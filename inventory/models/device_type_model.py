@@ -21,11 +21,19 @@ class DeviceType(BaseModel):
         verbose_name_plural = _('Device types')
 
     # Main model values:
-    device_type = models.IntegerField(
-        verbose_name=_('Device type'),
-        help_text=_('Supported device type.'),
-        choices=DEVICE_TYPE,
-        default=0
+    netmiko_name = models.CharField(
+        verbose_name=_('Netmiko name'),
+        help_text=_('Netmiko name.'),
+        max_length=32,
+        null=True,
+        blank=True
+    )
+    napalm_name = models.CharField(
+        verbose_name=_('Napalm name'),
+        help_text=_('Napalm name.'),
+        max_length=32,
+        null=True,
+        blank=True
     )
     ico = models.IntegerField(
         verbose_name=_('Device type icon'),

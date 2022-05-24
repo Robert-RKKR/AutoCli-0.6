@@ -109,3 +109,10 @@ class BaseModel(SimpleBaseModel):
             'invalid': 'Enter the correct description value. It must contain 8 to 256 digits, letters and special characters -, _, . or spaces.',
         },
     )
+
+    # Model representation:
+    def __repr__(self) -> str:
+        return f'{self.pk}: {self.name}'
+
+    def __str__(self) -> str:
+        return  f'{self.pk}: {self.name}'
