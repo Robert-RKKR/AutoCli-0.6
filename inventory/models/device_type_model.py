@@ -5,10 +5,6 @@ from django.db import models
 # Base Model Import:
 from autocli.basemodel.basemodel import BaseModel
 
-# Constants Import:
-from automation.connections.device_types import DEVICE_TYPE
-from inventory.constants import DEVICE_TYPE_ICONS
-
 
 # Credential model:
 class DeviceType(BaseModel):
@@ -34,10 +30,4 @@ class DeviceType(BaseModel):
         max_length=32,
         null=True,
         blank=True
-    )
-    ico = models.IntegerField(
-        verbose_name=_('Device type icon'),
-        help_text=_('Device type graphical representation.'),
-        choices=DEVICE_TYPE_ICONS,
-        default=0
     )

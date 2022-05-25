@@ -46,7 +46,6 @@ INSTALLED_APPS = [
     # Local Apps:
     'logger.apps.LoggerConfig',
     'inventory.apps.InventoryConfig',
-    'automation.apps.AutomationConfig',
 ]
 
 MIDDLEWARE = [
@@ -106,11 +105,11 @@ CHANNEL_LAYERS = {
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'autocli2',
+        'NAME': 'autocli',
         'USER': 'postgres',
         'PASSWORD': 'password',
         'HOST': '127.0.0.1',
-        'PORT': 5002,
+        'PORT': 5005,
     }
 }
 

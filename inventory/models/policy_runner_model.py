@@ -6,7 +6,7 @@ from django.db import models
 from autocli.basemodel.basemodel import SimpleBaseModel
 
 # Models Import:
-from automation.models.policy_model import Policy
+from inventory.models.policy_model import Policy
 
 # Constants declaration:
 STATUS = (

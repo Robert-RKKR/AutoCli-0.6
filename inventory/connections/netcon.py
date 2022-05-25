@@ -25,7 +25,7 @@ from .device_types import collect_device_type_name_from_id
 from logger.logger import Logger
 
 # Constance Import:
-from automation.constants import COMMANDS
+from inventory.constants import COMMANDS
 
 # Logger class initiation:
 logger = Logger('SSH Netconf connection')

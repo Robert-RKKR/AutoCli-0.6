@@ -6,7 +6,7 @@ from django.db import models
 from autocli.basemodel.basemodel import BaseModel
 
 
-class Template(BaseModel):
+class PolicyTemplate(BaseModel):
     """
     CLI command template can be processed to receive CLI configurations commands.
     A TextFSM string or Regex expression can then be used to check that the received output is correct.
@@ -15,8 +15,8 @@ class Template(BaseModel):
     class Meta:
         
         # Model name values:
-        verbose_name = _('Template')
-        verbose_name_plural = _('Templates')
+        verbose_name = _('Policy template')
+        verbose_name_plural = _('Policy templates')
 
     # All main values:
     template = models.TextField(

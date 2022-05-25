@@ -6,7 +6,7 @@ from django.db import models
 from autocli.basemodel.basemodel import SimpleBaseModel
 
 # Other models Import:
-from automation.models.device_update_model import DeviceUpdate
+from inventory.models.device_update_model import DeviceUpdate
 
 
 # Device model:

@@ -5,8 +5,8 @@ from django.shortcuts import render
 from logger.logger import Logger
 
 # Task Import:
-from automation.task import test_task
-from automation.tasks.collect_device_data import collect_device_data
+from inventory.task import test_task
+from inventory.tasks.collect_device_data import collect_device_data
 
 # Models Import:
 from inventory.models.device_collected_data_model import DeviceCollectedData

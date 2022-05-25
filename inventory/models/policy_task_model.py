@@ -15,8 +15,8 @@ class PolicyTask(SimpleBaseModel):
     class Meta:
         
         # Model name values:
-        verbose_name = _('Task')
-        verbose_name_plural = _('Tasks')
+        verbose_name = _('Policy task')
+        verbose_name_plural = _('Policy tasks')
 
     # Result status value:
     result_status = models.BooleanField(

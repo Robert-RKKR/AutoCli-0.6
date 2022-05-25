@@ -10,14 +10,14 @@ from inventory.constants import COLOR_ICONS
 
 
 # Credential model:
-class Color(BaseModel):
+class DeviceColor(BaseModel):
     """ Xxx. """
 
     class Meta:
         
         # Model name values:
-        verbose_name = _('Color')
-        verbose_name_plural = _('Colors')
+        verbose_name = _('Device color')
+        verbose_name_plural = _('Device colors')
 
     # Main model values:
     ico = models.IntegerField(

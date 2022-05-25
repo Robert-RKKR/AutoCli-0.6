@@ -7,8 +7,8 @@ from autocli.basemodel.basemodel import BaseModel
 
 # Other models Import:
 from inventory.models.device_type_model import DeviceType
-from inventory.models.credential_model import Credential
-from inventory.models.color_model import Color
+from inventory.models.device_credential_model import DeviceCredential
+from inventory.models.device_color_model import DeviceColor
 
 # Validators Import:
 from inventory.validators import HostnameValueValidator
@@ -79,7 +79,7 @@ class Device(BaseModel):
 
     # Corelation witch color model:
     color = models.ForeignKey(
-        Color,
+        DeviceColor,
         verbose_name=_('Color'),
         help_text=_('Corelated color.'),
         on_delete=models.CASCADE,
@@ -101,7 +101,7 @@ class Device(BaseModel):
 
     # Security and credentials:
     credential = models.ForeignKey(
-        Credential,
+        DeviceCredential,
         verbose_name=_('Credential'),
         help_text=_('Credential needed to establish SSH / HTTPS connection.'),
         on_delete=models.PROTECT,

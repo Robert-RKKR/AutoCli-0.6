@@ -6,24 +6,23 @@ from django.db import models
 from autocli.basemodel.basemodel import BaseModel
 
 # Models Import:
-from inventory.models.credential_model import Credential
+from inventory.models.device_credential_model import DeviceCredential
 from inventory.models.device_model import Device
-from inventory.models.color_model import Color
+from inventory.models.device_color_model import DeviceColor
 
 # Constants Import:
 from inventory.constants import FOLDER_ICONS
-from inventory.constants import COLOR_ICONS
 
 
 # Folder model:
-class Folder(BaseModel):
+class DeviceGroup(BaseModel):
     """ Folders allow you to group network devices. """
 
     class Meta:
         
         # Model name values:
-        verbose_name = _('Folder')
-        verbose_name_plural = _('Folders')
+        verbose_name = _('Device group')
+        verbose_name_plural = _('Device groups')
 
     # All main values:
     ico = models.IntegerField(
@@ -35,7 +34,7 @@ class Folder(BaseModel):
 
     # Corelation witch color model:
     color = models.ForeignKey(
-        Color,
+        DeviceColor,
         verbose_name=_('Color'),
         help_text=_('Corelated color.'),
         on_delete=models.CASCADE,
@@ -63,7 +62,7 @@ class Folder(BaseModel):
 
     # Defaults values:
     credential = models.ForeignKey(
-        Credential,
+        DeviceCredential,
         verbose_name=_('Default credential'),
         help_text=_('Folder default credential needed to establish SSH / HTTPS connection.'),
         on_delete=models.PROTECT,

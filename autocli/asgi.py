@@ -18,7 +18,7 @@ from channels.routing import ProtocolTypeRouter, URLRouter
 from channels.auth import AuthMiddlewareStack
 
 # Application Import:
-from automation.routing import ws_urlpatterns
+from inventory.routing import ws_urlpatterns
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'autocli.settings')
 

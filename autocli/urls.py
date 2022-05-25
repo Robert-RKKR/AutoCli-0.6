@@ -8,5 +8,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
 
     # Application URLs patterns:
-    path('automation/', include('automation.urls')),
+    path('inventory/', include('inventory.urls')),
 ]

@@ -1,6 +1,11 @@
 # Django Import:
 from django.utils.translation import gettext_lazy as _
 
+# Constance declaration:
+DEVICE_TYPES = 'inventory/connections/templates/device_types.yml'
+COMMANDS = 'inventory/connections/commands'
+DEVICE_TYPE_INIT_PATH = 'inventory/initial_objects/device_type'
+
 # Constance values:
 DEVICE_PATH = 'static/ico/model/devices/'
 FOLDER_PATH = 'static/ico/model/folders/'
@@ -8,24 +13,6 @@ USER_PATH = 'static/ico/model/users/'
 COLOR_PATH = 'static/ico/model/colors/'
 
 DEVICE_ICONS = (
-    (0, (f'{DEVICE_PATH}switch.svg')),
-    (1, (f'{DEVICE_PATH}border_router.svg')),
-    (2, (f'{DEVICE_PATH}chassis.svg')),
-    (3, (f'{DEVICE_PATH}console.svg')),
-    (4, (f'{DEVICE_PATH}firewall.svg')),
-    (5, (f'{DEVICE_PATH}router.svg')),
-    (6, (f'{DEVICE_PATH}router_firewall.svg')),
-    (7, (f'{DEVICE_PATH}router_wifi_1.svg')),
-    (8, (f'{DEVICE_PATH}router_wifi_2.svg')),
-    (9, (f'{DEVICE_PATH}stack.svg')),
-    (10, (f'{DEVICE_PATH}stack_firewall_1.svg')),
-    (11, (f'{DEVICE_PATH}stack_firewall_2.svg')),
-    (12, (f'{DEVICE_PATH}switch.svg')),
-    (13, (f'{DEVICE_PATH}wifi-connection.svg')),
-    (14, (f'{DEVICE_PATH}wireless-router.svg')),
-)
-
-DEVICE_TYPE_ICONS = (
     (0, (f'{DEVICE_PATH}switch.svg')),
     (1, (f'{DEVICE_PATH}border_router.svg')),
     (2, (f'{DEVICE_PATH}chassis.svg')),

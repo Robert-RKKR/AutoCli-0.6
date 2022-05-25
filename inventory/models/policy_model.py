@@ -9,9 +9,9 @@ from autocli.basemodel.basemodel import BaseModel
 from django_celery_beat.models import IntervalSchedule
 
 # Models Import:
-from automation.models.template_model import Template
+from inventory.models.policy_template_model import PolicyTemplate
+from inventory.models.device_group_model import DeviceGroup
 from inventory.models.device_model import Device
-from inventory.models.folder_model import Folder
 
 
 # Policy model:
@@ -42,13 +42,13 @@ class Policy(BaseModel):
         blank=True
     )
     folders = models.ManyToManyField(
-        Folder,
-        verbose_name=_('Corelated folder/s'),
+        DeviceGroup,
+        verbose_name=_('Corelated group/s'),
         help_text=_('Xxx.'),
         blank=True
     )
     templates = models.ManyToManyField(
-        Template,
+        PolicyTemplate,
         verbose_name=_('Corelated template/s'),
         help_text=_('Xxx.'),
         blank=True

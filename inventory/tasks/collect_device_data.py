@@ -1,17 +1,17 @@
 # Models Import:
 from this import d
 from inventory.models.device_collected_data_model import DeviceCollectedData
-from automation.models.device_update_model import DeviceUpdate
+from inventory.models.device_update_model import DeviceUpdate
 from inventory.models.device_model import Device
 
 # File reader Import:
-from automation.connections.yaml_reader import yaml_read
+from inventory.yaml_reader import yaml_read
 
 # Constance Import:
-from automation.constants import DEVICE_TYPES
+from inventory.constants import DEVICE_TYPES
 
 # NetCon Import:
-from automation.connections.netcon import NetCon
+from inventory.connections.netcon import NetCon
 
 # Logger import:
 from logger.logger import Logger

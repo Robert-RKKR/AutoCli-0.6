@@ -4,15 +4,27 @@ from django.contrib import admin
 # Models Imports:
 from inventory.models.device_collected_data_model import DeviceCollectedData
 from inventory.models.device_type_model import DeviceType
-from inventory.models.credential_model import Credential
+from inventory.models.device_credential_model import DeviceCredential
 from inventory.models.device_model import Device
-from inventory.models.folder_model import Folder
-from inventory.models.color_model import Color
+from inventory.models.device_group_model import DeviceGroup
+from inventory.models.device_color_model import DeviceColor
+from inventory.models.policy_model import Policy
+from inventory.models.policy_runner_model import PolicyRunner
+from inventory.models.policy_task_model import PolicyTask
+from inventory.models.device_type_template_model import DeviceTypeTemplate
+from inventory.models.policy_template_model import PolicyTemplate
+from inventory.models.device_update_model import DeviceUpdate
 
 # Register your models here:
 admin.site.register(DeviceCollectedData)
+admin.site.register(DeviceCredential)
+admin.site.register(DeviceGroup)
+admin.site.register(DeviceColor)
 admin.site.register(DeviceType)
-admin.site.register(Credential)
 admin.site.register(Device)
-admin.site.register(Folder)
-admin.site.register(Color)
+admin.site.register(DeviceUpdate)
+admin.site.register(Policy)
+admin.site.register(PolicyRunner)
+admin.site.register(PolicyTask)
+admin.site.register(DeviceTypeTemplate)
+admin.site.register(PolicyTemplate)
