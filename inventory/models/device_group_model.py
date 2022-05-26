@@ -7,8 +7,8 @@ from autocli.basemodel.basemodel import BaseModel
 
 # Models Import:
 from inventory.models.device_credential_model import DeviceCredential
-from inventory.models.device_model import Device
 from inventory.models.device_color_model import DeviceColor
+from inventory.models.device_model import Device
 
 # Constants Import:
 from inventory.constants import FOLDER_ICONS
@@ -36,7 +36,7 @@ class DeviceGroup(BaseModel):
     color = models.ForeignKey(
         DeviceColor,
         verbose_name=_('Color'),
-        help_text=_('Corelated color.'),
+        help_text=_('Correlated color.'),
         on_delete=models.CASCADE,
         null=True,
         blank=True

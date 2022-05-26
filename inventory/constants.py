@@ -4,7 +4,7 @@ from django.utils.translation import gettext_lazy as _
 # Constance declaration:
 DEVICE_TYPES = 'inventory/connections/templates/device_types.yml'
 COMMANDS = 'inventory/connections/commands'
-DEVICE_TYPE_INIT_PATH = 'inventory/initial_objects/device_type'
+INITIATION_DATA_PATH = 'inventory/initial_objects'
 
 # Constance values:
 DEVICE_PATH = 'static/ico/model/devices/'

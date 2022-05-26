@@ -1,0 +1,27 @@
+---
+  - pk: 1
+    root: true
+    name: Show version
+    description: Command show version
+    command: show version
+    sfm_expression: commands/cisco_ios/cisco_ios_show_version.textfsm
+    device_type:
+      - 1
+      - 2
+  - pk: 2
+    root: true
+    name: Show access-list
+    description: Command show access-list
+    command: show access-list
+    sfm_expression: commands/cisco_ios/cisco_ios_show_access-list.textfsm
+    device_type:
+      - 1
+      - 2
+  - pk: 3
+    root: true
+    name: Show ip interface
+    description: Command show ip interface
+    command: show ip interface
+    sfm_expression: commands/cisco_ios/cisco_ios_show_ip_interface.textfsm
+    device_type:
+      - 2

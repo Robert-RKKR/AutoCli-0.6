@@ -41,7 +41,7 @@
     description: FortiNet OS device
     netmiko_name: fortinet_os
     napalm_name: null
-  - pk: 99
+  - pk: 8
     root: true
     name: Unsupported
     description: Unsupported device
