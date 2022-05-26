@@ -29,12 +29,19 @@ class Command(BaseCommand):
         created_device_type_objects = {}
         device_type_files = yaml_read(f'{INITIATION_DATA_PATH}/device_type.yml')['output']
         for device_type in device_type_files:
-            new_device_type = DeviceType.objects.create(**device_type)
-            created_device_type_objects[new_device_type.pk] = new_device_type
+            device_type_name = device_type['name']
+            try:
+                new_device_type = DeviceType.objects.create(**device_type)
+            except:
+                print(f'Object {device_type_name} already exist.')
+            else:
+                created_device_type_objects[new_device_type.pk] = new_device_type
+                print(f'Object {device_type_name} was created.')
         
         # Create device type template objects:
         device_type_template_files = yaml_read(f'{INITIATION_DATA_PATH}/device_type_template.yml')['output']
         for device_type_template in device_type_template_files:
+            device_type_template_name = device_type_template['name']
             # Collect device type template relations with device type:
             device_type_template_relations = device_type_template['device_type']
             # Delete device type template relations with device type:
@@ -43,9 +50,14 @@ class Command(BaseCommand):
             sfm_expression_path = device_type_template['sfm_expression']
             device_type_template['sfm_expression'] = file_read(f'{INITIATION_DATA_PATH}/{sfm_expression_path}')['output']
             # Create device type template:
-            new_device_type = DeviceTypeTemplate.objects.create(**device_type_template)
-            for device_type_id in device_type_template_relations:
-                created_device_type_objects[device_type_id].device_type_templates.add(new_device_type)
+            try:
+                new_device_type = DeviceTypeTemplate.objects.create(**device_type_template)
+            except:
+                print(f'Object {device_type_template_name} already exist.')
+            else:
+                for device_type_id in device_type_template_relations:
+                    created_device_type_objects[device_type_id].device_type_templates.add(new_device_type)
+                print(f'Object {device_type_template_name} was created.')
 
     # def handle(self, *args, **options):
 
