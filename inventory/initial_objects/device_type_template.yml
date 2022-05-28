@@ -7,21 +7,83 @@
     sfm_expression: commands/cisco_ios/cisco_ios_show_version.textfsm
     device_type:
       - 1
-      - 2
   - pk: 2
     root: true
+    name: Show interfaces
+    description: Command show interfaces
+    command: show interfaces
+    sfm_expression: commands/cisco_ios/cisco_ios_show_interfaces.textfsm
+    device_type:
+      - 1
+  - pk: 3
+    root: true
+    name: Show interfaces switchport
+    description: Command "show interfaces switchport"
+    command: show interfaces switchport
+    sfm_expression: commands/cisco_ios/cisco_ios_show_interfaces_switchport.textfsm
+    device_type:
+      - 1
+  - pk: 4
+    root: true
+    name: Show ip interface
+    description: Command "show ip interface"
+    command: show ip interface
+    sfm_expression: commands/cisco_ios/cisco_ios_show_ip_interface.textfsm
+    device_type:
+      - 1
+  - pk: 5
+    root: true
+    name: Show cdp neighbors detail
+    description: Command "show cdp neighbors detail"
+    command: show cdp neighbors detail
+    sfm_expression: commands/cisco_ios/cisco_ios_show_cdp_neighbors_detail.textfsm
+    device_type:
+      - 1
+  - pk: 6
+    root: true
+    name: Show clock
+    description: Command "show clock"
+    command: show clock
+    sfm_expression: commands/cisco_ios/cisco_ios_show_clock.textfsm
+    device_type:
+      - 1
+  - pk: 7
+    root: true
     name: Show access-list
-    description: Command show access-list
+    description: Command "show access-list"
     command: show access-list
     sfm_expression: commands/cisco_ios/cisco_ios_show_access-list.textfsm
     device_type:
       - 1
-      - 2
-  - pk: 3
+  - pk: 8
     root: true
-    name: Show ip interface
-    description: Command show ip interface
-    command: show ip interface
-    sfm_expression: commands/cisco_ios/cisco_ios_show_ip_interface.textfsm
+    name: Show ip access-list
+    description: Command "show ip access-list"
+    command: show ip access-list
+    sfm_expression: commands/cisco_ios/cisco_ios_show_ip access-list.textfsm
     device_type:
-      - 2
+      - 1
+  - pk: 9
+    root: true
+    name: Show ip route
+    description: Command "show ip route"
+    command: show ip route
+    sfm_expression: commands/cisco_ios/cisco_ios_show_ip_route.textfsm
+    device_type:
+      - 1
+  - pk: 10
+    root: true
+    name: Show inventory
+    description: Command "show inventory"
+    command: show inventory
+    sfm_expression: commands/cisco_ios/cisco_ios_show_inventory.textfsm
+    device_type:
+      - 1
+  - pk: 11
+    root: true
+    name: Show vrf
+    description: Command "show vrf"
+    command: show vrf
+    sfm_expression: commands/cisco_ios/cisco_ios_show_vrf.textfsm
+    device_type:
+      - 1

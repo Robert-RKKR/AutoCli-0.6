@@ -19,15 +19,12 @@ class DeviceTypeTemplate(BaseModel):
         verbose_name_plural = _('Device type templates')
 
     # All main values:
-    command = models.TextField(
-        verbose_name=_('CLI template'),
-        help_text=_('CLI command/s template.'),
-        null=True,
-        blank=True
+    command = models.CharField(
+        verbose_name=_('CLI command'),
+        help_text=_('CLI command that will be executed on network device.'),
+        max_length=32
     )
     sfm_expression = models.TextField(
         verbose_name=_('SFM expression'),
-        help_text=_('SFM expression used to check if CLI command/s output is correct.'),
-        null=True,
-        blank=True
+        help_text=_('SFM expression used to check if CLI command/s output is correct.')
     )

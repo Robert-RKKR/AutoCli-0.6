@@ -21,7 +21,7 @@ class LogAdmin(admin.ModelAdmin):
         'timestamp', 'message',
     )
     ordering = (
-        'pk', 'timestamp',
+        '-pk', 'timestamp',
     )
 
 

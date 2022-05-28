@@ -1,4 +1,4 @@
-# Document descryption:
+# Document description:
 __author__ = 'Robert Tadeusz Kucharski'
 __version__ = '1.1'
 
@@ -54,7 +54,7 @@ class Connection:
             Provided device object, to establish network connection.
         task_id: String
             Specifies the Celery task ID value, that will be added to logs messages.
-        repeat_connection: Intiger
+        repeat_connection: Integer
             Specifies how many times the network connection will be retried.
         """
 
@@ -80,39 +80,38 @@ class Connection:
                     self.device_username = device.credential.username
                     self.device_password = device.credential.password
             except:
-                self._raise_exception(
-                    'Provided device object is not compatible with connection class.')
+                raise 'Provided device object is not compatible with connection class.'
 
         else:
-            self._raise_exception('The provided device variable must be a valid object of the Device class.')
+            raise 'The provided device variable must be a valid object of the Device class.'
 
         # Verify if the specified taks_id variable is a string:
         if task_id is None or isinstance(task_id, str):
             # Celery task ID declaration:
             self.task_id = task_id
         else:
-            self._raise_exception('The provided task ID variable must be a string.')
+            raise 'The provided task ID variable must be a string.'
 
-        # Verify if the specified repeat connection variable is a intiger:
+        # Verify if the specified repeat connection variable is a integer:
         if repeat_connection is None or isinstance(repeat_connection, int):
             # Celery task ID declaration:
             self.repeat_connection = repeat_connection
         else:
-            self._raise_exception('The provided repeat connection variable must be a intiger.')
+            raise 'The provided repeat connection variable must be a integer.'
 
-        # Verify if the specified repeat connection time variable is a intiger:
+        # Verify if the specified repeat connection time variable is a integer:
         if repeat_connection_time is None or isinstance(repeat_connection_time, int):
             # Celery task ID declaration:
             self.repeat_connection_time = repeat_connection_time
         else:
-            self._raise_exception('The provided repeat connection variable must be a intiger.')
+            raise 'The provided repeat connection variable must be a integer.'
 
         # Verify if the specified headers variable is a dictionary:
         if headers is None or isinstance(headers, dict):
             # Celery task ID declaration:
             self.headers = headers
         else:
-            self._raise_exception('The provided headers variable must be a dictionary.')
+            raise 'The provided headers variable must be a dictionary.'
 
         # Connection status declaration:
         self.connection_status = None
@@ -124,32 +123,17 @@ class Connection:
         self.connection_timer = None
 
         # Device supported declaration:
-        if self.device_type == 0:
-            self.supported_device = None
-        elif self.device_type == 99:
-            self.supported_device = False
+        if self.device_type:
+            if self.device_type.name == 'Unsupported':
+                self.supported_device = False
+            else:
+                self.supported_device = True
         else:
-            self.supported_device = True
+            self.supported_device = None
 
     def __repr__(self) -> str:
         """ Class representation. """
         return f'<Class connection ({self.device_name}/{self.device_hostname})>'
-
-    def _raise_exception(self, exception):
-        """ Xxx. """
-
-        # Change connection status tu False:
-        self.connection_status = False
-        # Raise exception:
-        raise TypeError(exception)
-
-    def _log_error(self, logger, error):
-        """ Xxx. """
-
-        # Log error:
-        logger.error(str(error), self.task_id, self.device_name)
-        # Change connection status to False:
-        self.connection_status = False
 
     def _sleep(self):
         """ Sleep defined amount of time. """

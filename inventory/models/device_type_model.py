@@ -23,16 +23,12 @@ class DeviceType(BaseModel):
     netmiko_name = models.CharField(
         verbose_name=_('Netmiko name'),
         help_text=_('Netmiko name.'),
-        max_length=32,
-        null=True,
-        blank=True
+        max_length=32
     )
     napalm_name = models.CharField(
         verbose_name=_('Napalm name'),
         help_text=_('Napalm name.'),
-        max_length=32,
-        null=True,
-        blank=True
+        max_length=32
     )
 
     # Corelation witch device type template:

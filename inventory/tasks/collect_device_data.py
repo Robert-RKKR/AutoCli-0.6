@@ -38,7 +38,7 @@ def single_device_update(device_pk: int, request_id: int) -> bool:
         else:
             return True
 
-    # Check if device_pk variable is intiger:
+    # Check if device_pk variable is integer:
     if isinstance(device_pk, int):
 
         try: # Find Device object by ID:
@@ -46,7 +46,7 @@ def single_device_update(device_pk: int, request_id: int) -> bool:
 
         except:
             # Log 404 device error:
-            logger.error(f'Device with ID {device_pk}, is not avaliable.', request_id)
+            logger.error(f'Device with ID {device_pk}, is not available.', request_id)
             return False
 
         else:
@@ -66,10 +66,10 @@ def single_device_update(device_pk: int, request_id: int) -> bool:
                 device_output = connection.enabled_commands(device_types_commands)
                 connection.close_connection()
             else:
-                return False
+                return connection
 
-            # End data raport:
-            end_data_raport = {
+            # End data rapport:
+            end_data_rapport = {
                 'count': 0
             }
 
@@ -83,14 +83,14 @@ def single_device_update(device_pk: int, request_id: int) -> bool:
                 for command in device_output:
                     # Collect basic data:
                     raw_data = device_output[command].get('command_output', False),
-                    processed_data = device_output[command].get('proccessed_output', False)
-                    # Collect data to end data raport:
+                    processed_data = device_output[command].get('processed_output', False)
+                    # Collect data to end data rapport:
                     raw_data_status = check_output_status(raw_data)
                     processed_data_status = check_output_status(processed_data)
                     if raw_data_status and processed_data_status:
                         result_status = True
                         # Increase counter:
-                        end_data_raport['count'] += 1
+                        end_data_rapport['count'] += 1
                     else:
                         result_status = False
                     # Save collected command output to database:
@@ -103,15 +103,15 @@ def single_device_update(device_pk: int, request_id: int) -> bool:
                         processed_data_status=processed_data_status,
                         result_status=result_status
                     )
-                    # Create end data raport:
-                    end_data_raport[command] = result_status
+                    # Create end data rapport:
+                    end_data_rapport[command] = result_status
             except:
                 return False
             else:
-                return end_data_raport
+                return end_data_rapport
 
-    else: # If device variable is not a intiger, raise type error:
-        raise TypeError('Device PK variable can only be a intiger.')
+    else: # If device variable is not a integer, raise type error:
+        raise TypeError('Device PK variable can only be a integer.')
 
 @shared_task(bind=True, track_started=True, name='Collect data from device')
 def collect_device_data(self, devices: int or str = False) -> bool:
@@ -136,7 +136,7 @@ def collect_device_data(self, devices: int or str = False) -> bool:
             for device in devices:
                 # Collect data from device:
                 response = single_device_update(device, self.request.id)
-                # Collect data to raport:
+                # Collect data to rapport:
                 devices_count += 1
                 if response['count'] > 0:
                     success_count += 1
