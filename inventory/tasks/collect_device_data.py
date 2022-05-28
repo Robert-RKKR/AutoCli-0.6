@@ -23,13 +23,13 @@ from asgiref.sync import async_to_sync
 from channels.layers import get_channel_layer
 
 # Logger class initiation:
-logger = Logger('SSH Netconf connection')
+logger = Logger('Collecting data')
 
 # Channels variable:
 channel_layer = get_channel_layer()
 
 @shared_task(bind=True, track_started=True, name='Collect data from single device')
-def collect_device_data(self, device_id: int = False) -> bool:
+def collect_device_data(self, device_id: int) -> bool:
     """ Collect data from single device, using SSH protocol. """
 
     def check_output_status(output):
@@ -42,41 +42,46 @@ def collect_device_data(self, device_id: int = False) -> bool:
     successful = 0
     # Declare collected data:
     collected_data = None
-    # Collect all data from device:
-    device = Device.objects.get(pk=device_id)
-    connection = NetCon(device).open_connection()
-    if connection:
-        collected_data = connection.execute_device_type_templates()
-        connection.close_connection()
-    # Create new update object:
-    new_device_update_object = DeviceUpdate.objects.create(
-        device=device, status=0)
-    # Iterate thru all collected data:
-    for single_command_output in collected_data:
-        # Collect data:
-        command_name=single_command_output['command']
-        command_raw_data=single_command_output['command_output']
-        command_processed_data=single_command_output['processed_output']
-        raw_data_status = check_output_status(command_raw_data)
-        processed_data_status = check_output_status(command_processed_data)
-        if processed_data_status and raw_data_status:
-            result_status = True
-            successful += 1
-        else:
-            result_status = False
-        # Create single device collected data object:
-        DeviceCollectedData.objects.create(
-            # Update corelation:
-            device_update=new_device_update_object,
-            # Collected command data:
-            command_name=command_name,
-            command_raw_data=command_raw_data,
-            command_processed_data=command_processed_data,
-            # Collected command data status:
-            result_status=result_status,
-            raw_data_status=raw_data_status,
-            processed_data_status=processed_data_status,
-        )
+    try: # Try to collect device from database:
+        device = Device.objects.get(pk=device_id)
+        logger.info('------------------------------------')
+    except:
+        pass
+    else:
+        # Collect all data from device:
+        connection = NetCon(device).open_connection()
+        if connection:
+            collected_data = connection.execute_device_type_templates()
+            connection.close_connection()
+        # Create new update object:
+        new_device_update_object = DeviceUpdate.objects.create(
+            device=device, status=0)
+        # Iterate thru all collected data:
+        for single_command_output in collected_data:
+            # Collect data:
+            command_name=single_command_output['command']
+            command_raw_data=single_command_output['command_output']
+            command_processed_data=single_command_output['processed_output']
+            raw_data_status = check_output_status(command_raw_data)
+            processed_data_status = check_output_status(command_processed_data)
+            if processed_data_status and raw_data_status:
+                result_status = True
+                successful += 1
+            else:
+                result_status = False
+            # Create single device collected data object:
+            DeviceCollectedData.objects.create(
+                # Update corelation:
+                device_update=new_device_update_object,
+                # Collected command data:
+                command_name=command_name,
+                command_raw_data=command_raw_data,
+                command_processed_data=command_processed_data,
+                # Collected command data status:
+                result_status=result_status,
+                raw_data_status=raw_data_status,
+                processed_data_status=processed_data_status,
+            )
     # Create message:
     commands_count = len(collected_data)
     if commands_count > 1:
@@ -86,3 +91,18 @@ def collect_device_data(self, device_id: int = False) -> bool:
     async_to_sync(channel_layer.group_send)('collect', {'type': 'device_update', 'text': message})
     return message
 
+
+@shared_task(bind=True, track_started=True, name='Collect data from all devices')
+def collect_all_devices_data(self) -> bool:
+
+    try: # Try to collect all active devices:
+        all_active_devices_list = Device.objects.filter(active=True)
+    except:
+        pass
+    else:
+        # Counters declaration:
+        successful = 0
+        devices_counter = len(all_active_devices_list)
+        # Iterate thru all collected devices:
+        for device in all_active_devices_list:
+            collect_device_data(device.pk)

@@ -6,7 +6,7 @@ from logger.logger import Logger
 
 # Task Import:
 from inventory.models.device_type_template_model import DeviceTypeTemplate
-from inventory.tasks.collect_device_data import collect_device_data
+from inventory.tasks.collect_device_data import collect_device_data, collect_all_devices_data
 from inventory.connections.netcon import NetCon
 from inventory.task import test_task
 
@@ -30,7 +30,7 @@ def automation(request):
     # data['output'] = test_task.delay([True, False])
     # data['output'] = collect_device_data(1)
 
-    data['output'] = collect_device_data(1)
+    data['output'] = collect_all_devices_data()
 
     # device = Device.objects.get(pk=1)
     # connection = NetCon(device).open_connection()
