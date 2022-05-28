@@ -30,15 +30,18 @@ def automation(request):
     # data['output'] = test_task.delay([True, False])
     # data['output'] = collect_device_data(1)
 
-    device = Device.objects.get(pk=1)
-    connection = NetCon(device).open_connection()
-    # data['output'] = connection.enabled_commands(['show version', 'show interfaces', 'show interfaces switchport', 'show ip interface', 'show cdp neighbors', 'show clock', 'show access-list', 'show ip access-list', 'show ip route', 'show inventory', 'show vrf'])
-    if connection:
-        # data['output'] = connection.enabled_commands(['show access-list', 'show ip access-list'])
-        template = DeviceTypeTemplate.objects.get(pk=1)
-        # data['output'] = connection.enabled_commands(fsm_template_object=template)
-        data['output'] = connection.execute_device_type_templates()
-        connection.close_connection()
+    data['output'] = collect_device_data(1)
+
+    # device = Device.objects.get(pk=1)
+    # connection = NetCon(device).open_connection()
+    # # data['output'] = connection.enabled_commands(['show version', 'show interfaces', 'show interfaces switchport', 'show ip interface', 'show cdp neighbors', 'show clock', 'show access-list', 'show ip access-list', 'show ip route', 'show inventory', 'show vrf'])
+    # if connection:
+    #     # data['output'] = connection.enabled_commands(['show access-list', 'show ip access-list'])
+    #     # template = DeviceTypeTemplate.objects.get(pk=1)
+    #     # data['output'] = connection.enabled_commands(fsm_template_object=template)
+    #     # data['output'] = collect_device_data(1)
+    #     # data['output'] = connection.execute_device_type_templates()
+    #     connection.close_connection()
     
     # GET method:
     return render(request, 'basic.html', data)

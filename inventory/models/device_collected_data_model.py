@@ -24,7 +24,7 @@ class DeviceCollectedData(SimpleBaseModel):
     device_update = models.ForeignKey(
         DeviceUpdate,
         verbose_name=_('Update model'),
-        help_text=_('Corelated update model.'),
+        help_text=_('Correlated update model.'),
         on_delete=models.CASCADE
     )
 
@@ -59,7 +59,7 @@ class DeviceCollectedData(SimpleBaseModel):
     )
     command_processed_data = models.JSONField(
         verbose_name=_('Command processed data'),
-        help_text=_('CLI command FSM proccess data.'),
+        help_text=_('CLI command FSM process data.'),
         null=True,
         blank=True
     )

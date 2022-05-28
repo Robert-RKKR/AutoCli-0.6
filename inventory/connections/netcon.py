@@ -45,6 +45,10 @@ class NetCon(Connection):
         Executes commands that do not require privileged mode.
     configuration_commands:
         Executes commands that require privileged mode.
+    execute_device_type_template:
+        Xxx.
+    execute_device_type_templates:
+        Xxx.
     """
 
     def open_connection(self):
@@ -260,7 +264,7 @@ class NetCon(Connection):
                 f'Command/s could not be executed because SSH connection with device: {self.device_name}:{self.device_hostname}, was interrupted.',
                 self.task_id, self.device_name)
 
-    def execute_device_type_template(self, fsm_template_object = False) -> str or list:
+    def execute_device_type_template(self, fsm_template_object = False) -> list:
         """
         """
         return self._enabled_command_execution(
@@ -268,7 +272,7 @@ class NetCon(Connection):
             fsm_template_object=fsm_template_object
         )
 
-    def execute_device_type_templates(self) -> str or list:
+    def execute_device_type_templates(self) -> list:
         """
         """
         output = []
@@ -277,8 +281,6 @@ class NetCon(Connection):
         
         for device_type_templates in all_device_type_templates:
             output.append(self.execute_device_type_template(device_type_templates))
-        
-        
         return output
 
     def _ssh_connect(self, autodetect: bool = False) -> str:
