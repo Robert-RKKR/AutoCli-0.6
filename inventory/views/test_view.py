@@ -31,8 +31,8 @@ def automation(request):
     # data['output'] = test_task.delay([True, False])
     # data['output'] = collect_device_data(1)
 
-    # data['output'] = collect_all_devices_data()
-    data['output'] = collect_device_data(1)
+    data['output'] = collect_all_devices_data()
+    # data['output'] = collect_device_data(1)
     # try:
     #     data['output'] = Device.objects.get(pk=1)
     # except IntegrityError as error:

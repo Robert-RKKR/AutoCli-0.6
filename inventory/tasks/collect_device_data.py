@@ -1,3 +1,7 @@
+# Document description:
+__author__ = 'Robert Tadeusz Kucharski'
+__version__ = '1.0'
+
 # Models Import:
 from inventory.models.device_collected_data_model import DeviceCollectedData
 from inventory.models.device_update_model import DeviceUpdate
@@ -40,8 +44,16 @@ def collect_device_data(self, device_id: int) -> bool:
         else:
             return True
 
+    # Return data:
+    return_data = {
+        'message': None,
+        'successful': None,
+        'commands_count': None,
+        'status': None
+    }
     # Count successful outputs:
     successful = 0
+    commands_count = 0
     # Declare collected data:
     collected_data = None
     try: # Try to collect device from database:
@@ -64,8 +76,11 @@ def collect_device_data(self, device_id: int) -> bool:
             logger.debug(
                 f'Process of creating device update object fails, on device {device.name}.\n{error}',
                 self.request.id, device.name)
-        # Iterate thru all collected data:=
+        
+        # Iterate thru all collected data:
         if collected_data:
+            # Defiant command count:
+            commands_count = len(collected_data)
             for single_command_output in collected_data:
                 # Collect data:
                 command_name=single_command_output['command']
@@ -97,7 +112,6 @@ def collect_device_data(self, device_id: int) -> bool:
                         self.request.id, device.name)
 
             # Log end of process:
-            commands_count = len(collected_data)
             if successful > 0:
                 logger.info(
                     f'Process of collecting information from {device.name} has been accomplish (Collected {successful} outputs from {commands_count} commands).',
@@ -111,22 +125,38 @@ def collect_device_data(self, device_id: int) -> bool:
                 message = f'Successfully collected {successful} commands outputs from {commands_count} commands.'
             else:
                 message = f'Successfully collected {successful} command outputs from {commands_count} command.'
-            # Send message to async_to_sync:
-            async_to_sync(channel_layer.group_send)('collect', {'type': 'device_update', 'text': message})
-            return message
+            # Upgrade rerun data:
+            return_data['status'] = True
+
         else:
+            # Log end of process:
             logger.warning(
                 f'Data could not be collected from device {device.name}',
                 self.request.id, device.name)
+            # Upgrade rerun data:
+            return_data['status'] = False
+            # Create message:
             message = f'Data could not be collected from device {device.name}'
-            # Send message to async_to_sync:
-            async_to_sync(channel_layer.group_send)('collect', {'type': 'device_update', 'text': message})
-            return message
+        
+        # Send message to async_to_sync:
+        async_to_sync(channel_layer.group_send)('collect', {'type': 'device_update', 'text': message})
+        # Upgrade rerun data:
+        return_data['message'] = message
+        return_data['successful'] = successful
+        return_data['commands_count'] = commands_count
+        # Return return data
+        return return_data
 
 
 @shared_task(bind=True, track_started=True, name='Collect data from all devices')
 def collect_all_devices_data(self) -> bool:
 
+    # Return data:
+    return_data = {
+        'message': None,
+        'successful': None,
+        'devices_counter': None
+    }
     try: # Try to collect all active devices:
         all_active_devices_list = Device.objects.filter(active=True)
     except:
@@ -137,4 +167,19 @@ def collect_all_devices_data(self) -> bool:
         devices_counter = len(all_active_devices_list)
         # Iterate thru all collected devices:
         for device in all_active_devices_list:
-            collect_device_data(device.pk)
+            output = collect_device_data(device.pk)
+            if output['status'] is True:
+                successful += 1
+
+    # Log end of process:
+    # Create message:
+    message = f'Process of collecting information from all devices has been accomplish (Successfully collected data from {successful} device in total there was {devices_counter} devices).'
+    logger.info(message, self.request.id, device.name)
+    # Send message to async_to_sync:
+    async_to_sync(channel_layer.group_send)('collect', {'type': 'device_update', 'text': message})
+    # Upgrade rerun data:
+    return_data['message'] = message
+    return_data['successful'] = successful
+    return_data['devices_counter'] = devices_counter
+    # Return return data
+    return return_data
