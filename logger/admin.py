@@ -12,7 +12,7 @@ class LogAdmin(admin.ModelAdmin):
 
     empty_value_display = '-None-'
     list_display = (
-        'pk', 'timestamp', 'severity', 'message',
+        'pk', 'timestamp', 'severity', 'task_id', 'correlated_object', 'message',
     )
     list_filter = (
         'severity',

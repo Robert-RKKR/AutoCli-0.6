@@ -10,12 +10,6 @@ from inventory.models.device_model import Device
 # Django exception Import:
 from django.db import IntegrityError
 
-# File reader Import:
-from inventory.yaml_reader import yaml_read
-
-# Constance Import:
-from inventory.constants import DEVICE_TYPES
-
 # NetCon Import:
 from inventory.connections.netcon import NetCon
 
@@ -35,7 +29,7 @@ logger = Logger('Collecting data')
 channel_layer = get_channel_layer()
 
 @shared_task(bind=True, track_started=True, name='Collect data from single device')
-def collect_device_data(self, device_id: int) -> bool:
+def collect_device_data(self, device_id: int, request_id: str = False) -> bool:
     """ Collect data from single device, using SSH protocol. """
 
     def check_output_status(output):
@@ -44,6 +38,9 @@ def collect_device_data(self, device_id: int) -> bool:
         else:
             return True
 
+    # Self ID declaration:
+    if request_id is False:
+        request_id = self.request.id
     # Return data:
     return_data = {
         'message': None,
@@ -60,12 +57,12 @@ def collect_device_data(self, device_id: int) -> bool:
         device = Device.objects.get(pk=device_id)
         logger.info(
             f'Process of collecting information from {device.name} has been started',
-            self.request.id, device.name)
+            request_id, device.name)
     except:
         pass
     else:
         # Collect all data from device:
-        connection = NetCon(device).open_connection()
+        connection = NetCon(device, request_id).open_connection()
         if connection:
             collected_data = connection.execute_device_type_templates()
             connection.close_connection()
@@ -75,7 +72,7 @@ def collect_device_data(self, device_id: int) -> bool:
         except IntegrityError as error:
             logger.debug(
                 f'Process of creating device update object fails, on device {device.name}.\n{error}',
-                self.request.id, device.name)
+                request_id, device.name)
         
         # Iterate thru all collected data:
         if collected_data:
@@ -109,17 +106,17 @@ def collect_device_data(self, device_id: int) -> bool:
                 except IntegrityError as error:
                     logger.debug(
                         f'Process of creating device collected data object fails, on device {device.name}.\n{error}',
-                        self.request.id, device.name)
+                        request_id, device.name)
 
             # Log end of process:
             if successful > 0:
                 logger.info(
                     f'Process of collecting information from {device.name} has been accomplish (Collected {successful} outputs from {commands_count} commands).',
-                    self.request.id, device.name)
+                    request_id, device.name)
             else:
                 logger.warning(
                     f'Process of collecting information from {device.name} has failed.',
-                    self.request.id, device.name)
+                    request_id, device.name)
             # Create message:
             if commands_count > 1:
                 message = f'Successfully collected {successful} commands outputs from {commands_count} commands.'
@@ -132,14 +129,14 @@ def collect_device_data(self, device_id: int) -> bool:
             # Log end of process:
             logger.warning(
                 f'Data could not be collected from device {device.name}',
-                self.request.id, device.name)
+                request_id, device.name)
             # Upgrade rerun data:
             return_data['status'] = False
             # Create message:
             message = f'Data could not be collected from device {device.name}'
         
         # Send message to async_to_sync:
-        async_to_sync(channel_layer.group_send)('collect', {'type': 'device_update', 'text': message})
+        async_to_sync(channel_layer.group_send)('collect', {'type': 'send_collect', 'text': message})
         # Upgrade rerun data:
         return_data['message'] = message
         return_data['successful'] = successful
@@ -151,6 +148,8 @@ def collect_device_data(self, device_id: int) -> bool:
 @shared_task(bind=True, track_started=True, name='Collect data from all devices')
 def collect_all_devices_data(self) -> bool:
 
+    # Self ID declaration:
+    request_id = self.request.id
     # Return data:
     return_data = {
         'message': None,
@@ -167,16 +166,16 @@ def collect_all_devices_data(self) -> bool:
         devices_counter = len(all_active_devices_list)
         # Iterate thru all collected devices:
         for device in all_active_devices_list:
-            output = collect_device_data(device.pk)
+            output = collect_device_data(device.pk, request_id)
             if output['status'] is True:
                 successful += 1
 
     # Log end of process:
     # Create message:
     message = f'Process of collecting information from all devices has been accomplish (Successfully collected data from {successful} device in total there was {devices_counter} devices).'
-    logger.info(message, self.request.id, device.name)
+    logger.info(message, request_id, device.name)
     # Send message to async_to_sync:
-    async_to_sync(channel_layer.group_send)('collect', {'type': 'device_update', 'text': message})
+    async_to_sync(channel_layer.group_send)('collect', {'type': 'send_collect', 'text': message})
     # Upgrade rerun data:
     return_data['message'] = message
     return_data['successful'] = successful

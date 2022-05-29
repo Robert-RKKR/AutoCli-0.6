@@ -279,7 +279,6 @@ class NetCon(Connection):
         """
         output = []
         # Collect all device type templates:
-        print('---------->', self.device_type)
         all_device_type_templates = DeviceTypeTemplate.objects.filter(device_type=self.device_type)
         
         for device_type_templates in all_device_type_templates:
