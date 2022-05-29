@@ -2,7 +2,6 @@
 from django.contrib import admin
 
 # Models Imports:
-from .models.log_details_model import LogDetails
 from .models.log_model import Log
 
 
@@ -22,16 +21,4 @@ class LogAdmin(admin.ModelAdmin):
     )
     ordering = (
         '-pk', 'timestamp',
-    )
-
-
-@admin.register(LogDetails)
-class LogDetailsAdmin(admin.ModelAdmin):
-
-    empty_value_display = '-None-'
-    list_display = (
-        'pk', 'log', 'name', 'value',
-    )
-    search_fields = (
-        'log', 'name', 'value',
     )

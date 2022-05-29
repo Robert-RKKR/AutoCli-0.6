@@ -3,7 +3,6 @@ __author__ = 'Robert Tadeusz Kucharski'
 __version__ = '1.0'
 
 # Model Import:
-from .models.log_details_model import LogDetails
 from .models.log_model import Log
 
 # Severity constants declaration:
@@ -68,8 +67,8 @@ class Logger:
             Object of device or other model that is supported.
         """
 
-        # Run proccess of log and details log creation:
-        return self._run(CRITICAL, message, task_id, correlated_object, kwarg)
+        # Run process of log and details log creation:
+        return self._run(CRITICAL, message, task_id, correlated_object)
 
     def error(self, message: str, task_id: str = None, correlated_object: str = None, **kwarg) -> Log:
         """
@@ -85,8 +84,8 @@ class Logger:
             Object of device or other model that is supported.
         """
         
-        # Run proccess of log and details log creation:
-        return self._run(ERROR, message, task_id, correlated_object, kwarg)
+        # Run process of log and details log creation:
+        return self._run(ERROR, message, task_id, correlated_object)
 
     def warning(self, message: str, task_id: str = None, correlated_object: str = None, **kwarg) -> Log:
         """
@@ -102,8 +101,8 @@ class Logger:
             Object of device or other model that is supported.
         """
 
-        # Run proccess of log and details log creation:
-        return self._run(WARNING, message, task_id, correlated_object, kwarg)
+        # Run process of log and details log creation:
+        return self._run(WARNING, message, task_id, correlated_object)
 
     def info(self, message: str, task_id: str = None, correlated_object: str = None, **kwarg) -> Log:
         """
@@ -119,8 +118,8 @@ class Logger:
             Object of device or other model that is supported.
         """
 
-        # Run proccess of log and details log creation:
-        return self._run(INFO, message, task_id, correlated_object, kwarg)
+        # Run process of log and details log creation:
+        return self._run(INFO, message, task_id, correlated_object)
 
     def debug(self, message: str, task_id: str = None, correlated_object: str = None, **kwarg) -> Log:
         """
@@ -136,11 +135,11 @@ class Logger:
             Object of device or other model that is supported.
         """
 
-        # Run proccess of log and details log creation:
-        return self._run(DEBUG, message, task_id, correlated_object, kwarg)
+        # Run process of log and details log creation:
+        return self._run(DEBUG, message, task_id, correlated_object)
 
-    def _run(self, severity, message, task_id, correlated_object, kwarg):
-        """ Run proccess of log and details log creation. """
+    def _run(self, severity, message, task_id, correlated_object):
+        """ Run process of log and details log creation. """
 
         # Check provided data:
         # if isinstance(message, str) is False:
@@ -152,11 +151,6 @@ class Logger:
 
         # Create new log based on provided data:
         log = self._create_log(severity, message, task_id, correlated_object)
-
-        # Check if additional data was provided:
-        if kwarg is not None:
-            # If additional data was provided, create log details object/s based of provided data:
-            self._create_log_details_objects(kwarg, log)
 
         # return log:
         return log
@@ -186,32 +180,3 @@ class Logger:
         else:
             # Return created log object:
             return new_log
-
-    def _create_log_details_objects(self, additional_data, log):
-        """ Create new log details in Database """
-
-        for data in additional_data:
-
-            # Check provided data:
-            if isinstance(data, str):
-                name = data
-            else:
-                raise TypeError('The provided name variable must be string.')
-            if isinstance(data, str):
-                value = additional_data[data]
-            else:
-                raise TypeError('The provided value variable must be string.')
-
-            # Collect all log details data:
-            log_details_data = {
-                'log': log,
-                'name': name,
-                'value': value,
-            }
-
-            try: # Tyr to create a new log details:
-                # Create a new log details:
-                LogDetails.objects.create(**log_details_data)
-            except:
-                # If there was a problem during log details creation process, return False:
-                return False
