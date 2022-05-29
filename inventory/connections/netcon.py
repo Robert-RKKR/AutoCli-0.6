@@ -56,8 +56,8 @@ class NetCon(Connection):
 
         # Check if device need autodetect process:
         if self.supported_device is None:
-            logger.info(
-                f'Device type of device: {self.device_name}:{self.device_hostname}, must be discovered.',
+            logger.debug(
+                f'Device type of device: {self.device_name}, must be discovered.',
                 self.task_id, self.device_name)
             # Update device type based on information collected via SSH protocol:
             self.update_device_type()
@@ -101,43 +101,45 @@ class NetCon(Connection):
         # Connect to device to check device type, using SSH protocol:
         discovered_device_type_name = self._ssh_connect(autodetect=True)
 
-        try: # Collecting device type object:
-            device_type_object = DeviceType.objects.get(netmiko_name=discovered_device_type_name) 
-        except:
-            logger.warning(
-                f'Device type {discovered_device_type_name} running on device: {self.device_name}, is not supported.',
-                self.task_id, self.device_name)
-            # Change supported value to unsupported:
-            self.supported_device = False
-            try: # Try to collect unsupported device type:
-                device_type_object = DeviceType.objects.get(name='Unsupported')
-            except:
-                logger.critical(
-                    'Could not collect Unsupported device type.',
-                    self.task_id, self.device_name)
-        else:
-            # Log successful device type collection:
-            logger.info(
-                f'Device: {self.device_name}:{self.device_hostname} is running {device_type_object.name} software.',
-                self.task_id, self.device_name)
-            # Change supported value to supported:
-            self.supported_device = True
-            # Change current device type to new one:
-            self.device.device_type = device_type_object
-            self.device_type = device_type_object
+        if discovered_device_type_name:
 
-            try: # Try to update device type object:
-                self.device.save() 
-            except: # Return exception if there is a problem during the update of the device type object:
-                logger.debug(
-                    f'Exception occurs, durning device type update process (device: {self.device_name}:{self.device_hostname}).',
+            try: # Collecting device type object:
+                device_type_object = DeviceType.objects.get(netmiko_name=discovered_device_type_name) 
+            except:
+                logger.warning(
+                    f'Device type {discovered_device_type_name} running on device: {self.device_name}, is not supported.',
                     self.task_id, self.device_name)
-                # Return collected device type name:
-                return discovered_device_type_name
+                # Change supported value to unsupported:
+                self.supported_device = False
+                try: # Try to collect unsupported device type:
+                    device_type_object = DeviceType.objects.get(name='Unsupported')
+                except:
+                    logger.critical(
+                        'Could not collect Unsupported device type.',
+                        self.task_id, self.device_name)
             else:
-                logger.debug(
-                    f'Device type of device: {self.device_name}:{self.device_hostname} has been updated.',
+                # Log successful device type collection:
+                logger.info(
+                    f'Device: {self.device_name}:{self.device_hostname} is running {device_type_object.name} software.',
                     self.task_id, self.device_name)
+                # Change supported value to supported:
+                self.supported_device = True
+                # Change current device type to new one:
+                self.device.device_type = device_type_object
+                self.device_type = device_type_object
+
+                try: # Try to update device type object:
+                    self.device.save() 
+                except: # Return exception if there is a problem during the update of the device type object:
+                    logger.debug(
+                        f'Exception occurs, durning device type update process (device: {self.device_name}:{self.device_hostname}).',
+                        self.task_id, self.device_name)
+                    # Return collected device type name:
+                    return discovered_device_type_name
+                else:
+                    logger.debug(
+                        f'Device type of device: {self.device_name}:{self.device_hostname} has been updated.',
+                        self.task_id, self.device_name)
                 
     def enabled_commands(self, commands: str or list = False, expect_string: str = False, fsm_template_object = False) -> str or list:
         """
@@ -277,7 +279,8 @@ class NetCon(Connection):
         """
         output = []
         # Collect all device type templates:
-        all_device_type_templates = self.device_type.device_type_templates.all()
+        print('---------->', self.device_type)
+        all_device_type_templates = DeviceTypeTemplate.objects.filter(device_type=self.device_type)
         
         for device_type_templates in all_device_type_templates:
             output.append(self.execute_device_type_template(device_type_templates))
@@ -335,35 +338,41 @@ class NetCon(Connection):
                     logger.debug(
                         f'Error occurred during SSH connection to device: {self.device_name}:{self.device_hostname}\n{error}',
                         self.task_id, self.device_name)
-                    logger.warning(
-                        f'Application was unable to establish SSH connection to device: {self.device_name}, (Authentication error).',
-                        self.task_id, self.device_name)
                     # Change connection status to False.
                     self.connection_status = False
-                    # Return connection straus:
-                    return self.connection_status
+                    # Log warning error on last attempt:
+                    if connection_attempts == self.repeat_connection:
+                        logger.warning(
+                            f'Application was unable to establish SSH connection to device: {self.device_name}, (Authentication error).',
+                            self.task_id, self.device_name)
+                        # Return False:
+                        return False
                 except NetMikoTimeoutException as error:
                     logger.debug(
                         f'Error occurred during SSH connection to device: {self.device_name}:{self.device_hostname}\n{error}',
                         self.task_id, self.device_name)
-                    logger.warning(
-                        f'Application was unable to establish SSH connection to device: {self.device_name}, (Connection timeout).',
-                        self.task_id, self.device_name)
                     # Change connection status to False.
                     self.connection_status = False
-                    # Return connection straus:
-                    return self.connection_status
+                    # Log warning error on last attempt:
+                    if connection_attempts == self.repeat_connection:
+                        logger.warning(
+                            f'Application was unable to establish SSH connection to device: {self.device_name}, (Connection timeout).',
+                            self.task_id, self.device_name)
+                        # Return False:
+                        return False
                 except ssh_exception.SSHException as error:
                     logger.debug(
                         f'Error occurred during SSH connection to device: {self.device_name}:{self.device_hostname}\n{error}',
                         self.task_id, self.device_name)
-                    logger.warning(
-                        f'Application was unable to establish SSH connection to device: {self.device_name}, (SSH exception).',
-                        self.task_id, self.device_name)
                     # Change connection status to False.
                     self.connection_status = False
-                    # Return connection straus:
-                    return self.connection_status
+                    # Log warning error on last attempt:
+                    if connection_attempts == self.repeat_connection:
+                        logger.warning(
+                            f'Application was unable to establish SSH connection to device: {self.device_name}, (SSH exception).',
+                            self.task_id, self.device_name)
+                        # Return False:
+                        return False
                 except OSError as error:
                     logger.critical(error, self.task_id, self.device_name)
                     # Change connection status to False.
@@ -399,6 +408,8 @@ class NetCon(Connection):
                         return device_type
                     else: # Return connection:
                         return self.connection
+
+            return self.connection_status
 
     def _config_command_execution(self, command: str) -> str:
         """ Configuration CLI command execution. """
@@ -565,7 +576,7 @@ class NetCon(Connection):
                 if not isinstance(fsm_template_object, DeviceTypeTemplate):
                     raise 'FSM template object is wrong type.'
             else:
-                fsm_template_object = DeviceTypeTemplate.objects.get(command=command)
+                fsm_template_object = DeviceTypeTemplate.objects.get(command=command, device_type=self.device_type)
         except:
             return False
         else:

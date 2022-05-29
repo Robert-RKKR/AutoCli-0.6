@@ -1,8 +1,10 @@
 # Models Import:
-from this import d
 from inventory.models.device_collected_data_model import DeviceCollectedData
 from inventory.models.device_update_model import DeviceUpdate
 from inventory.models.device_model import Device
+
+# Django exception Import:
+from django.db import IntegrityError
 
 # File reader Import:
 from inventory.yaml_reader import yaml_read
@@ -44,7 +46,9 @@ def collect_device_data(self, device_id: int) -> bool:
     collected_data = None
     try: # Try to collect device from database:
         device = Device.objects.get(pk=device_id)
-        logger.info('------------------------------------')
+        logger.info(
+            f'Process of collecting information from {device.name} has been started',
+            self.request.id, device.name)
     except:
         pass
     else:
@@ -53,43 +57,71 @@ def collect_device_data(self, device_id: int) -> bool:
         if connection:
             collected_data = connection.execute_device_type_templates()
             connection.close_connection()
-        # Create new update object:
-        new_device_update_object = DeviceUpdate.objects.create(
-            device=device, status=0)
-        # Iterate thru all collected data:
-        for single_command_output in collected_data:
-            # Collect data:
-            command_name=single_command_output['command']
-            command_raw_data=single_command_output['command_output']
-            command_processed_data=single_command_output['processed_output']
-            raw_data_status = check_output_status(command_raw_data)
-            processed_data_status = check_output_status(command_processed_data)
-            if processed_data_status and raw_data_status:
-                result_status = True
-                successful += 1
+        try: # Try to create new update object:
+            new_device_update_object = DeviceUpdate.objects.create(
+                device=device, status=0)
+        except IntegrityError as error:
+            logger.debug(
+                f'Process of creating device update object fails, on device {device.name}.\n{error}',
+                self.request.id, device.name)
+        # Iterate thru all collected data:=
+        if collected_data:
+            for single_command_output in collected_data:
+                # Collect data:
+                command_name=single_command_output['command']
+                command_raw_data=single_command_output['command_output']
+                command_processed_data=single_command_output['processed_output']
+                raw_data_status = check_output_status(command_raw_data)
+                processed_data_status = check_output_status(command_processed_data)
+                if processed_data_status and raw_data_status:
+                    result_status = True
+                    successful += 1
+                else:
+                    result_status = False
+                try: # Try to create single device collected data object:
+                    DeviceCollectedData.objects.create(
+                        # Update corelation:
+                        device_update=new_device_update_object,
+                        # Collected command data:
+                        command_name=command_name,
+                        command_raw_data=command_raw_data,
+                        command_processed_data=command_processed_data,
+                        # Collected command data status:
+                        result_status=result_status,
+                        raw_data_status=raw_data_status,
+                        processed_data_status=processed_data_status,
+                    )
+                except IntegrityError as error:
+                    logger.debug(
+                        f'Process of creating device collected data object fails, on device {device.name}.\n{error}',
+                        self.request.id, device.name)
+
+            # Log end of process:
+            commands_count = len(collected_data)
+            if successful > 0:
+                logger.info(
+                    f'Process of collecting information from {device.name} has been accomplish (Collected {successful} outputs from {commands_count} commands).',
+                    self.request.id, device.name)
             else:
-                result_status = False
-            # Create single device collected data object:
-            DeviceCollectedData.objects.create(
-                # Update corelation:
-                device_update=new_device_update_object,
-                # Collected command data:
-                command_name=command_name,
-                command_raw_data=command_raw_data,
-                command_processed_data=command_processed_data,
-                # Collected command data status:
-                result_status=result_status,
-                raw_data_status=raw_data_status,
-                processed_data_status=processed_data_status,
-            )
-    # Create message:
-    commands_count = len(collected_data)
-    if commands_count > 1:
-        message = f'Successfully collected {successful} commands outputs from {commands_count} commands.'
-    else:
-        message = f'Successfully collected {successful} command outputs from {commands_count} command.'
-    async_to_sync(channel_layer.group_send)('collect', {'type': 'device_update', 'text': message})
-    return message
+                logger.warning(
+                    f'Process of collecting information from {device.name} has failed.',
+                    self.request.id, device.name)
+            # Create message:
+            if commands_count > 1:
+                message = f'Successfully collected {successful} commands outputs from {commands_count} commands.'
+            else:
+                message = f'Successfully collected {successful} command outputs from {commands_count} command.'
+            # Send message to async_to_sync:
+            async_to_sync(channel_layer.group_send)('collect', {'type': 'device_update', 'text': message})
+            return message
+        else:
+            logger.warning(
+                f'Data could not be collected from device {device.name}',
+                self.request.id, device.name)
+            message = f'Data could not be collected from device {device.name}'
+            # Send message to async_to_sync:
+            async_to_sync(channel_layer.group_send)('collect', {'type': 'device_update', 'text': message})
+            return message
 
 
 @shared_task(bind=True, track_started=True, name='Collect data from all devices')

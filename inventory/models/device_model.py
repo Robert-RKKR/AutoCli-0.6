@@ -6,9 +6,9 @@ from django.db import models
 from autocli.basemodel.basemodel import BaseModel
 
 # Other models Import:
-from inventory.models.device_type_model import DeviceType
 from inventory.models.device_credential_model import DeviceCredential
 from inventory.models.device_color_model import DeviceColor
+from inventory.models.device_type_model import DeviceType
 
 # Validators Import:
 from inventory.validators import HostnameValueValidator
