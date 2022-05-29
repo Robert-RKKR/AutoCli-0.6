@@ -4,13 +4,13 @@
     name: Cisco IOS
     description: Cisco IOS device
     netmiko_name: cisco_ios
-    napalm_name: cisco_ios
+    napalm_name: ios
   - pk: 2
     root: true
     name: Cisco XE
     description: Cisco XE device
     netmiko_name: cisco_xe
-    napalm_name: ios
+    napalm_name: iosa
   - pk: 3
     root: true
     name: Cisco XR

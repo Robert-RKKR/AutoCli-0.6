@@ -86,7 +86,7 @@ class NetCon(Connection):
             # Close SSH connection:
             self.connection.disconnect()
             # Log close of SSH connection:
-            logger.info('SSH session ended.', self.task_id, self.device_name)
+            logger.debug('SSH session ended.', self.task_id, self.device_name)
             # End session timer:
             self._end_connection_timer(logger)
 
@@ -112,7 +112,7 @@ class NetCon(Connection):
                 # Change supported value to unsupported:
                 self.supported_device = False
                 try: # Try to collect unsupported device type:
-                    device_type_object = DeviceType.objects.get(name='Unsupported')
+                    device_type_object = DeviceType.objects.get(pk=99)
                 except:
                     logger.critical(
                         'Could not collect Unsupported device type.',

@@ -20,10 +20,12 @@ class DeviceType(BaseModel):
     netmiko_name = models.CharField(
         verbose_name=_('Netmiko name'),
         help_text=_('Netmiko name.'),
-        max_length=32
+        max_length=32,
+        unique=True
     )
     napalm_name = models.CharField(
         verbose_name=_('Napalm name'),
         help_text=_('Napalm name.'),
-        max_length=32
+        max_length=32,
+        unique=True
     )
