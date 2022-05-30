@@ -2,6 +2,9 @@
 __author__ = 'Robert Tadeusz Kucharski'
 __version__ = '1.0'
 
+# Django Import:
+import time
+
 # Models Import:
 from inventory.models.device_collected_data_model import DeviceCollectedData
 from inventory.models.device_update_model import DeviceUpdate
@@ -32,6 +35,7 @@ channel_layer = get_channel_layer()
 def collect_device_data(self, device_id: int, request_id: str = False) -> bool:
     """ Collect data from single device, using SSH protocol. """
 
+    # Check command output:
     def check_output_status(output):
         if output == {} or output == [] or output is None or output is False:
             return False
@@ -46,11 +50,12 @@ def collect_device_data(self, device_id: int, request_id: str = False) -> bool:
         'message': None,
         'successful': None,
         'commands_count': None,
-        'status': None
-    }
+        'status': None}
     # Count successful outputs:
     successful = 0
     commands_count = 0
+    # Start clock count:
+    start_time = time.perf_counter()
     # Declare collected data:
     collected_data = None
     try: # Try to collect device from database:
@@ -73,6 +78,10 @@ def collect_device_data(self, device_id: int, request_id: str = False) -> bool:
             logger.debug(
                 f'Process of creating device update object fails, on device {device.name}.\n{error}',
                 request_id, device.name)
+        
+        # Finish clock count & method execution time:
+        finish_time = time.perf_counter()
+        connection_time = round(finish_time - start_time, 5)
         
         # Iterate thru all collected data:
         if collected_data:
@@ -105,36 +114,37 @@ def collect_device_data(self, device_id: int, request_id: str = False) -> bool:
                     )
                 except IntegrityError as error:
                     logger.debug(
-                        f'Process of creating device collected data object fails, on device {device.name}.\n{error}',
+                        f'Process of creating device collected data object fails, '\
+                        'on device {device.name}.\n{error}',
                         request_id, device.name)
 
             # Log end of process:
             if successful > 0:
                 logger.info(
-                    f'Process of collecting information from {device.name} has been accomplish (Collected {successful} outputs from {commands_count} commands).',
+                    f'Process of collecting information from {device.name} '\
+                    f'has been accomplish (Collected {successful} outputs from {commands_count} commands). '\
+                    f'Execution time {connection_time} seconds.',
                     request_id, device.name)
             else:
                 logger.warning(
-                    f'Process of collecting information from {device.name} has failed.',
+                    f'Process of collecting information from {device.name} has failed. '\
+                    f'Execution time {connection_time} seconds.',
                     request_id, device.name)
             # Create message:
-            if commands_count > 1:
-                message = f'Successfully collected {successful} commands outputs from {commands_count} commands.'
-            else:
-                message = f'Successfully collected {successful} command outputs from {commands_count} command.'
+            message = f'Successfully collected {successful} output/s '\
+            f'outputs from {commands_count} command/s, on device {device.name}. '\
+            f'Execution time {connection_time} seconds.'
             # Upgrade rerun data:
             return_data['status'] = True
 
         else:
-            # Log end of process:
-            logger.warning(
-                f'Data could not be collected from device {device.name}',
-                request_id, device.name)
-            # Upgrade rerun data:
-            return_data['status'] = False
             # Create message:
             message = f'Data could not be collected from device {device.name}'
-        
+            # Log end of process:
+            logger.warning(message,request_id, device.name)
+            # Upgrade rerun data:
+            return_data['status'] = False
+            
         # Send message to async_to_sync:
         async_to_sync(channel_layer.group_send)('collect', {'type': 'send_collect', 'text': message})
         # Upgrade rerun data:
@@ -148,14 +158,15 @@ def collect_device_data(self, device_id: int, request_id: str = False) -> bool:
 @shared_task(bind=True, track_started=True, name='Collect data from all devices')
 def collect_all_devices_data(self) -> bool:
 
+    # Start clock count:
+    start_time = time.perf_counter()
     # Self ID declaration:
     request_id = self.request.id
     # Return data:
     return_data = {
         'message': None,
         'successful': None,
-        'devices_counter': None
-    }
+        'devices_counter': None}
     try: # Try to collect all active devices:
         all_active_devices_list = Device.objects.filter(active=True)
     except:
@@ -170,9 +181,14 @@ def collect_all_devices_data(self) -> bool:
             if output['status'] is True:
                 successful += 1
 
-    # Log end of process:
+    # Finish clock count & method execution time:
+    finish_time = time.perf_counter()
+    connection_time = round(finish_time - start_time, 5)
+    
     # Create message:
-    message = f'Process of collecting information from all devices has been accomplish (Successfully collected data from {successful} device in total there was {devices_counter} devices).'
+    message = f'Process of collecting information from all devices '\
+    f'has been accomplish (Successfully collected data from {successful} '\
+    f'device out of {devices_counter} available in {connection_time} seconds).'
     logger.info(message, request_id, device.name)
     # Send message to async_to_sync:
     async_to_sync(channel_layer.group_send)('collect', {'type': 'send_collect', 'text': message})

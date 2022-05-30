@@ -9,6 +9,8 @@ from django.db import IntegrityError
 from inventory.models.device_type_template_model import DeviceTypeTemplate
 from inventory.tasks.collect_device_data import collect_device_data, collect_all_devices_data
 from inventory.connections.netcon import NetCon
+from inventory.tasks.test_celery import MyTask
+from inventory.tasks.log_collector import collect_last_logs
 
 # Models Import:
 from inventory.models.device_collected_data_model import DeviceCollectedData
@@ -27,10 +29,11 @@ def automation(request):
         'log': '',
     }
 
+    data['output'] = collect_all_devices_data.delay()
+    # data['output'] = collect_last_logs.delay()
+
     # data['output'] = test_task.delay([True, False])
     # data['output'] = collect_device_data(1)
-
-    data['output'] = collect_all_devices_data.delay()
     # data['output'] = collect_device_data(1)
     # try:
     #     data['output'] = Device.objects.get(pk=1)
