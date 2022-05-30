@@ -9,7 +9,6 @@ from django.db import IntegrityError
 from inventory.models.device_type_template_model import DeviceTypeTemplate
 from inventory.tasks.collect_device_data import collect_device_data, collect_all_devices_data
 from inventory.connections.netcon import NetCon
-from inventory.task import test_task
 
 # Models Import:
 from inventory.models.device_collected_data_model import DeviceCollectedData
