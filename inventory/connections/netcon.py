@@ -73,7 +73,7 @@ class NetCon(Connection):
                 f'SSH connection to device: {self.device_name}, has been established.',
                 self.task_id, self.device_name)
             # Start session timer:
-            self.connection_timer = self._start_connection_timer()
+            self._start_connection_timer()
             return self
         else:
             return False
@@ -335,7 +335,8 @@ class NetCon(Connection):
                 # Handel SSH connection exceptions:
                 except AuthenticationException as error:
                     logger.debug(
-                        f'Error occurred during SSH connection to device: {self.device_name}:{self.device_hostname}\n{error}',
+                        f'Error occurred during SSH connection to device:'\
+                        f' {self.device_name}:{self.device_hostname}\n{error}',
                         self.task_id, self.device_name)
                     # Change connection status to False.
                     self.connection_status = False

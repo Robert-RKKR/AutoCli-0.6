@@ -167,7 +167,7 @@ class Connection:
         """ Start connection time counting. """
 
         # Start clock count:
-        return time.perf_counter()
+        self.connection_timer = time.perf_counter()
 
     def _end_connection_timer(self, logger):
         """ End connection time counting. """
@@ -177,11 +177,6 @@ class Connection:
         self.connection_timer = round(finish_time - self.connection_timer, 5)
 
         # Log time of SSH session:
-        if self.connection_timer > 2:
-            logger.debug(
-                f'SSH session was active for {self.connection_timer} seconds.',
-                self.task_id, self.device_name)
-        else:
-            logger.debug(
-                f'SSH session was active for {self.connection_timer} second.',
-                self.task_id, self.device_name)
+        logger.debug(
+            f'SSH session was active for {self.connection_timer} seconds.',
+            self.task_id, self.device_name)

@@ -1,3 +1,4 @@
+
 # Django Import:
 import random
 import time
@@ -19,6 +20,7 @@ class TestTask(BaseTask):
     name = 'RKKR fun'
     description = 'RKKR fun description.'
     logger_name = 'Fun task'
+    queue = 'rkkr'
 
     def _run(self, pk, *args, **kwargs):
         # pk = random.randrange(100)

@@ -9,7 +9,7 @@ from django.db import IntegrityError
 from inventory.models.device_type_template_model import DeviceTypeTemplate
 from inventory.tasks.collect_device_data import collect_device_data, collect_all_devices_data
 from inventory.connections.netcon import NetCon
-from inventory.tasks.test_celery import TestTask
+from inventory.tasks.collect_device_data_task import CollectDeviceDataTask
 from inventory.tasks.log_collector import collect_last_logs
 
 # Logger initialization:
@@ -21,7 +21,7 @@ def logger_page(request):
         'log': '',
     }
 
-    data['output'] = TestTask.delay(pk=123)
+    data['output'] = CollectDeviceDataTask.delay()
 
     logger.info('aaa')
     logger.info('bbb')
