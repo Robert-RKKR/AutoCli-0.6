@@ -21,7 +21,7 @@ def logger_page(request):
         'log': '',
     }
 
-    data['output'] = CollectDeviceDataTask.delay()
+    data['output'] = CollectDeviceDataTask.delay('all')
 
     logger.info('aaa')
     logger.info('bbb')

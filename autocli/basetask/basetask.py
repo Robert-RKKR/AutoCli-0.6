@@ -23,6 +23,7 @@ class BaseTask(Task):
     ignore_result = False
     validation_class = ''
     public = True
+    task_id = '666-666-666'
 
     # Correlated object data:
     corelate_object = None
@@ -73,7 +74,7 @@ class BaseTask(Task):
         # Log time of SSH session:
         self.logger.debug(
             f'The execution time of task {self.name} took {self.execution_timer} seconds.',
-            self.task_id, self.corelate_object)
+            self.task_id, self.corelate_object_name)
         # Return execution timer value:
         return self.execution_timer
 
@@ -95,7 +96,7 @@ class BaseTask(Task):
                     f'Error occurs during object collection.'\
                     f'\nFilter value: {filter}\n'\
                     f'Expression value: {expression}',
-                    self.task_id, self.corelate_object)
+                    self.task_id, self.corelate_object_name)
                 # Change collect variable to False:
                 collected_objects = False
 
@@ -113,14 +114,14 @@ class BaseTask(Task):
                     f'Error occurs during object collection.'\
                     f'\nFilter value: {filter}\n'\
                     f'Expression value: {expression}',
-                    self.task_id, self.corelate_object)
+                    self.task_id, self.corelate_object_name)
                 # Change collect objects variable to False:
                 collected_objects = False
                 
         # Return all collected objects:
         return collected_objects
 
-    def _check_output_status(output):
+    def _check_output_status(self, output):
         if output == {} or output == [] or output is None or output is False:
             return False
         else:

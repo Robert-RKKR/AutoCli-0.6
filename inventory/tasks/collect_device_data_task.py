@@ -33,6 +33,8 @@ class CollectDeviceDataTask(BaseTask):
 
     def _run(self, pk, *args, **kwargs):
         
+        # Success counter:
+        successful = 0
         # Collect all provided device objects:
         collected_objects = self._collect_device_objects(pk)
         # Verify that the object was collected correctly:
@@ -42,8 +44,6 @@ class CollectDeviceDataTask(BaseTask):
             # Iterate thru all collected device objects:
             for collected_device_object in collected_objects:
 
-                # Success counter:
-                successful = 0
                 # Start clock counter:
                 self._start_execution_timer()
                 # Update corelate object variable:
@@ -61,7 +61,7 @@ class CollectDeviceDataTask(BaseTask):
                     if update_object:
                         output = self._save_to_device_collected_data(collected_data, update_object)
                         # Check output status:
-                        if successful:
+                        if output:
                             # Raise successes command counter:
                             successful += 1
                     else:
@@ -137,28 +137,28 @@ class CollectDeviceDataTask(BaseTask):
                     f' on device {self.corelate_object_name}.\n{error}',
                     self.task_id, self.corelate_object_name)
                 return False
-            else:
-                # Create message:
-                message = f'Successfully collected {successes_command} output/s '\
-                f'outputs from {commands_count} command/s, on device {self.corelate_object_name}. '\
-                f'Execution time {self.execution_timer} seconds.'
-                # Send message to channel:
-                self.send_message(message, self.queue)
+            
+        # Create message:
+        message = f'Successfully collected {successes_command} output/s '\
+        f'outputs from {commands_count} command/s, on device {self.corelate_object_name}. '\
+        f'Execution time {self.execution_timer} seconds.'
+        # Send message to channel:
+        self.send_message(message, self.queue)
 
-                # Log end of collected data saving process:
-                if successes_command > 0:
-                    self.logger.info(
-                        f'Process of collecting information from {self.corelate_object_name} '\
-                        f'has been accomplish (Collected {successes_command} outputs from {commands_count} commands). '\
-                        f'Execution time {self.execution_timer} seconds.',
-                        self.task_id, self.corelate_object_name)
-                    return True
-                else:
-                    self.logger.warning(
-                        f'Process of collecting information from {self.corelate_object_name} has failed. '\
-                        f'Execution time {self.execution_timer} seconds.',
-                        self.task_id, self.corelate_object_name)
-                    return False
+        # Log end of collected data saving process:
+        if successes_command > 0:
+            self.logger.info(
+                f'Process of collecting information from {self.corelate_object_name} '\
+                f'has been accomplish (Collected {successes_command} outputs from {commands_count} commands). '\
+                f'Execution time {self.execution_timer} seconds.',
+                self.task_id, self.corelate_object_name)
+            return True
+        else:
+            self.logger.warning(
+                f'Process of collecting information from {self.corelate_object_name} has failed. '\
+                f'Execution time {self.execution_timer} seconds.',
+                self.task_id, self.corelate_object_name)
+            return False
 
 
     def _create_update_object(self, collected_device_object):

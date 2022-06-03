@@ -15,8 +15,24 @@ from inventory.models.device_type_template_model import DeviceTypeTemplate
 from inventory.models.policy_template_model import PolicyTemplate
 from inventory.models.device_update_model import DeviceUpdate
 
+@admin.register(DeviceCollectedData)
+class LogAdmin(admin.ModelAdmin):
+
+    empty_value_display = '-None-'
+    list_display = (
+        'pk', 'device_update', 'result_status', 'raw_data_status', 'processed_data_status',
+    )
+    list_filter = (
+        'result_status', 'raw_data_status', 'processed_data_status',
+    )
+    search_fields = (
+        'device_update',
+    )
+    ordering = (
+        '-pk',
+    )
+
 # Register your models here:
-admin.site.register(DeviceCollectedData)
 admin.site.register(DeviceCredential)
 admin.site.register(DeviceGroup)
 admin.site.register(DeviceColor)

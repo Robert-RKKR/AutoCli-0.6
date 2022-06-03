@@ -1,5 +1,5 @@
 function collect_socket(task_type) {
-    var socket = new WebSocket("ws://127.0.0.1:8000/ws/collect/");
+    var socket = new WebSocket("ws://127.0.0.1:8000/ws/collect_data/");
 
     socket.onmessage = function(event) {
         var collect = event.data;
