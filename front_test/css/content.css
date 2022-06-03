@@ -1,0 +1,154 @@
+ /*   ------------------------------------   */
+/*   ----            TABLE           ----   */
+
+
+
+    /*   -----   TABLE SETTINGS   -----   */
+    .table {
+        display: flex;
+        flex-flow: column nowrap;
+        flex: 1 1 auto;
+    }
+  
+    .row {
+        width: 100%;
+        display: flex;
+        flex-flow: row nowrap;
+    }
+  
+    .cell {
+        flex-grow: 1;
+        flex-basis: 0;
+        padding: 0.5em;
+        word-wrap: break-word;
+        min-width: 0px;
+    }
+
+    /*   -----   TABLE NAWIGATION   -----   */
+
+    /*   -----   COLOR TABLE   -----   */
+
+        /*   -----   COLOR TABLE - BLUE   -----   */
+        .table_blue .row:nth-of-type(odd) {
+            background-color: var(--color_light_blue);
+        }
+
+        .table_blue .row_header {
+            background-color: var(--color_strong_blue)!important;
+        }
+
+        /*   -----   COLOR TABLE - GREEN   -----   */
+        .table_green .row:nth-of-type(odd) {
+            background-color: var(--color_light_green);
+        }
+
+        .table_green .row_header {
+            background-color: var(--color_strong_green)!important;
+        }
+
+        /*   -----   COLOR TABLE - YELLOW   -----   */
+        .table_yellow .row:nth-of-type(odd) {
+            background-color: var(--color_light_yellow);
+        }
+
+        .table_yellow .row_header {
+            background-color: var(--color_strong_yellow)!important;
+        }
+
+        /*   -----   COLOR TABLE - GRAY   -----   */
+        .table_gray .row:nth-of-type(odd) {
+            background-color: var(--color_light_gray);
+        }
+
+        .table_gray .row_header {
+            background-color: var(--color_strong_gray)!important;
+        }
+
+        /*   -----   COLOR TABLE - RED   -----   */
+        .table__red .row:nth-of-type(odd) {
+            background-color: var(--color_light_red);
+        }
+
+        .table__red .row_header {
+            background-color: var(--color_strong_red)!important;
+        }
+    
+    /*   -----   CELLS OPTIONS   -----   */
+    .cell_2 {
+        flex-grow: 2;
+    }
+
+    .cell_3 {
+        flex-grow: 3;
+    }
+
+    .cell_4 {
+        flex-grow: 4;
+    }
+
+    .cell_5 {
+        flex-grow: 5;
+    }
+
+
+
+ /*   ------------------------------------   */
+/*   ----           BUTTONS          ----   */
+
+
+
+    /*   -----   BUTTONS   -----   */
+    .button {
+        border: none;
+        padding: 0px;
+        cursor: pointer;
+    }
+
+    .button_content {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        height: var(--size_button_large);
+    }
+
+    .button_svg, .button_text {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+    }
+
+    .button_svg {
+        fill: var(--color_font_second);
+        width: var(--size_super_big);
+        padding: 0px var(--size_medium);
+        height: 100%;
+    }
+
+    .button_text {
+        color: var(--color_font_second);
+        font-size: var(--font_medium);
+        padding: 0px var(--size_big);
+        height: 100%;
+    }
+
+        /*   -----   COLLRS BUTTONS   -----   */
+        .blue_button .button_svg {
+            background-color: var(--color_strong_blue);
+        }
+
+        .blue_button .button_text {
+            background-color: var(--color_light_blue);
+        }
+
+        /*   -----   BUTTONS ANIMATION   -----   */
+        .button {
+            transition: transform .3s;
+        }
+
+        .button:hover {
+            transform: scale(0.99);
+        }
+
+        .button:active {
+            transform: scale(0.9);
+        }

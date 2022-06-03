@@ -12,3 +12,14 @@ class CollectConsumer(AsyncWebsocketConsumer):
     async def send_collect(self, event):
         text_message = event['text']
         await self.send(text_message)
+
+
+class LoggerConsumer(AsyncWebsocketConsumer):
+    
+    async def connect(self):
+        await self.channel_layer.group_add('logger', self.channel_name)
+        await self.accept()
+
+    async def send_collect(self, event):
+        text_message = event['text']
+        await self.send(text_message)

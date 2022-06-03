@@ -1,0 +1,177 @@
+ /*   ------------------------------------   */
+/*   ----     MAIN PAGE SETTINGS     ----   */
+
+
+
+    /*   ----     MAIN PAGE     ----   */
+    #page {
+        display: flex;
+        flex-direction: row;
+        height: 100vh;
+        color: var(--color_font_second);
+        background: var(--color_background_page);
+        font-family: 'Alegreya Sans SC', sans-serif;
+        text-decoration: none;
+        overflow: hidden;
+    }
+
+    /*   ----     PAGE LEFT SITE     ----   */
+    #page_left {
+        background: var(--color_page_left_two);
+        width: var(--size_page_left);
+        color: var(--color_font_white);
+    }
+
+    #page_left_logo {
+        background: var(--color_page_left_one);
+        height: var(--size_page_top);
+    }
+
+    /*   ----     PAGE RIGHT SITE     ----   */
+    #page_right {
+        width: 100%;
+        overflow: hidden;
+    }
+
+    /*   -----   PAGE TOP SITE   -----   */
+    #page_top {
+        background: var(--color_page_top);
+        height: var(--size_page_top);
+    }
+
+    #page_top_content {
+        padding: var(--main_distance);
+    }
+
+
+    /*   -----   PAGE CONTENT SITE   -----   */
+    #page_content {
+        height: var(--size_page_bottom);
+        overflow-y: auto;
+    }
+
+    #content {
+        padding: var(--second_distance);
+    }
+
+    /*   -----   PAGE SCROLL   -----   */
+    ::-webkit-scrollbar {
+        width: 7px;
+    }
+
+    ::-webkit-scrollbar-track {
+        background: var(--color_strong_blue);
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background: var(--color_page_left_two);
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+        background: var(--color_page_left_two);
+    }
+
+
+
+ /*   ------------------------------------   */
+/*   ----     PAGE LEFT SETTINGS     ----   */
+#page_left {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+
+
+    /*   -----   LOGO   -----   */
+
+    /*   -----   MAIN MENU   -----   */
+    #main_menu {
+        margin-top: var(--size_super_big);
+    }
+
+    #main_menu a {
+        color: var(--color_font_white);
+        font-size: var(--font_small);
+    }
+
+    #main_menu p {
+        cursor: pointer;
+        color: var(--color_font_white);
+        font-size: var(--font_small);
+    }
+
+        /*   -----   MAIN MENU - MENU - SUBMENU   -----   */
+        #main_menu .menu_link, .submenu_link {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+        }
+
+        #main_menu .menu_link_item, .submenu_link_item {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+        }
+
+        #main_menu .menu_link .menu_text, .submenu_text {
+            padding-left: var(--size_medium);
+        }
+
+        /*   -----   MAIN MENU - MENU   -----   */
+        #main_menu .menu_svg {
+            fill: var(--color_font_white);
+            width: var(--size_super_big);
+            height: var(--size_super_big);
+        }
+
+        #main_menu .menu_item:not(:last-child) {
+            border-bottom: 1px solid var(--color_page_left_one);
+        }
+
+        #main_menu .menu_link {
+            padding: 15px 15px 15px 30px;
+        }
+
+        #main_menu .menu_collapse .menu_text::after {
+            content: " »";
+        }
+
+        /*   -----   MAIN MENU - SUBMENU   -----   */
+        #main_menu .submenu_svg {
+            fill: var(--color_font_white);
+            width: var(--size_big);
+            height: var(--size_big);
+        }
+
+        #main_menu .submenu_link {
+            padding: 15px 15px 15px 50px;
+        }
+
+        #main_menu .submenu_link .menu_text {
+            padding-left: var(--size_medium);
+        }
+
+        /*   -----   MAIN MENU - ANIMATIONS   -----   */
+        #main_menu .menu_link:hover, .submenu_link:hover {
+            background-color: var(--color_page_left_one);
+        }
+
+        #main_menu .menu_link_item, .submenu_link_item {
+            transition: transform .5s;
+        }
+
+        #main_menu .menu_link:hover .menu_link_item, .submenu_link:hover .submenu_link_item {
+            transform: translate(5px, 0px);
+        }
+
+        #main_menu .menu_link:active .menu_link_item, .submenu_link:active .submenu_link_item {
+            transform: scale(0.99);
+        }
+
+
+ /*   ------------------------------------   */
+/*   ----     PAGE TOP SETTINGS      ----   */
+
+ /*   ------------------------------------   */
+/*   ----    PAGE CONTENT SETTINGS    ---   */

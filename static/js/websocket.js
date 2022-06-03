@@ -1,10 +1,29 @@
-function task_status(task_type) {
+function collect_socket(task_type) {
     var socket = new WebSocket("ws://127.0.0.1:8000/ws/collect/");
 
     socket.onmessage = function(event) {
         var collect = event.data;
-        document.querySelector("#response_output").innerText = collect;
+        document.querySelector("#collect_output").innerText = collect;
     }
 }
 
-task_status()
+function logger_socket(task_type) {
+    var socket = new WebSocket("ws://127.0.0.1:8000/ws/logger/");
+
+    socket.onmessage = function(event) {
+        var collect = event.data;
+        var destination = document.querySelector("#logger_output");
+        var myObj = JSON.parse(collect);
+        var data = Object.values(myObj);
+
+        for(let i=0; i<data.length; i++) {
+            let row = data[i];
+            var container = document.createElement("li");
+            container.innerText = row[2];
+            destination.appendChild(container);
+        }
+    }
+}
+
+collect_socket()
+logger_socket()

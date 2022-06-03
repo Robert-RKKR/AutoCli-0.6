@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+
+<html lang="eng">
+
+    <head>
+
+        <!-- Page basic data -->
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        
+        <!-- Page title -->
+        <title>AutoCli - base</title>
+        
+        <!-- Custom CSS -->
+        <link rel="stylesheet" type="text/css" href="css/reset.css">
+        <link rel="stylesheet" type="text/css" href="css/main.css">
+        <link rel="stylesheet" type="text/css" href="css/base.css">
+        <link rel="stylesheet" type="text/css" href="css/content.css">
+        <link rel="stylesheet" type="text/css" href="css/mobile.css">
+
+        <!-- Favicon links -->
+        
+    </head>
+
+    <body>
+        
+        <!-- Main div containing all page content. -->
+        <div id="page">
+
+            <!-- All left site of page (Left menu). -->
+            <div id="page_left">
+
+                <!-- xxx -->
+                <div id="page_left_top">
+
+                    <!-- xxx -->
+                    <div id="page_left_logo">
+                        <p>page_left_logo</p>
+                    </div>
+
+                    <!-- xxx -->
+                    <div id="page_left_menu">
+                        
+                        <nav id="main_menu">
+
+                            <!-- Menu item -->
+                            <li class="menu_item">
+                                <a href="#" class="menu_link">
+                                    <span class="menu_link_item">
+                                        <svg class="menu_svg" enable-background="new 0 0 512 512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><g><path d="m0 365.908h68.238c1.14-24.069 7.341-46.81 17.55-67.196l-63.218-38.057c-14.499 32.105-22.57 67.736-22.57 105.253z"/><path d="m296.206 113.059-13.23 99.098c25.586 7.347 48.673 20.591 67.696 38.175l77.377-73.991c-36.066-32.752-81.519-55.342-131.843-63.282z"/><path d="m36.539 234.048 65.018 39.141c14.301-19.101 32.563-35.063 53.571-46.668l-49.086-68.096c-27.947 20.233-51.646 45.966-69.503 75.623z"/><path d="m449.042 197.776-78.219 74.796c19.803 26.201 32.125 58.371 33.782 93.336h107.395c0-64.353-23.751-123.155-62.958-168.132z"/><path d="m253.467 206.482 12.863-96.349c-3.428-.136-6.869-.225-10.33-.225-45.247 0-87.743 11.755-124.627 32.353l51.861 71.946c16.719-5.562 34.6-8.581 53.188-8.581 5.754 0 11.439.292 17.045.856z"/><path d="m209.981 356.073c0 25.416 20.603 46.019 46.019 46.019s46.019-20.603 46.019-46.019-46.019-142.987-46.019-142.987-46.019 117.572-46.019 142.987z"/></g></svg>
+                                        <span class="menu_text">Dashboard</span>
+                                    </span>
+                                </a>
+                            </li>
+
+                            <!-- Menu item -->
+                            <li class="menu_item menu_collapse">
+                                <p class="menu_link menu_collapse_link">
+                                    <span class="menu_link_item">
+                                        <svg  class="menu_svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 442.88 442.88" xmlns:v="https://vecta.io/nano"><path d="M22.016 146.432v268.8c0 9.216 7.68 16.384 16.384 16.384h365.568c9.216 0 16.384-7.68 16.384-16.384v-268.8H22.016zm282.112 102.912c0 9.216-7.68 16.384-16.384 16.384h-133.12c-9.216 0-16.384-7.68-16.384-16.384v-33.28c0-9.216 7.68-16.384 16.384-16.384h133.12c9.216 0 16.384 7.68 16.384 16.384v33.28zm121.856-238.08h-409.6C7.168 11.264 0 18.944 0 27.648v96.768h442.88V28.16c-.512-9.216-7.68-16.896-16.896-16.896z"/></svg>
+                                        <span class="menu_text">Inventory</span>
+                                    </span>
+                                </p>
+                                <ul class="submenu collapse">
+
+                                    <!-- Sub-menu item -->
+                                    <li class="submenu_item">
+                                        <a href="#"  class="submenu_link">
+                                            <span class="submenu_link_item">
+                                                <svg class="submenu_svg" viewBox="0 -192 469.33333 469" xmlns="http://www.w3.org/2000/svg"><path d="m437.332031.167969h-405.332031c-17.664062 0-32 14.335937-32 32v21.332031c0 17.664062 14.335938 32 32 32h405.332031c17.664063 0 32-14.335938 32-32v-21.332031c0-17.664063-14.335937-32-32-32zm0 0"/></svg>
+                                                <span class="submenu_text">Devices</span>
+                                            </span>
+                                        </a>
+                                    </li>
+
+                                    <!-- Sub-menu item -->
+                                    <li class="submenu_item">
+                                        <a href="#"  class="submenu_link">
+                                            <span class="submenu_link_item">
+                                                <svg class="submenu_svg" viewBox="0 -192 469.33333 469" xmlns="http://www.w3.org/2000/svg"><path d="m437.332031.167969h-405.332031c-17.664062 0-32 14.335937-32 32v21.332031c0 17.664062 14.335938 32 32 32h405.332031c17.664063 0 32-14.335938 32-32v-21.332031c0-17.664063-14.335937-32-32-32zm0 0"/></svg>
+                                                <span class="submenu_text">Groups</span>
+                                            </span>
+                                        </a>
+                                    </li>
+
+                                    <!-- Sub-menu item -->
+                                    <li class="submenu_item">
+                                        <a href="#"  class="submenu_link">
+                                            <span class="submenu_link_item">
+                                                <svg class="submenu_svg" viewBox="0 -192 469.33333 469" xmlns="http://www.w3.org/2000/svg"><path d="m437.332031.167969h-405.332031c-17.664062 0-32 14.335937-32 32v21.332031c0 17.664062 14.335938 32 32 32h405.332031c17.664063 0 32-14.335938 32-32v-21.332031c0-17.664063-14.335937-32-32-32zm0 0"/></svg>
+                                                <span class="submenu_text">Colors</span>
+                                            </span>
+                                        </a>
+                                    </li>
+
+                                    <!-- Sub-menu item -->
+                                    <li class="submenu_item">
+                                        <a href="#"  class="submenu_link">
+                                            <span class="submenu_link_item">
+                                                <svg class="submenu_svg" viewBox="0 -192 469.33333 469" xmlns="http://www.w3.org/2000/svg"><path d="m437.332031.167969h-405.332031c-17.664062 0-32 14.335937-32 32v21.332031c0 17.664062 14.335938 32 32 32h405.332031c17.664063 0 32-14.335938 32-32v-21.332031c0-17.664063-14.335937-32-32-32zm0 0"/></svg>
+                                                <span class="submenu_text">Credentials</span>
+                                            </span>
+                                        </a>
+                                    </li>
+
+                                </ul>
+                            </li>
+
+                            <!-- Menu item -->
+                            <li class="menu_item menu_collapse">
+                                <p class="menu_link menu_collapse_link">
+                                    <span class="menu_link_item">
+                                        <svg class="menu_svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" xmlns:v="https://vecta.io/nano"><path d="M500.633 211.454l-58.715-14.443c-3.354-10.576-7.617-20.874-12.759-30.762l30.615-51.021c3.545-5.903 2.607-13.462-2.256-18.325l-42.422-42.422c-4.878-4.907-12.451-5.786-18.325-2.256L345.75 82.84a193.49 193.49 0 0 0-30.762-12.759l-14.443-58.715C298.876 4.688 292.885 0 286 0h-60c-6.885 0-12.876 4.688-14.546 11.367l-14.443 58.715c-10.576 3.354-20.874 7.617-30.762 12.759l-51.021-30.615c-5.903-3.516-13.462-2.607-18.325 2.256L54.481 96.903c-4.863 4.863-5.801 12.422-2.256 18.325l30.615 51.021a193.49 193.49 0 0 0-12.759 30.762l-58.715 14.443C4.688 213.124 0 219.115 0 226v60c0 6.885 4.688 12.876 11.367 14.546l58.715 14.443c3.354 10.576 7.617 20.874 12.759 30.762l-30.615 51.021c-3.545 5.903-2.607 13.462 2.256 18.325l42.422 42.422c4.834 4.878 12.407 5.771 18.325 2.256l51.021-30.615a193.49 193.49 0 0 0 30.762 12.759l14.443 58.715C213.124 507.313 219.115 512 226 512h60c6.885 0 12.876-4.688 14.546-11.367l14.443-58.715c10.576-3.354 20.874-7.617 30.762-12.759l51.021 30.615c5.889 3.53 13.462 2.593 18.325-2.256l42.422-42.422c4.863-4.863 5.801-12.422 2.256-18.325L429.16 345.75a193.49 193.49 0 0 0 12.759-30.762l58.715-14.443C507.313 298.876 512 292.885 512 286v-60c0-6.885-4.687-12.876-11.367-14.546zM256 391c-74.443 0-135-60.557-135-135s60.557-135 135-135 135 60.557 135 135-60.557 135-135 135zm0-210c-41.353 0-75 33.647-75 75s33.647 75 75 75 75-33.647 75-75-33.647-75-75-75z"/></svg>
+                                        <span class="menu_text">Provisioning</span>
+                                    </span>
+                                </p>
+                                <ul class="submenu collapse">
+
+                                    <!-- Sub-menu item -->
+                                    <li class="submenu_item">
+                                        <a href="#"  class="submenu_link">
+                                            <span class="submenu_link_item">
+                                                <svg class="submenu_svg" viewBox="0 -192 469.33333 469" xmlns="http://www.w3.org/2000/svg"><path d="m437.332031.167969h-405.332031c-17.664062 0-32 14.335937-32 32v21.332031c0 17.664062 14.335938 32 32 32h405.332031c17.664063 0 32-14.335938 32-32v-21.332031c0-17.664063-14.335937-32-32-32zm0 0"/></svg>
+                                                <span class="submenu_text">Polices</span>
+                                            </span>
+                                        </a>
+                                    </li>
+
+                                    <!-- Sub-menu item -->
+                                    <li class="submenu_item">
+                                        <a href="#"  class="submenu_link">
+                                            <span class="submenu_link_item">
+                                                <svg class="submenu_svg" viewBox="0 -192 469.33333 469" xmlns="http://www.w3.org/2000/svg"><path d="m437.332031.167969h-405.332031c-17.664062 0-32 14.335937-32 32v21.332031c0 17.664062 14.335938 32 32 32h405.332031c17.664063 0 32-14.335938 32-32v-21.332031c0-17.664063-14.335937-32-32-32zm0 0"/></svg>
+                                                <span class="submenu_text">Templates</span>
+                                            </span>
+                                        </a>
+                                    </li>
+
+                                    <!-- Sub-menu item -->
+                                    <li class="submenu_item">
+                                        <a href="#"  class="submenu_link">
+                                            <span class="submenu_link_item">
+                                                <svg class="submenu_svg" viewBox="0 -192 469.33333 469" xmlns="http://www.w3.org/2000/svg"><path d="m437.332031.167969h-405.332031c-17.664062 0-32 14.335937-32 32v21.332031c0 17.664062 14.335938 32 32 32h405.332031c17.664063 0 32-14.335938 32-32v-21.332031c0-17.664063-14.335937-32-32-32zm0 0"/></svg>
+                                                <span class="submenu_text">Schedulers</span>
+                                            </span>
+                                        </a>
+                                    </li>
+
+                                </ul>
+                            </li>
+
+                            <!-- Menu item -->
+                            <li class="menu_item">
+                                <a href="#" class="menu_link">
+                                    <span class="menu_link_item">
+                                        <svg class="menu_svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" xmlns:v="https://vecta.io/nano"><path d="M155.327 57.142c-51.531 0-93.454 44.45-93.454 99.086s41.923 99.086 93.454 99.086 93.455-44.45 93.455-99.086-41.923-99.086-93.455-99.086zm212.471 14.179l-.636.002c-21.626.179-41.826 9.31-56.878 25.713-14.788 16.113-22.829 37.37-22.644 59.854s8.577 43.605 23.628 59.473c15.17 15.991 35.265 24.773 56.651 24.773l.646-.002c21.626-.179 41.826-9.311 56.878-25.713 14.788-16.113 22.829-37.37 22.644-59.855-.385-46.594-36.34-84.245-80.289-84.245zm3.942 186.037h-7.76c-36.14 0-69.12 13.74-94.02 36.26a180.71 180.71 0 0 1 17.78 15.61c16.58 16.58 29.6 35.9 38.7 57.42 8.2 19.38 12.88 39.8 13.97 60.83H512v-29.87c0-77.33-62.92-140.25-140.26-140.25zm-61.39 170.12c-2.83-45.59-25.94-85.69-60.43-111.39-25.09-18.7-56.21-29.77-89.92-29.77h-9.34C67.45 286.319 0 353.768 0 436.978v17.88h310.65v-17.88a149.5 149.5 0 0 0-.3-9.5z"/></svg>
+                                        <span class="menu_text">Administration</span>
+                                    </span>
+                                </a>
+                            </li>
+
+                        </nav>
+
+                    </div>
+
+                </div>
+
+                <!-- xxx -->
+                <div id="page_left_options">
+                    <p>page_left_options</p>
+                </div>
+
+            </div>
+
+            <!-- All right site of page (Top panel and main page content). -->
+            <div id="page_right">
+
+                <!-- Top page pannel. -->
+                <div id="page_top">
+
+                    <!-- xxx -->
+                    <div id="page_top_content">
+
+                        <!-- xxx -->
+                        <div id="page_top_action">
+                            <p>page_top_action</p>
+                        </div>
+
+                        <!-- xxx -->
+                        <div id="page_top_name">
+                            <p>page_top_name</p>
+                        </div>
+
+                        <!-- xxx -->
+                        <div id="page_top_user">
+                            <p>page_top_user</p>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!-- main page content. -->
+                <div id="page_content">
+
+                    <!-- xxx -->
+                    <div id="content">
+
+                        <!-- xxx -->
+                        <div id="page_content_panels">
+
+                            <!-- xxx -->
+                            <div class="page_content_panel box_item">
+                                <p>page_content_action_panel</p>
+                            </div>
+
+                            <!-- xxx -->
+                            <div class="page_content_panel box_item">
+                                <p>page_content_search_panel</p>
+                            </div>
+
+                        </div>
+
+                        <!-- xxx -->
+                        <div id="page_content_full">
+
+                            <!-- xxx -->
+                            <div class="page_content_table box_item">
+
+                                <!-- xxx -->
+                                <div class="table table_yellow">
+                                    <div class="row_header row">
+                                        <div class="cell"><span class="cell_text">Name</span></div>
+                                        <div class="cell"><span class="cell_text">Hostname</span></div>
+                                        <div class="cell"><span class="cell_text">Status</span></div>
+                                        <div class="cell"><span class="cell_text">Type</span></div>
+                                        <div class="cell"><span class="cell_text">Credential</span></div>
+                                        <div class="cell cell_2"><span class="cell_text">Description</span></div>
+                                        <div class="cell"><span class="cell_text">Name</span></div>
+                                        <div class="cell"><span class="cell_text">Hostname</span></div>
+                                        <div class="cell"><span class="cell_text">Status</span></div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="cell"><span class="cell_text">chbarfwlifffffggggggddddft1</span></div>
+                                        <div class="cell"><span class="cell_text">10.23.1.2</span></div>
+                                        <div class="cell"><span class="cell_text">ActiveActive</span></div>
+                                        <div class="cell"><span class="cell_text">Cisco IOS</span></div>
+                                        <div class="cell"><span class="cell_text">Admin</span></div>
+                                        <div class="cell cell_2"><span class="cell_text">Cisco firewall in Baar city canton Zug.</span></div>
+                                        <div class="cell"><span class="cell_text">chbarfwlit1</span></div>
+                                        <div class="cell"><span class="cell_text">10.23.1.2</span></div>
+                                        <div class="cell"><span class="cell_text">Active</span></div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="cell"><span class="cell_text">sefegg segesg seges f</span></div>
+                                        <div class="cell"><span class="cell_text">10.23.1.2</span></div>
+                                        <div class="cell"><span class="cell_text">ActiveActive</span></div>
+                                        <div class="cell"><span class="cell_text">Cisco IOS</span></div>
+                                        <div class="cell"><span class="cell_text">Admin</span></div>
+                                        <div class="cell cell_2"><span class="cell_text">Cisco firewall in Baar city canton Zug.</span></div>
+                                        <div class="cell"><span class="cell_text">chbarfwlit1</span></div>
+                                        <div class="cell"><span class="cell_text">10.23.1.2</span></div>
+                                        <div class="cell"><span class="cell_text">Active</span></div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="cell"><span class="cell_text">chbarfwlifffffggggggddddft1</span></div>
+                                        <div class="cell"><span class="cell_text">10.23.1.2</span></div>
+                                        <div class="cell"><span class="cell_text">ActiveActive</span></div>
+                                        <div class="cell"><span class="cell_text">Cisco IOS</span></div>
+                                        <div class="cell"><span class="cell_text">Admin</span></div>
+                                        <div class="cell cell_2"><span class="cell_text">Cisco firewall in Baar city canton Zug.</span></div>
+                                        <div class="cell"><span class="cell_text">chbarfwlit1</span></div>
+                                        <div class="cell"><span class="cell_text">10.23.1.2</span></div>
+                                        <div class="cell"><span class="cell_text">Active</span></div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="cell"><span class="cell_text">fsefesf</span></div>
+                                        <div class="cell"><span class="cell_text">10.23.1.2</span></div>
+                                        <div class="cell"><span class="cell_text">ActiveActive</span></div>
+                                        <div class="cell"><span class="cell_text">Cisco IOS</span></div>
+                                        <div class="cell"><span class="cell_text">Admin</span></div>
+                                        <div class="cell cell_2"><span class="cell_text">Cisco firewall in Baar city canton Zug.</span></div>
+                                        <div class="cell"><span class="cell_text">chbarfwlit1</span></div>
+                                        <div class="cell"><span class="cell_text">10.23.1.2</span></div>
+                                        <div class="cell"><span class="cell_text">Active</span></div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="cell"><span class="cell_text">chbarfwlifffffggggggddddft1</span></div>
+                                        <div class="cell"><span class="cell_text">10.23.1.2</span></div>
+                                        <div class="cell"><span class="cell_text">ActiveActive</span></div>
+                                        <div class="cell"><span class="cell_text">Cisco IOS</span></div>
+                                        <div class="cell"><span class="cell_text">Admin</span></div>
+                                        <div class="cell cell_2"><span class="cell_text">Cisco firewall in Baar city canton Zug.</span></div>
+                                        <div class="cell"><span class="cell_text">chbarfwlit1</span></div>
+                                        <div class="cell"><span class="cell_text">10.23.1.2</span></div>
+                                        <div class="cell"><span class="cell_text">Active</span></div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="cell"><span class="cell_text">chbarfwlifffffggggggddddft1</span></div>
+                                        <div class="cell"><span class="cell_text">10.23.1.2</span></div>
+                                        <div class="cell"><span class="cell_text">ActiveActive</span></div>
+                                        <div class="cell"><span class="cell_text">Cisco IOS</span></div>
+                                        <div class="cell"><span class="cell_text">Admin</span></div>
+                                        <div class="cell cell_2"><span class="cell_text">Cisco firewall in Baar city canton Zug.</span></div>
+                                        <div class="cell"><span class="cell_text">chbarfwlit1</span></div>
+                                        <div class="cell"><span class="cell_text">10.23.1.2</span></div>
+                                        <div class="cell"><span class="cell_text">Active</span></div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="cell"><span class="cell_text">rrgrgrdggr rg drg</span></div>
+                                        <div class="cell"><span class="cell_text">10.23.1.2</span></div>
+                                        <div class="cell"><span class="cell_text">ActiveActive</span></div>
+                                        <div class="cell"><span class="cell_text">Cisco IOS</span></div>
+                                        <div class="cell"><span class="cell_text">Admin</span></div>
+                                        <div class="cell cell_2"><span class="cell_text">Cisco firewall in Baar city canton Zug.</span></div>
+                                        <div class="cell"><span class="cell_text">chbarfwlit1</span></div>
+                                        <div class="cell"><span class="cell_text">10.23.1.2</span></div>
+                                        <div class="cell"><span class="cell_text">Active</span></div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="cell"><span class="cell_text">chbarfwlifffffggggggddddft1</span></div>
+                                        <div class="cell"><span class="cell_text">10.23.1.2</span></div>
+                                        <div class="cell"><span class="cell_text">ActiveActive</span></div>
+                                        <div class="cell"><span class="cell_text">Cisco IOS</span></div>
+                                        <div class="cell"><span class="cell_text">Admin</span></div>
+                                        <div class="cell cell_2"><span class="cell_text">Cisco firewall in Baar city canton Zug.</span></div>
+                                        <div class="cell"><span class="cell_text">chbarfwlit1</span></div>
+                                        <div class="cell"><span class="cell_text">10.23.1.2</span></div>
+                                        <div class="cell"><span class="cell_text">Active</span></div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="cell"><span class="cell_text">frgrdgrd</span></div>
+                                        <div class="cell"><span class="cell_text">10.23.1.2</span></div>
+                                        <div class="cell"><span class="cell_text">ActiveActive</span></div>
+                                        <div class="cell"><span class="cell_text">Cisco IOS</span></div>
+                                        <div class="cell"><span class="cell_text">Admin</span></div>
+                                        <div class="cell cell_2"><span class="cell_text">Cisco firewall in Baar city canton Zug.</span></div>
+                                        <div class="cell"><span class="cell_text">chbarfwlit1</span></div>
+                                        <div class="cell"><span class="cell_text">10.23.1.2</span></div>
+                                        <div class="cell"><span class="cell_text">Active</span></div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="cell"><span class="cell_text">chbarfwlifffffggggggddddft1</span></div>
+                                        <div class="cell"><span class="cell_text">10.23.1.2</span></div>
+                                        <div class="cell"><span class="cell_text">ActiveActive</span></div>
+                                        <div class="cell"><span class="cell_text">Cisco IOS</span></div>
+                                        <div class="cell"><span class="cell_text">Admin</span></div>
+                                        <div class="cell cell_2"><span class="cell_text">Cisco firewall in Baar city canton Zug.</span></div>
+                                        <div class="cell"><span class="cell_text">chbarfwlit1</span></div>
+                                        <div class="cell"><span class="cell_text">10.23.1.2</span></div>
+                                        <div class="cell"><span class="cell_text">Active</span></div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <!-- xxx -->
+                            <div class="table_navigation box_item">
+                                <div class="table_navigation_item">
+                                    <a href="#" class="table_navigation_link"><<</a>
+                                </div>
+                                <div class="table_navigation_item">
+                                    <a href="#" class="table_navigation_link">36</a>
+                                    <a href="#" class="table_navigation_link">37</a>
+                                    <a href="#" class="table_navigation_link table_navigation_current">38</a>
+                                    <a href="#" class="table_navigation_link">39</a>
+                                    <a href="#" class="table_navigation_link">40</a>
+                                </div>
+                                <div class="table_navigation_item">
+                                    <a href="#" class="table_navigation_link">>></a>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <!-- xxx -->
+                        <div id="page_content_box">
+
+                            <div class="box_container">
+
+                                <div class="box_item">
+
+                                    <button class="button blue_button">
+                                        <span class="button_content">
+                                            <svg class="button_svg" enable-background="new 0 0 512 512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><g><path d="m0 365.908h68.238c1.14-24.069 7.341-46.81 17.55-67.196l-63.218-38.057c-14.499 32.105-22.57 67.736-22.57 105.253z"/><path d="m296.206 113.059-13.23 99.098c25.586 7.347 48.673 20.591 67.696 38.175l77.377-73.991c-36.066-32.752-81.519-55.342-131.843-63.282z"/><path d="m36.539 234.048 65.018 39.141c14.301-19.101 32.563-35.063 53.571-46.668l-49.086-68.096c-27.947 20.233-51.646 45.966-69.503 75.623z"/><path d="m449.042 197.776-78.219 74.796c19.803 26.201 32.125 58.371 33.782 93.336h107.395c0-64.353-23.751-123.155-62.958-168.132z"/><path d="m253.467 206.482 12.863-96.349c-3.428-.136-6.869-.225-10.33-.225-45.247 0-87.743 11.755-124.627 32.353l51.861 71.946c16.719-5.562 34.6-8.581 53.188-8.581 5.754 0 11.439.292 17.045.856z"/><path d="m209.981 356.073c0 25.416 20.603 46.019 46.019 46.019s46.019-20.603 46.019-46.019-46.019-142.987-46.019-142.987-46.019 117.572-46.019 142.987z"/></g></svg>
+                                            <span class="button_text">Dashboard</span>
+                                        </span>
+                                    </button>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- JavaScript scripts -->
+        <script src="js/base_main.js"></script>
+        
+    </body>
+
+</html>
