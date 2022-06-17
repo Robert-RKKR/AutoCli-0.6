@@ -103,7 +103,8 @@ class BaseModel(SimpleBaseModel):
     description = models.CharField(
         verbose_name=_('Description'),
         help_text=_(f'{class_name} description.'),
-        max_length=256, default=f'{class_name} description.',
+        max_length=256,
+        default=f'{class_name} description.',
         validators=[description_validator],
         error_messages={
             'invalid': 'Enter the correct description value. It must contain 8 to 256 digits, letters and special characters -, _, . or spaces.',

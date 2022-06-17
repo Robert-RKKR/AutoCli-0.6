@@ -149,13 +149,15 @@ class CollectDeviceDataTask(BaseTask):
         if successes_command > 0:
             self.logger.info(
                 f'Process of collecting information from {self.corelate_object_name} '\
-                f'has been accomplish (Collected {successes_command} outputs from {commands_count} commands). '\
+                f'has been accomplish (Collected {successes_command} '
+                f'\outputs from {commands_count} commands). '\
                 f'Execution time {self.execution_timer} seconds.',
                 self.task_id, self.corelate_object_name)
             return True
         else:
             self.logger.warning(
-                f'Process of collecting information from {self.corelate_object_name} has failed. '\
+                f'Process of collecting information from '
+                f'\{self.corelate_object_name} has failed. '\
                 f'Execution time {self.execution_timer} seconds.',
                 self.task_id, self.corelate_object_name)
             return False
