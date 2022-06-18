@@ -47,7 +47,7 @@ class BaseTask(Task):
         # Logger initialization:
         self.logger = Logger(self.logger_name)
         # Collect process ID:
-        self.task_id = 'RKKR'
+        self.task_id = self.request.id
         # Run task in delay:
         self._run(*args, **kwargs)
 

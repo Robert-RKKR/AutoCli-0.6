@@ -7,10 +7,9 @@ from django.db import IntegrityError
 
 # Task Import:
 from inventory.models.device_type_template_model import DeviceTypeTemplate
-from inventory.tasks.collect_device_data import collect_device_data, collect_all_devices_data
+from inventory.tasks.old.collect_device_data import collect_device_data, collect_all_devices_data
 from inventory.connections.netcon import NetCon
 from inventory.tasks.collect_device_data_task import CollectDeviceDataTask
-from inventory.tasks.log_collector import collect_last_logs
 from inventory.models.device_model import Device
 
 # Logger initialization:

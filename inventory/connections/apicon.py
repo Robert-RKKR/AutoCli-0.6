@@ -1,4 +1,4 @@
-# Document descryption:
+# Document description:
 __author__ = 'Robert Tadeusz Kucharski'
 __version__ = '2.0'
 
@@ -90,7 +90,7 @@ class ApiCon(Connection):
     def _connection(self, request_method, url, payload) -> dict:
         """ Connect to server using HTTPS protocol. """
 
-        # Create URL Address from tamplate:
+        # Create URL Address from template:
         request_url = f'https://{self.device_hostname}:{self.device_https_port}/{url}'
 
         # Create a default Cisco header if not specified:
@@ -105,7 +105,7 @@ class ApiCon(Connection):
             self.headers['x-token'] = self.device_token
 
         # Log the beginning of a new connection to the https server:
-        logger.info('Starting a new Https connection.', self.task_id, self.device)
+        logger.info('Starting a new Https connection.', self.task_id, self.device_name)
 
         # Start clock count:
         start_time = time.perf_counter()
@@ -138,37 +138,37 @@ class ApiCon(Connection):
             )
 
         except requests.exceptions.SSLError as error:
-            logger.error(error, self.task_id, self.device)
+            logger.error(error, self.task_id, self.device_name)
             # Change connection status to False:
             self.status = False
-            # Return connection starus:
+            # Return connection straus:
             return self.status
 
         except requests.exceptions.Timeout as error:
-            logger.error(error, self.task_id, self.device)
+            logger.error(error, self.task_id, self.device_name)
             # Change connection status to False:
             self.status = False
-            # Return connection starus:
+            # Return connection straus:
             return self.status
 
         except requests.exceptions.InvalidURL as error:
-            logger.error(error, self.task_id, self.device)
+            logger.error(error, self.task_id, self.device_name)
             # Change connection status to False:
             self.status = False
-            # Return connection starus:
+            # Return connection straus:
             return self.status
 
         except requests.exceptions.ConnectionError as error:
-            logger.error(error, self.task_id, self.device)
+            logger.error(error, self.task_id, self.device_name)
             # Change connection status to False:
             self.status = False
-            # Return connection starus:
+            # Return connection straus:
             return self.status
 
         else:
 
             # Log when https connection was established:
-            logger.debug('Https connection was established.', self.task_id, self.device)
+            logger.debug('Https connection was established.', self.task_id, self.device_name)
 
             # Finish clock count & method execution time:
             finish_time = time.perf_counter()
@@ -199,42 +199,52 @@ class ApiCon(Connection):
         self.response_code = response.status_code
 
         # Check response status:
-        if self.response_code < 200: # All respons from 0 to 199.
+        if self.response_code < 200: # All response from 0 to 199.
             logger.warning(
-                f'Connection to {self.device_hostname}, was a informational HTTPS request. HTTPS response returned {response.status_code} code.',
+                f'Connection to {self.device_hostname}, was a '\
+                f'informational HTTPS request. HTTPS response returned '\
+                f'{response.status_code} code.',
                 self.task_id, self.device
             )
             # Change connection status to True:
             self.status = True
 
-        elif self.response_code < 300: # All respons from 200 to 299.
+        elif self.response_code < 300: # All response from 200 to 299.
             logger.debug(
-                f'Connection to {self.device_hostname}, was a success HTTPS request. HTTPS response returned {response.status_code} code.',
-                self.task_id, self.device
+                f'Connection to {self.device_hostname}, was a '\
+                f'success HTTPS request. HTTPS response returned '\
+                f'{response.status_code} code.',
+                self.task_id, self.device_name
             )
             # Change connection status to True:
             self.status = True
 
-        elif self.response_code < 400: # All respons from 300 to 399.
+        elif self.response_code < 400: # All response from 300 to 399.
             logger.warning(
-                f'Connection to {self.device_hostname}, returned redirection HTTPS error. HTTPS response returned {response.status_code} code.',
-                self.task_id, self.device
+                f'Connection to {self.device_hostname}, returned '\
+                f'redirection HTTPS error. HTTPS response returned '\
+                f'{response.status_code} code.',
+                self.task_id, self.device_name
             )
             # Change connection status to False:
             self.status = False
 
-        elif self.response_code < 500: # All respons from 400 to 499.
+        elif self.response_code < 500: # All response from 400 to 499.
             logger.error(
-                f'Connection to {self.device_hostname}, returned client HTTPS error. HTTPS response returned {response.status_code} code.',
-                self.task_id, self.device
+                f'Connection to {self.device_hostname}, returned '\
+                f'client HTTPS error. HTTPS response returned '\
+                f'{response.status_code} code.',
+                self.task_id, self.device_name
             )
             # Change connection status to False:
             self.status = False
 
-        elif self.response_code < 600: # All respons from 500 to 599.
+        elif self.response_code < 600: # All response from 500 to 599.
             logger.error(
-                f'Connection to {self.device_hostname}, returned server HTTPS error. HTTPS response returned {response.status_code} code.',
-                self.task_id, self.device
+                f'Connection to {self.device_hostname}, returned '\
+                f'server HTTPS error. HTTPS response returned '\
+                f'{response.status_code} code.',
+                self.task_id, self.device_name
             )
             # Change connection status to False:
             self.status = False
@@ -268,7 +278,7 @@ class ApiCon(Connection):
                 # Log when python dictionary convert process fail:
                 logger.warning(
                     'Python JSON and XML dictionary convert process fail.',
-                    self.task_id, self.device
+                    self.task_id, self.device_name
                 )
                 convertResponse = False
         

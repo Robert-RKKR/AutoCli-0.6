@@ -95,7 +95,8 @@ class NetCon(Connection):
 
         # Log beginning of network device type checking process:
         logger.debug(
-            f'Started acquiring information about the type of device: {self.device_name}:{self.device_hostname}.',
+            f'Started acquiring information about the type '\
+            f'of device: {self.device_name}:{self.device_hostname}.',
             self.task_id, self.device_name)
 
         # Connect to device to check device type, using SSH protocol:
@@ -107,7 +108,8 @@ class NetCon(Connection):
                 device_type_object = DeviceType.objects.get(netmiko_name=discovered_device_type_name) 
             except:
                 logger.warning(
-                    f'Device type {discovered_device_type_name} running on device: {self.device_name}, is not supported.',
+                    f'Device type {discovered_device_type_name} running '\
+                    f'on device: {self.device_name}, is not supported.',
                     self.task_id, self.device_name)
                 # Change supported value to unsupported:
                 self.supported_device = False
@@ -120,7 +122,8 @@ class NetCon(Connection):
             else:
                 # Log successful device type collection:
                 logger.info(
-                    f'Device: {self.device_name}:{self.device_hostname} is running {device_type_object.name} software.',
+                    f'Device: {self.device_name}:{self.device_hostname} '\
+                    f'is running {device_type_object.name} software.',
                     self.task_id, self.device_name)
                 # Change supported value to supported:
                 self.supported_device = True
@@ -132,13 +135,15 @@ class NetCon(Connection):
                     self.device.save() 
                 except: # Return exception if there is a problem during the update of the device type object:
                     logger.debug(
-                        f'Exception occurs, durning device type update process (device: {self.device_name}:{self.device_hostname}).',
+                        f'Exception occurs, durning device type update '\
+                        f'process (device: {self.device_name}:{self.device_hostname}).',
                         self.task_id, self.device_name)
                     # Return collected device type name:
                     return discovered_device_type_name
                 else:
                     logger.debug(
-                        f'Device type of device: {self.device_name}:{self.device_hostname} has been updated.',
+                        f'Device type of device: {self.device_name}:'\
+                        f'{self.device_hostname} has been updated.',
                         self.task_id, self.device_name)
                 
     def enabled_commands(self, commands: str or list = False, expect_string: str = False, fsm_template_object = False) -> str or list:
@@ -218,7 +223,9 @@ class NetCon(Connection):
         else:
             # Inform that the command cannot be sent:
             logger.debug(
-                f'Command/s could not be executed because SSH connection with device: {self.device_name}:{self.device_hostname}, was interrupted.',
+                f'Command/s could not be executed because SSH '\
+                f'connection with device: {self.device_name}:'\
+                f'{self.device_hostname}, was interrupted.',
                 self.task_id, self.device_name)
 
     def configuration_commands(self, commands: str or list) -> str:
@@ -263,7 +270,8 @@ class NetCon(Connection):
         else:
             # Inform that the command cannot be sent:
             logger.debug(
-                f'Command/s could not be executed because SSH connection with device: {self.device_name}:{self.device_hostname}, was interrupted.',
+                f'Command/s could not be executed because SSH connection '\
+                f'with device: {self.device_name}:{self.device_hostname}, was interrupted.',
                 self.task_id, self.device_name)
 
     def execute_device_type_template(self, fsm_template_object = False) -> list:
@@ -310,7 +318,8 @@ class NetCon(Connection):
 
                 # Log stat of a new SSH connection attempt:
                 logger.debug(
-                    f'SSH connection to device: {self.device_name}:{self.device_hostname}, has been started (Attempt: {connection_attempts}).',
+                    f'SSH connection to device: {self.device_name}:{self.device_hostname}, '\
+                    f'has been started (Attempt: {connection_attempts}).',
                     self.task_id, self.device_name)
 
                 try: # Try connect to device, using SSH protocol:
@@ -343,33 +352,38 @@ class NetCon(Connection):
                     # Log warning error on last attempt:
                     if connection_attempts == self.repeat_connection:
                         logger.warning(
-                            f'Application was unable to establish SSH connection to device: {self.device_name}, (Authentication error).',
+                            f'Application was unable to establish SSH connection '\
+                            f'to device: {self.device_name}, (Authentication error).',
                             self.task_id, self.device_name)
                         # Return False:
                         return False
                 except NetMikoTimeoutException as error:
                     logger.debug(
-                        f'Error occurred during SSH connection to device: {self.device_name}:{self.device_hostname}\n{error}',
+                        f'Error occurred during SSH connection to device: '\
+                        f'{self.device_name}:{self.device_hostname}\n{error}',
                         self.task_id, self.device_name)
                     # Change connection status to False.
                     self.connection_status = False
                     # Log warning error on last attempt:
                     if connection_attempts == self.repeat_connection:
                         logger.warning(
-                            f'Application was unable to establish SSH connection to device: {self.device_name}, (Connection timeout).',
+                            f'Application was unable to establish SSH connection '\
+                            f'to device: {self.device_name}, (Connection timeout).',
                             self.task_id, self.device_name)
                         # Return False:
                         return False
                 except ssh_exception.SSHException as error:
                     logger.debug(
-                        f'Error occurred during SSH connection to device: {self.device_name}:{self.device_hostname}\n{error}',
+                        f'Error occurred during SSH connection to device: '\
+                        f'{self.device_name}:{self.device_hostname}\n{error}',
                         self.task_id, self.device_name)
                     # Change connection status to False.
                     self.connection_status = False
                     # Log warning error on last attempt:
                     if connection_attempts == self.repeat_connection:
                         logger.warning(
-                            f'Application was unable to establish SSH connection to device: {self.device_name}, (SSH exception).',
+                            f'Application was unable to establish SSH connection '\
+                            f'to device: {self.device_name}, (SSH exception).',
                             self.task_id, self.device_name)
                         # Return False:
                         return False
@@ -397,7 +411,8 @@ class NetCon(Connection):
                     self.connection_status = True
                     # Log the start of a new connection:
                     logger.debug(
-                        f'SSH connection to device: {self.device_name}:{self.device_hostname}, has been established (Attempt: {connection_attempts}).',
+                        f'SSH connection to device: {self.device_name}:{self.device_hostname}, '\
+                        f'has been established (Attempt: {connection_attempts}).',
                         self.task_id, self.device_name)
 
                     if autodetect:    
@@ -416,7 +431,8 @@ class NetCon(Connection):
 
         # Log start of command execution: 
         logger.debug(
-            f'Sending of a new configuration CLI command "{command}" to device: {self.device_name}:{self.device_hostname}, has been started.',
+            f'Sending of a new configuration CLI command "{command}" to '\
+            f'device: {self.device_name}:{self.device_hostname}, has been started.',
             self.task_id, self.device_name)
 
         try:
@@ -425,11 +441,13 @@ class NetCon(Connection):
         except UnboundLocalError as error:
             # Log debug message for support:
             logger.debug(
-                f'Error occurred during CLI operation on device: {self.device_name}:{self.device_hostname}\n{error}',
+                f'Error occurred during CLI operation on device: '\
+                f'{self.device_name}:{self.device_hostname}\n{error}',
                 self.task_id, self.device_name)
             # Log informational message for user:
             logger.warning(
-                f'Application was unable to send config commands to device: {self.device_name}.',
+                f'Application was unable to send config commands to device: '\
+                f'{self.device_name}.',
                 self.task_id, self.device_name)
             # Changed return data to False:
             return False
@@ -438,7 +456,8 @@ class NetCon(Connection):
             logger.critical(error, self.task_id, self.device_name)
             # Log informational message for user:
             logger.warning(
-                f'Execution of command/s "{command}" on device: {self.device_name}, was interrupted.',
+                f'Execution of command/s "{command}" on device: '\
+                f'{self.device_name}, was interrupted.',
                 self.task_id, self.device_name)
             # Changed return data to False:
             return False
@@ -447,7 +466,8 @@ class NetCon(Connection):
             logger.critical(error, self.task_id, self.device_name)
             # Log informational message for user:
             logger.warning(
-                f'Execution of command/s "{command}" on device: {self.device_name}, was interrupted.',
+                f'Execution of command/s "{command}" on device: '\
+                f'{self.device_name}, was interrupted.',
                 self.task_id, self.device_name)
             # Changed return data to False:
             return False
@@ -456,12 +476,14 @@ class NetCon(Connection):
             if return_data:
                 # Log end of command execution:
                 logger.debug(
-                    f'The configuration CLI command "{command}" has been sent to device: {self.device_name}:{self.device_hostname}.',
+                    f'The configuration CLI command "{command}" has '\
+                    f'been sent to device: {self.device_name}:{self.device_hostname}.',
                     self.task_id, self.device_name)
             else:
                 # Log end of command execution:
                 logger.debug(
-                    f'The configuration CLI command "{command}" has been sent to device: {self.device_name}:{self.device_hostname}. Nut return no data.',
+                    f'The configuration CLI command "{command}" has '\
+                    f'been sent to device: {self.device_name}:{self.device_hostname}. Nut return no data.',
                     self.task_id, self.device_name)
 
             # Log executions of CLI command/s:
@@ -476,7 +498,8 @@ class NetCon(Connection):
 
         # Log start of command execution: 
         logger.debug(
-            f'Sending of a new enabled CLI command "{command}" has been started on device: {self.device_name}:{self.device_hostname}.',
+            f'Sending of a new enabled CLI command "{command}" has '\
+            f'been started on device: {self.device_name}:{self.device_hostname}.',
             self.task_id, self.device_name)
         
         # Prepare return data:
@@ -500,11 +523,13 @@ class NetCon(Connection):
         except UnboundLocalError as error:
             # Log debug message for support:
             logger.debug(
-                f'Error occurred during CLI operation on device: {self.device_name}:{self.device_hostname}\n{error}',
+                f'Error occurred during CLI operation on device: '\
+                f'{self.device_name}:{self.device_hostname}\n{error}',
                 self.task_id, self.device_name)
             # Log informational message for user:
             logger.warning(
-                f'Application was unable to send config commands to device: {self.device_name}.',
+                f'Application was unable to send config commands '\
+                f'to device: {self.device_name}.',
                 self.task_id, self.device_name)
             # Add error to return data:
             return_data['command_output'] = False
@@ -516,7 +541,8 @@ class NetCon(Connection):
             logger.critical(error, self.task_id, self.device_name)
             # Log informational message for user:
             logger.warning(
-                f'Execution of command "{command}" on device: {self.device_name}, was interrupted.',
+                f'Execution of command "{command}" on device: '\
+                f'{self.device_name}, was interrupted.',
                 self.task_id, self.device_name)
             # Add error to return data:
             return_data['command_output'] = False
@@ -528,7 +554,8 @@ class NetCon(Connection):
             logger.critical(error, self.task_id, self.device_name)
             # Log informational message for user:
             logger.warning(
-                f'Execution of command "{command}" on device: {self.device_name}, was interrupted.',
+                f'Execution of command "{command}" on device: '\
+                f'{self.device_name}, was interrupted.',
                 self.task_id, self.device_name)
             # Add error to return data:
             return_data['command_output'] = False
@@ -539,7 +566,8 @@ class NetCon(Connection):
         else:
             # Log end of command execution:
             logger.debug(
-                f'CLI command "{command}" has been sent to {self.device_name}:{self.device_hostname}.',
+                f'CLI command "{command}" has been sent to '\
+                f'{self.device_name}:{self.device_hostname}.',
                 self.task_id, self.device_name)
 
             # Check if received output is valid:
@@ -566,7 +594,8 @@ class NetCon(Connection):
         """ Convert commands output to dictionary based on Text FSM templates. """
 
         logger.debug(
-            f'SFM process on command "{command}" collected from device: {self.device_name}:{self.device_hostname}, has been started.',
+            f'SFM process on command "{command}" collected from device: '\
+            f'{self.device_name}:{self.device_hostname}, has been started.',
             self.task_id, self.device_name)
 
         # FSM result list:
@@ -592,7 +621,8 @@ class NetCon(Connection):
             except textfsm.TextFSMTemplateError as error:
                 # Log error during Text FSM process:
                 logger.debug(
-                    f'Error occurred during SFM operation on device: {self.device_name}:{self.device_hostname}\n{error}',
+                    f'Error occurred during SFM operation on device: '\
+                    f'{self.device_name}:{self.device_hostname}\n{error}',
                     self.task_id, self.device_name)
                 logger.error(
                     f'Text FSM return device template ({fsm_template_object.name}) error.\n{error}',
@@ -602,13 +632,15 @@ class NetCon(Connection):
             except textfsm.TextFSMError as error:
                 # Log error during Text FSM process:
                 logger.debug(
-                    f'Error occurred during SFM operation on device: {self.device_name}:{self.device_hostname}\n{error}',
+                    f'Error occurred during SFM operation on device: '\
+                    f'{self.device_name}:{self.device_hostname}\n{error}',
                     self.task_id, self.device_name)
                 # Return False value:
                 return False
             else:
                 logger.debug(
-                    f'SFM process on command "{command}" collected from device: {self.device_name}:{self.device_hostname}, has been accomplish.',
+                    f'SFM process on command "{command}" collected from '\
+                    f'device: {self.device_name}:{self.device_hostname}, has been accomplish.',
                     self.task_id, self.device_name)
                 # Return FSM process output:
                 return fsm_result

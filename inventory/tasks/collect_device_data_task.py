@@ -24,10 +24,18 @@ from autocli.celery import app
 class CollectDeviceDataTask(BaseTask):
     """
     Collect data from specified device or devices, using SSH protocol.
+    Usage: CollectDeviceDataTask.delay(<pk value>)
+
+    Parameters:
+    -----------------
+    pk: integer, string or list
+        int = return one device data collection.
+        list = return multiple devices data collection.
+        str 'all' = return all active devices data collection.
     
     Steps to follow:
     1. Collect all device objects based on provided pk value.
-    2. Collect data from devices using SSH protocol
+    2. Collect data from devices using SSH protocol.
     3. Create a new Device update object.
     4. Save collected data, into device collected dada object.
     5. 
