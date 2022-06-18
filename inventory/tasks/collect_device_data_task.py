@@ -1,6 +1,6 @@
 # Document description:
 __author__ = 'Robert Tadeusz Kucharski'
-__version__ = '1.0'
+__version__ = '1.1'
 
 # Base task Import:
 from autocli.basetask.basetask import BaseTask
@@ -24,6 +24,14 @@ from autocli.celery import app
 class CollectDeviceDataTask(BaseTask):
     """
     Collect data from specified device or devices, using SSH protocol.
+    
+    Steps to follow:
+    1. Collect all device objects based on provided pk value.
+    2. Collect data from devices using SSH protocol
+    3. Create a new Device update object.
+    4. Save collected data, into device collected dada object.
+    5. 
+    6. 
     """
 
     name = 'Collect device data'
@@ -35,29 +43,29 @@ class CollectDeviceDataTask(BaseTask):
         
         # Success counter:
         successful = 0
-        # Collect all provided device objects:
+        # (Step: 1) Collect all device objects based on provided pk value:
         collected_objects = self._collect_device_objects(pk)
         # Verify that the object was collected correctly:
         if collected_objects:
             # Collect all operation timer:
             start_operation_timer = self._start_execution_timer()
+            
             # Iterate thru all collected device objects:
             for collected_device_object in collected_objects:
-
-                # Start clock counter:
+                # Start single operation clock counter:
                 self._start_execution_timer()
                 # Update corelate object variable:
                 self.corelate_object = collected_device_object
                 self.corelate_object_name = collected_device_object.name
-                # Collect data from devices using SSH protocol:
+                # (Step: 2) Collect data from devices using SSH protocol:
                 collected_data = self._collect_data_from_devices(collected_device_object)
                 # End clock counter:
                 self._end_execution_timer()
-                # Check that the device data has been collected correctly:
+                # Check if device data has been collected correctly:
                 if collected_data:
-                    # Create update object:
+                    # (Step: 3) Create a new Device update object:
                     update_object = self._create_update_object(collected_device_object)
-                    # Save collected data data into device collected dada objects:
+                    # (Step: 4) Save collected data, into device collected dada object:
                     if update_object:
                         output = self._save_to_device_collected_data(collected_data, update_object)
                         # Check output status:
@@ -78,9 +86,21 @@ class CollectDeviceDataTask(BaseTask):
             end_operation_timer = self._start_execution_timer()
             operation_timer = round(end_operation_timer - start_operation_timer, 5)
             # Create message:
-            message = f'Process of collecting information from all devices '\
-            f'has been accomplish (Successfully collected data from {successful} '\
-            f'device out of {len(collected_objects)} available, in {operation_timer} seconds).'
+            if successful > 0:
+                # Create summary data collection process message:
+                message = f'Process of collecting information from all requested devices '\
+                f'has been accomplish (Successfully collected data from {successful} '\
+                f'device/s out of {len(collected_objects)} requested device/s, '\
+                f'in {operation_timer} seconds).'
+                # update device update model status:
+                update_object.status = 1
+                update_object.save(update_fields=['status'])
+            else:
+                # Create fails of data collection process message:
+                message = f'Process of collecting information from all devices fails' 
+                # update device update model status:
+                update_object.status = 2
+                update_object.save(update_fields=['status'])
             # Log end of process:
             self.logger.info(message, self.task_id)
             # Send message to channel:
@@ -93,7 +113,7 @@ class CollectDeviceDataTask(BaseTask):
 
     def _save_to_device_collected_data(self, collected_data, update_object):
         """
-        Xxx.
+        Save collected data to collect device data object.
         """
 
         # Defiant counts values:
@@ -132,10 +152,12 @@ class CollectDeviceDataTask(BaseTask):
                     processed_data_status=processed_data_status,
                 )
             except IntegrityError as error:
+                # Log fails of data collection process:
                 self.logger.debug(
                     f'Process of creating device collected data object fails,'\
                     f' on device {self.corelate_object_name}.\n{error}',
                     self.task_id, self.corelate_object_name)
+                # Return False value
                 return False
             
         # Create message:
@@ -165,7 +187,7 @@ class CollectDeviceDataTask(BaseTask):
 
     def _create_update_object(self, collected_device_object):
         """
-        Create update object.
+        Create a new Device update object.
         """
 
         # Declare update object variable:
@@ -211,32 +233,42 @@ class CollectDeviceDataTask(BaseTask):
     def _collect_device_objects(self, pk):
         """
         Collect provided device or devices object.
-            - pk: int = One device data collection.
-            - pk: list = Multiple devices data collection.
-            - pk: str 'all' = All active devices data collection.
+
+        Parameters:
+        -----------------
+        pk: integer, string or list
+            int = return one device data collection.
+            list = return multiple devices data collection.
+            str 'all' = return all active devices data collection.
+
+        Return:
+        --------
+        Iterable <class 'django.db.models.query.QuerySet'>
         """
 
         # Declare collected objects variable:
         collected_objects = None
 
-        # Collect single device object:
+        # (PK: Integer) Collect single device object:
         if isinstance(pk, int):
             collected_objects = self._collect_objects(Device, 'pk', pk)
         
-        # Collect provided device objects:
+        # (PK: List) Collect provided device objects from list of devices pk integers:
         elif isinstance(pk, list):
-            # Check if provided PK si integer:
-            if isinstance(single_pk, int):
-                # Collect all provided device:
-                for single_pk in pk:
-                    collected_objects = self._collect_objects(Device, 'pk', single_pk)
-            else:
-                # Log type error:
-                self.logger.debug(
-                    f'Provided device PK value is not a integer.',
-                    self.task_id, self.corelate_object)
+            # Check if list contains only integers:
+            check_status = True
+            for single_pk in pk:
+                if not isinstance(single_pk, int):
+                    # Log type error:
+                    self.logger.debug(
+                        f'Provided device PK value is not a integer.',
+                        self.task_id, self.corelate_object)
+                    check_status = False
+            # Collect data if check process passed:
+            if check_status:
+                collected_objects = self._collect_objects(Device, 'pk__in', pk)
         
-        # Collect all devices object:
+        # (PK: String 'All') Collect all devices object:
         elif pk == 'all':
             collected_objects = self._collect_objects(Device, 'all')
         

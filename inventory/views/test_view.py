@@ -11,6 +11,7 @@ from inventory.tasks.collect_device_data import collect_device_data, collect_all
 from inventory.connections.netcon import NetCon
 from inventory.tasks.collect_device_data_task import CollectDeviceDataTask
 from inventory.tasks.log_collector import collect_last_logs
+from inventory.models.device_model import Device
 
 # Logger initialization:
 logger = Logger('Page')
@@ -21,13 +22,13 @@ def logger_page(request):
         'log': '',
     }
 
-    data['output'] = CollectDeviceDataTask.delay('all')
+    data['output'] = CollectDeviceDataTask.delay(1)
 
-    logger.info('aaa')
-    logger.info('bbb')
-    logger.info('ccc')
-    logger.info('ddd')
-    logger.info('eee')
+    # logger.info('aaa')
+    # logger.info('bbb')
+    # logger.info('ccc')
+    # logger.info('ddd')
+    # logger.info('eee')
     return render(request, 'basic.html', data)
 
 

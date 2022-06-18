@@ -23,7 +23,7 @@ class BaseTask(Task):
     ignore_result = False
     validation_class = ''
     public = True
-    task_id = '666-666-666'
+    task_id = 'None'
 
     # Correlated object data:
     corelate_object = None
@@ -46,6 +46,8 @@ class BaseTask(Task):
     def run(self, *args, **kwargs):
         # Logger initialization:
         self.logger = Logger(self.logger_name)
+        # Collect process ID:
+        self.task_id = 'RKKR'
         # Run task in delay:
         self._run(*args, **kwargs)
 
@@ -78,9 +80,23 @@ class BaseTask(Task):
         # Return execution timer value:
         return self.execution_timer
 
-    def _collect_objects(self, object: object, filter: str, expression = None):
+    def _collect_objects(self, object: object, filter: str, expression: str = None):
         """
         Collect object or objects from database.
+
+        Parameters:
+        -----------------
+        object: class
+            Django model class.
+        filter: string
+            Django model class parameter.
+            If provided filter value is 'all' will return all objects.
+        expression: string / none
+            Django model class parameter search value.
+
+        Return:
+        --------
+        Iterable <class 'django.db.models.query.QuerySet'>
         """
 
         # Declare collected objects variable:

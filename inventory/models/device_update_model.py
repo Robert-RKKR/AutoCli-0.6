@@ -11,8 +11,8 @@ from inventory.models.device_model import Device
 # Constants declaration:
 STATUS = (
     (0, _('Initiation')),
-    (1, _('Collecting data')),
-    (2, _('Saved data'))
+    (1, _('Successfully collected data')),
+    (2, _('Data collection failed'))
 )
 
 
