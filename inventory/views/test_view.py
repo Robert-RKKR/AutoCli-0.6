@@ -9,6 +9,7 @@ from django.db import IntegrityError
 from inventory.models.device_type_template_model import DeviceTypeTemplate
 from inventory.tasks.old.collect_device_data import collect_device_data, collect_all_devices_data
 from inventory.connections.netcon import NetCon
+from inventory.connections.apicon import ApiCon
 from inventory.tasks.collect_device_data_task import CollectDeviceDataTask
 from inventory.models.device_model import Device
 
@@ -22,6 +23,11 @@ def logger_page(request):
     }
 
     data['output'] = CollectDeviceDataTask.delay(1)
+
+    # device = Device.objects.get(pk=1)
+    # connection = ApiCon(device)
+    # url = 'restconf/data/Cisco-IOS-XE-native:native/hostname'
+    # data['output'] = connection.get(url)
 
     # logger.info('aaa')
     # logger.info('bbb')

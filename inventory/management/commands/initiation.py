@@ -44,8 +44,8 @@ class Command(BaseCommand):
             device_type_template_name = device_type_template['name']
             # Collect device type template relations with device type:
             device_type_template_relation = device_type_template['device_type']
-            # Delete device type template relations with device type:
-            device_type_template['device_type'] = created_device_type_objects[device_type_template_relation]
+            # Change device type template relations with device type:
+            device_type_template['device_type'] = DeviceType.objects.get(pk=device_type_template_relation)
             # Replace sfm_expression file path by file.
             sfm_expression_path = device_type_template['sfm_expression']
             device_type_template['sfm_expression'] = file_read(f'{INITIATION_DATA_PATH}/{sfm_expression_path}')['output']

@@ -80,8 +80,13 @@ class CollectDeviceDataTask(BaseTask):
                         if output:
                             # Raise successes command counter:
                             successful += 1
+                        # update device update model status:
+                        update_object.status = 1
+                        update_object.save(update_fields=['status'])
                     else:
-                        pass
+                        # update device update model status:
+                        update_object.status = 2
+                        update_object.save(update_fields=['status'])
                 else:
                     # Create message:
                     message = f'Data could not be collected from device {self.corelate_object_name}'
@@ -89,26 +94,29 @@ class CollectDeviceDataTask(BaseTask):
                     self.logger.warning(message, self.task_id, self.corelate_object_name)
                     # Send message to channel:
                     self.send_message(message, self.queue)
+                    # update device update model status:
+                    update_object.status = 2
+                    update_object.save(update_fields=['status'])
 
             # Summary of all operations:
             end_operation_timer = self._start_execution_timer()
             operation_timer = round(end_operation_timer - start_operation_timer, 5)
             # Create message:
-            if successful > 0:
+            if successful == 1:
                 # Create summary data collection process message:
                 message = f'Process of collecting information from all requested devices '\
                 f'has been accomplish (Successfully collected data from {successful} '\
-                f'device/s out of {len(collected_objects)} requested device/s, '\
+                f'device out of {len(collected_objects)} requested device, '\
                 f'in {operation_timer} seconds).'
-                # update device update model status:
-                update_object.status = 1
-                update_object.save(update_fields=['status'])
+            elif successful > 1:
+                # Create summary data collection process message:
+                message = f'Process of collecting information from all requested devices '\
+                f'has been accomplish (Successfully collected data from {successful} '\
+                f'devices out of {len(collected_objects)} requested devices, '\
+                f'in {operation_timer} seconds).'
             else:
                 # Create fails of data collection process message:
-                message = f'Process of collecting information from all devices fails' 
-                # update device update model status:
-                update_object.status = 2
-                update_object.save(update_fields=['status'])
+                message = f'Process of collecting information from all requested devices fails' 
             # Log end of process:
             self.logger.info(message, self.task_id)
             # Send message to channel:

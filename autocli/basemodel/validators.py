@@ -13,6 +13,6 @@ class NameValueValidator(validators.RegexValidator):
 
 @deconstructible
 class DescriptionValueValidator(validators.RegexValidator):
-    regex = r'^[0-9,A-Z,a-z,-_. ]{8,256}$'
+    regex = r'^[0-9,A-Z,a-z,-_." ]{8,256}$'
     message = 'Description must contain 8 to 256 digits, letters and special characters -, _, . or spaces.'
     flags = 0

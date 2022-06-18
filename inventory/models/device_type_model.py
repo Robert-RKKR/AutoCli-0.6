@@ -27,5 +27,7 @@ class DeviceType(BaseModel):
         verbose_name=_('Napalm name'),
         help_text=_('Napalm name.'),
         max_length=32,
-        unique=True
+        unique=True,
+        null=True,
+        blank=True
     )

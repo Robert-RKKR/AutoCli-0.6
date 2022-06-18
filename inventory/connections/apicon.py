@@ -134,7 +134,7 @@ class ApiCon(Connection):
             prepare_request = session.prepare_request(request)
             response = session.send(
                 prepare_request,
-                verify=self.certificate,
+                verify=self.device_certificate,
             )
 
         except requests.exceptions.SSLError as error:
