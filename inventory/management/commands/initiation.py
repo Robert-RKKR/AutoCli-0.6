@@ -26,7 +26,6 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         # Create device type objects:
-        created_device_type_objects = {}
         device_type_files = yaml_read(f'{INITIATION_DATA_PATH}/device_type.yml')['output']
         for device_type in device_type_files:
             device_type_name = device_type['name']
@@ -35,7 +34,6 @@ class Command(BaseCommand):
             except:
                 print(f'Object {device_type_name} already exist.')
             else:
-                created_device_type_objects[new_device_type.pk] = new_device_type
                 print(f'Object {device_type_name} was created.')
         
         # Create device type template objects:
