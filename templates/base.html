@@ -212,7 +212,6 @@
 
                     <!-- xxx -->
                     <div id="page_left_options">
-                        <p>page_left_options</p>
                     </div>
 
                 </div>
@@ -226,15 +225,7 @@
                         <!-- xxx -->
                         <div id="content">
 
-                            {{ output }}
-                            </br></br></br></br></br></br>
-                            {{ output2 }}
-                    
-                            <p>Collect output</p>
-                            <p id="collect_output"></p>
-                    
-                            <p>Logger output</p>
-                            <div id="logger_output"></div>
+                            {% block content %}{% endblock content %}
 
                         </div>
 

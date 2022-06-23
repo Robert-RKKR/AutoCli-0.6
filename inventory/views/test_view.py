@@ -34,7 +34,7 @@ def logger_page(request):
     # logger.info('ccc')
     # logger.info('ddd')
     # logger.info('eee')
-    return render(request, 'basic.html', data)
+    return render(request, 'test.html', data)
 
 
 def automation(request):

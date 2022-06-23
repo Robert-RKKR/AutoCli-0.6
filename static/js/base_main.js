@@ -45,12 +45,12 @@ for(let i=0; i<toggleButtons.length; i++) {
 var mainMenu = document.getElementById("page_left");
 
 mainMenu.addEventListener("mouseenter", function(event) {
-    hideMenu();
+    // hideMenu();
     console.log("hideMenu")
 });
 
 mainMenu.addEventListener("mouseleave", function(event) {
-    showMenu();
+    // showMenu();
     console.log("showMenu")
 });
 
