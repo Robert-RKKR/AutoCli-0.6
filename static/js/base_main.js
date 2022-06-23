@@ -1,4 +1,4 @@
-// Sidebar (Page left) menu close / open action with cookies:
+// LEFT PANEL ACTION - CLOSE / OPEN MENU WITH COOKIES:
 var toggleButtons = document.getElementsByClassName("menu_collapse_link");
 var cookies = document.cookie.split(";");
  
@@ -39,4 +39,51 @@ for(let i=0; i<toggleButtons.length; i++) {
  
     });
  
+}
+
+// LEFT PANEL ACTION - SHOW HIDE WHOLE MENU:
+var mainMenu = document.getElementById("page_left");
+
+mainMenu.addEventListener("mouseenter", function(event) {
+    hideMenu();
+    console.log("hideMenu")
+});
+
+mainMenu.addEventListener("mouseleave", function(event) {
+    showMenu();
+    console.log("showMenu")
+});
+
+function hideMenu() {
+    var menuLinks = document.getElementsByClassName("menu_link");
+    var menuLinkTexts = document.getElementsByClassName("menu_link_text");
+
+    // Add class to menu link:
+    for(let i=0; i<menuLinks.length; i++) {
+        let menuLink = menuLinks[i]
+        menuLink.classList.add("menu_link_hidden");
+    }
+    // Add class to menu link text:
+    for(let i=0; i<menuLinkTexts.length; i++) {
+        let menuLinkText = menuLinkTexts[i]
+        menuLinkText.classList.add("menu_link_text_hidden");
+    }
+
+}
+
+function showMenu() {
+    var menuLinks = document.getElementsByClassName("menu_link");
+    var menuLinkTexts = document.getElementsByClassName("menu_link_text");
+
+    // Add class to menu link:
+    for(let i=0; i<menuLinks.length; i++) {
+        let menuLink = menuLinks[i]
+        menuLink.classList.remove("menu_link_hidden");
+    }
+    // Add class to menu link text:
+    for(let i=0; i<menuLinkTexts.length; i++) {
+        let menuLinkText = menuLinkTexts[i]
+        menuLinkText.classList.remove("menu_link_text_hidden");
+    }
+
 }

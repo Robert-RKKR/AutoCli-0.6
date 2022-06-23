@@ -126,11 +126,13 @@
         }
 
         #main_menu .menu_link_svg {
-            width: 20%;
+            flex-grow: 1;
+            flex-basis: 0;
         }
 
         #main_menu .menu_link_text {
-            width: 80%;
+            flex-grow: 4;
+            flex-basis: 0;
         }
 
         #main_menu .menu_collapse_link .menu_link_text::after {
@@ -172,3 +174,17 @@
 
  /*   ------------------------------------   */
 /*   ----    PAGE CONTENT SETTINGS    ---   */
+
+.menu_link_hidden {
+    flex-direction: column;
+    align-items: center;
+    padding: var(--size_big) var(--size_medium);
+}
+
+.menu_link_text_hidden {
+    display: none;
+}
+
+.page_left_hidden  {
+    width: 60px!Important;
+}
