@@ -3,43 +3,36 @@
     /* Colors */
 
         /* Main colors */
-        --color_page_first: #455cc6;
-        --color_page_second: #5a71d9;
-        --color_page_third: #717171;
-        --color_background_first: #f8f9fe;
-        --color_background_second: #ffffff;
-
-        /* Second colors */
-        --color_page_shadow: #c2c0c0;
-        --color_page_border: #e1e3e8;
-
-        --color_page_border: rgba(0, 0, 0, 0.1);
+        --color_page_left_one: #677acf;
+        --color_page_left_two: #7386d5;
+        --color_page_top: #8cd3aa;
+        --color_background_page: #e1eaeb;
+        --color_background_box: #ffffff;
+        --color_background_gray: #efefef;
 
         /* Main font colors */
-        --color_font_white: #f8f9fe;
-        --color_font_first: #72777a;
+        --color_font_white: #ffffff;
+        --color_font_first: #6a6464;
         --color_font_second: #545353;
 
         /* Light colors */
-        --color_light_blue: #c3e0f7;
+        --color_light_blue: #b7ddfb;
         --color_light_green: #a8f0cc;
         --color_light_yellow: #ffefce;
         --color_light_gray: #95a4c8;
         --color_light_red: #f6c6d3;
 
         /* Strong colors */
-        --color_strong_blue: #699df8;
+        --color_strong_blue: #73a6ff;
         --color_strong_green: #8cd3aa;
         --color_strong_yellow: #f5cd7f;
         --color_strong_gray: #5a769a;
         --color_strong_red: #f27e93;
 
-    /* Main page dimensions */
+    /* Dimensions */
     --size_page_top: 8vh;
     --size_page_bottom: 92vh;
     --size_page_left: 250px;
-
-    /* Dimensions */
     --main_distance: 10px;
     --second_distance: 20px;
     --size_small: 5px;
@@ -58,4 +51,9 @@
 /*   -----   MAIN CLASSES   -----   */
 .collapse {
     display: none!Important;
+}
+
+.box_item {
+    margin-bottom: var(--second_distance);
+    background-color: var(--color_background_box);
 }

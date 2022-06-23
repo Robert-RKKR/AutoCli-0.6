@@ -1,4 +1,52 @@
  /*   ------------------------------------   */
+/*   ----             BOX            ----   */
+.box {
+    display: flex;
+}
+
+
+    /*   -----   BOX ITEM   -----   */
+    .box_item {
+        margin-bottom: var(--second_distance);
+        background-color: var(--color_background_second);
+        border-radius: 10px;
+        border: 1px solid var(--color_page_border);
+    }
+
+    .box_item_top {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-around;
+        padding: var(--size_medium);
+    }
+
+    .box_item_content {
+        display: flex;
+        padding: var(--size_medium);
+    }
+
+    .box_item_bottom {
+        display: flex;
+        justify-content: space-between;
+        align-items	: center;
+        padding: var(--size_medium);
+    }
+
+    .box_item_bottom a {
+        color: var(--color_font_second)
+    }
+
+    /*   -----   COLORS BOXES   -----   */
+
+        /*   -----   GREEN   -----   */
+        .green_box .box_item_top {
+            background: var(--color_light_green);
+        }
+
+
+
+/*   ------------------------------------   */
 /*   ----            TABLE           ----   */
 
 
@@ -14,64 +62,38 @@
         width: 100%;
         display: flex;
         flex-flow: row nowrap;
+        border-bottom: 1px solid var(--color_page_border);
+    }
+
+    .row_header {
+        border-bottom: 1px solid var(--color_font_second);
     }
   
     .cell {
         flex-grow: 1;
         flex-basis: 0;
-        padding: 0.5em;
+        padding: var(--size_medium);
         word-wrap: break-word;
         min-width: 0px;
     }
 
-    /*   -----   TABLE NAWIGATION   -----   */
+    /*   -----   TABLE COLORS   -----   */
 
-    /*   -----   COLOR TABLE   -----   */
+        /*   -----   GREEN   -----   */
+        /* .green_box .row .cell:first-child {
+            color: var(--color_strong_green);
+        } */
 
-        /*   -----   COLOR TABLE - BLUE   -----   */
-        .table_blue .row:nth-of-type(odd) {
-            background-color: var(--color_light_blue);
+        .green_box .table_navigation_current {
+            color: var(--color_strong_green);
+            font-weight: bold;
+            text-decoration: underline;
         }
 
-        .table_blue .row_header {
-            background-color: var(--color_strong_blue)!important;
-        }
-
-        /*   -----   COLOR TABLE - GREEN   -----   */
-        .table_green .row:nth-of-type(odd) {
-            background-color: var(--color_light_green);
-        }
-
-        .table_green .row_header {
-            background-color: var(--color_strong_green)!important;
-        }
-
-        /*   -----   COLOR TABLE - YELLOW   -----   */
-        .table_yellow .row:nth-of-type(odd) {
-            background-color: var(--color_light_yellow);
-        }
-
-        .table_yellow .row_header {
-            background-color: var(--color_strong_yellow)!important;
-        }
-
-        /*   -----   COLOR TABLE - GRAY   -----   */
-        .table_gray .row:nth-of-type(odd) {
-            background-color: var(--color_light_gray);
-        }
-
-        .table_gray .row_header {
-            background-color: var(--color_strong_gray)!important;
-        }
-
-        /*   -----   COLOR TABLE - RED   -----   */
-        .table__red .row:nth-of-type(odd) {
-            background-color: var(--color_light_red);
-        }
-
-        .table__red .row_header {
-            background-color: var(--color_strong_red)!important;
-        }
+    /*   -----   TABLE NAVIGATION   -----   */
+    .table_navigation_link {
+        padding: 0px var(--size_medium);
+    }
     
     /*   -----   CELLS OPTIONS   -----   */
     .cell_2 {
@@ -99,45 +121,23 @@
 
     /*   -----   BUTTONS   -----   */
     .button {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
         border: none;
-        padding: 0px;
+        padding: var(--size_medium);
         cursor: pointer;
+        border-radius: 10em;
     }
 
-    .button_content {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        height: var(--size_button_large);
+    .button span {
+        margin-left: var(--size_small);
     }
 
-    .button_svg, .button_text {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-    }
-
-    .button_svg {
-        fill: var(--color_font_second);
-        width: var(--size_super_big);
-        padding: 0px var(--size_medium);
-        height: 100%;
-    }
-
-    .button_text {
-        color: var(--color_font_second);
-        font-size: var(--font_medium);
-        padding: 0px var(--size_big);
-        height: 100%;
-    }
-
-        /*   -----   COLLRS BUTTONS   -----   */
-        .blue_button .button_svg {
-            background-color: var(--color_strong_blue);
-        }
-
-        .blue_button .button_text {
-            background-color: var(--color_light_blue);
+        /*   -----   COLORS BUTTONS   -----   */
+        .blue_button {
+            color: var(--color_strong_blue);
+            background: var(--color_light_blue);
         }
 
         /*   -----   BUTTONS ANIMATION   -----   */
@@ -146,7 +146,8 @@
         }
 
         .button:hover {
-            transform: scale(0.99);
+            color: var(--color_font_white);
+            background: var(--color_light_gray);
         }
 
         .button:active {

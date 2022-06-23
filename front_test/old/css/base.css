@@ -6,48 +6,24 @@
     /*   ----     MAIN PAGE     ----   */
     #page {
         display: flex;
-        flex-direction: column;
+        flex-direction: row;
         height: 100vh;
         color: var(--color_font_second);
-        background: var(--color_background_first);
+        background: var(--color_background_page);
         font-family: 'Alegreya Sans SC', sans-serif;
         text-decoration: none;
         overflow: hidden;
     }
 
-    
-
-    /*   -----   PAGE TOP SITE   -----   */
-    #page_top {
-        display: flex;
-        flex-direction: row;
-        background: var(--color_page_first);
-        height: var(--size_page_top);
-        border-bottom: 1px solid var(--color_page_border);
-    }
-
-    #page_left_logo {
-        width: var(--size_page_left);
-    }
-
-    /*   -----   PAGE BOTTOM SITE   -----   */
-    #page_bottom {
-        display: flex;
-        flex-direction: row;
-        background: var(--color_background_first);
-        height: var(--size_page_bottom);
-    }
-
     /*   ----     PAGE LEFT SITE     ----   */
     #page_left {
-        background: var(--color_background_second);
+        background: var(--color_page_left_two);
         width: var(--size_page_left);
         color: var(--color_font_white);
-        border-right: 1px solid var(--color_page_border);
     }
 
     #page_left_logo {
-        background: var(--color_page_first);
+        background: var(--color_page_left_one);
         height: var(--size_page_top);
     }
 
@@ -55,6 +31,16 @@
     #page_right {
         width: 100%;
         overflow: hidden;
+    }
+
+    /*   -----   PAGE TOP SITE   -----   */
+    #page_top {
+        background: var(--color_page_top);
+        height: var(--size_page_top);
+    }
+
+    #page_top_content {
+        padding: var(--main_distance);
     }
 
 
@@ -70,7 +56,7 @@
 
     /*   -----   PAGE SCROLL   -----   */
     ::-webkit-scrollbar {
-        width: 5px;
+        width: 7px;
     }
 
     ::-webkit-scrollbar-track {
@@ -105,64 +91,81 @@
     }
 
     #main_menu a {
-        color: var(--color_font_first);
+        color: var(--color_font_white);
         font-size: var(--font_small);
     }
 
     #main_menu p {
         cursor: pointer;
-        color: var(--color_font_first);
+        color: var(--color_font_white);
         font-size: var(--font_small);
     }
 
+        /*   -----   MAIN MENU - MENU - SUBMENU   -----   */
+        #main_menu .menu_link, .submenu_link {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+        }
+
+        #main_menu .menu_link_item, .submenu_link_item {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+        }
+
+        #main_menu .menu_link .menu_text, .submenu_text {
+            padding-left: var(--size_medium);
+        }
+
         /*   -----   MAIN MENU - MENU   -----   */
-        #main_menu .menu_item {
-            width: 100%;
+        #main_menu .menu_svg {
+            fill: var(--color_font_white);
+            width: var(--size_super_big);
+            height: var(--size_super_big);
+        }
+
+        #main_menu .menu_item:not(:last-child) {
+            border-bottom: 1px solid var(--color_page_left_one);
         }
 
         #main_menu .menu_link {
-            display: flex;
-            padding: 15px 0px 15px 30px;
+            padding: 15px 15px 15px 30px;
         }
 
-        #main_menu .menu_link_svg {
-            width: 20%;
-        }
-
-        #main_menu .menu_link_text {
-            width: 80%;
-        }
-
-        #main_menu .menu_collapse_link .menu_link_text::after {
+        #main_menu .menu_collapse .menu_text::after {
             content: " »";
         }
 
+        /*   -----   MAIN MENU - SUBMENU   -----   */
+        #main_menu .submenu_svg {
+            fill: var(--color_font_white);
+            width: var(--size_big);
+            height: var(--size_big);
+        }
+
+        #main_menu .submenu_link {
+            padding: 15px 15px 15px 50px;
+        }
+
+        #main_menu .submenu_link .menu_text {
+            padding-left: var(--size_medium);
+        }
+
         /*   -----   MAIN MENU - ANIMATIONS   -----   */
-        #main_menu .menu_link:hover {
+        #main_menu .menu_link:hover, .submenu_link:hover {
             background-color: var(--color_page_left_one);
         }
 
-        #main_menu .menu_link {
+        #main_menu .menu_link_item, .submenu_link_item {
             transition: transform .5s;
         }
 
-        #main_menu .menu_link:hover {
+        #main_menu .menu_link:hover .menu_link_item, .submenu_link:hover .submenu_link_item {
             transform: translate(5px, 0px);
         }
 
-        #main_menu .menu_link:active {
-            transform: scale(0.99);
-        }
-
-        #main_menu .menu_link_text {
-            transition: transform .5s;
-        }
-
-        #main_menu .menu_link:hover {
-            transform: translate(5px, 0px);
-        }
-
-        #main_menu .menu_link:active {
+        #main_menu .menu_link:active .menu_link_item, .submenu_link:active .submenu_link_item {
             transform: scale(0.99);
         }
 
