@@ -1,0 +1,174 @@
+ /*   ------------------------------------   */
+/*   ----     MAIN PAGE SETTINGS     ----   */
+
+
+
+    /*   ----     MAIN PAGE     ----   */
+    #page {
+        display: flex;
+        flex-direction: column;
+        height: 100vh;
+        color: var(--color_font_second);
+        background: var(--color_background_first);
+        font-family: 'Alegreya Sans SC', sans-serif;
+        text-decoration: none;
+        overflow: hidden;
+    }
+
+    
+
+    /*   -----   PAGE TOP SITE   -----   */
+    #page_top {
+        display: flex;
+        flex-direction: row;
+        background: var(--color_page_first);
+        height: var(--size_page_top);
+        border-bottom: 1px solid var(--color_page_border);
+    }
+
+    #page_left_logo {
+        width: var(--size_page_left);
+    }
+
+    /*   -----   PAGE BOTTOM SITE   -----   */
+    #page_bottom {
+        display: flex;
+        flex-direction: row;
+        background: var(--color_background_first);
+        height: var(--size_page_bottom);
+    }
+
+    /*   ----     PAGE LEFT SITE     ----   */
+    #page_left {
+        background: var(--color_background_second);
+        width: var(--size_page_left);
+        color: var(--color_font_white);
+        border-right: 1px solid var(--color_page_border);
+    }
+
+    #page_left_logo {
+        background: var(--color_page_first);
+        height: var(--size_page_top);
+    }
+
+    /*   ----     PAGE RIGHT SITE     ----   */
+    #page_right {
+        width: 100%;
+        overflow: hidden;
+    }
+
+
+    /*   -----   PAGE CONTENT SITE   -----   */
+    #page_content {
+        height: var(--size_page_bottom);
+        overflow-y: auto;
+    }
+
+    #content {
+        padding: var(--second_distance);
+    }
+
+    /*   -----   PAGE SCROLL   -----   */
+    ::-webkit-scrollbar {
+        width: 5px;
+    }
+
+    ::-webkit-scrollbar-track {
+        background: var(--color_strong_blue);
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background: var(--color_page_left_two);
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+        background: var(--color_page_left_two);
+    }
+
+
+
+ /*   ------------------------------------   */
+/*   ----     PAGE LEFT SETTINGS     ----   */
+#page_left {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+
+
+    /*   -----   LOGO   -----   */
+
+    /*   -----   MAIN MENU   -----   */
+    #main_menu {
+        margin-top: var(--size_super_big);
+    }
+
+    #main_menu a {
+        color: var(--color_font_first);
+        font-size: var(--font_small);
+    }
+
+    #main_menu p {
+        cursor: pointer;
+        color: var(--color_font_first);
+        font-size: var(--font_small);
+    }
+
+        /*   -----   MAIN MENU - MENU   -----   */
+        #main_menu .menu_item {
+            width: 100%;
+        }
+
+        #main_menu .menu_link {
+            display: flex;
+            padding: 15px 0px 15px 30px;
+        }
+
+        #main_menu .menu_link_svg {
+            width: 20%;
+        }
+
+        #main_menu .menu_link_text {
+            width: 80%;
+        }
+
+        #main_menu .menu_collapse_link .menu_link_text::after {
+            content: " »";
+        }
+
+        /*   -----   MAIN MENU - ANIMATIONS   -----   */
+        #main_menu .menu_link:hover {
+            background-color: var(--color_page_left_one);
+        }
+
+        #main_menu .menu_link {
+            transition: transform .5s;
+        }
+
+        #main_menu .menu_link:hover {
+            transform: translate(5px, 0px);
+        }
+
+        #main_menu .menu_link:active {
+            transform: scale(0.99);
+        }
+
+        #main_menu .menu_link_text {
+            transition: transform .5s;
+        }
+
+        #main_menu .menu_link:hover {
+            transform: translate(5px, 0px);
+        }
+
+        #main_menu .menu_link:active {
+            transform: scale(0.99);
+        }
+
+
+ /*   ------------------------------------   */
+/*   ----     PAGE TOP SETTINGS      ----   */
+
+ /*   ------------------------------------   */
+/*   ----    PAGE CONTENT SETTINGS    ---   */

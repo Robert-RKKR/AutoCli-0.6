@@ -22,7 +22,7 @@ def logger_page(request):
         'log': '',
     }
 
-    data['output'] = CollectDeviceDataTask.delay(1)
+    # data['output'] = CollectDeviceDataTask.delay(1)
 
     # device = Device.objects.get(pk=1)
     # connection = ApiCon(device)

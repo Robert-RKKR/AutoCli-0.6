@@ -5,9 +5,24 @@
 <html lang="{{ LANGUAGE_CODE }}">
 
     <head>
-        <title>AutoCli</title>
-        <script src="{% static 'js/main.js' %}" async defer></script>
-        <script src="{% static 'js/websocket.js' %}" async defer></script>
+
+        <!-- Page basic data -->
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        
+        <!-- Page title -->
+        <title>AutoCli - base</title>
+        
+        <!-- Custom CSS -->
+        <link rel="stylesheet" type="text/css" href="{% static 'css/reset.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/content.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/mobile.css' %}">
+
+        <!-- Icons -->
+        <script src="https://kit.fontawesome.com/f8557c5cb5.js" crossorigin="anonymous"></script>
 
         <!-- Favicon links -->
         <link rel="apple-touch-icon" sizes="180x180" href="{% static 'ico/favicon/apple-touch-icon.png' %}">
@@ -17,19 +32,222 @@
         <link rel="mask-icon" href="{% static 'ico/favicon/safari-pinned-tab.svg' %}" color="#5bbad5">
         <meta name="msapplication-TileColor" content="#da532c">
         <meta name="theme-color" content="#ffffff">
+        
     </head>
 
     <body>
         
-        {{ output }}
-        </br></br></br></br></br></br>
-        {{ output2 }}
+        <!-- Main div containing all page content. -->
+        <div id="page">
 
-        <p>Collect output</p>
-        <p id="collect_output"></p>
+            <!-- Top site of page. -->
+            <div id="page_top">
 
-        <p>Logger output</p>
-        <div id="logger_output"></div>
+                <!-- xxx -->
+                <div id="page_left_logo">
+                    <p>page_left_logo</p>
+                </div>
+
+                <!-- xxx -->
+                <div id="page_top_menu">
+
+                    <!-- xxx -->
+                    <div id="page_top_action">
+                        <p>page_top_action</p>
+                    </div>
+
+                    <!-- xxx -->
+                    <div id="page_top_name">
+                        <p>page_top_name</p>
+                    </div>
+
+                    <!-- xxx -->
+                    <div id="page_top_user">
+                        <p>page_top_user</p>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- Bottom site of page. -->
+            <div id="page_bottom">
+
+                <!-- Left site of page (Left menu). -->
+                <div id="page_left">
+
+                    <!-- xxx -->
+                    <div id="page_left_top">
+
+                        <!-- xxx -->
+                        <div id="page_left_menu">
+                            
+                            <nav id="main_menu">
+
+                                <!-- Menu item -->
+                                <li class="menu_item">
+                                    <a href="#" class="menu_link">
+                                        <span class="menu_link_svg">
+                                            <i class="fa-solid fa-house-chimney"></i>
+                                        </span>
+                                        <span class="menu_link_text">Dashboard</span>
+                                    </a>
+                                </li>
+
+                                <!-- Menu item -->
+                                <li class="menu_item">
+                                    <a href="#" class="menu_link">
+                                        <span class="menu_link_svg">
+                                            <i class="fa-solid fa-address-card"></i>
+                                        </span>
+                                        <span class="menu_link_text">Administration</span>
+                                    </a>
+                                </li>
+
+                                <!-- Menu item -->
+                                <li class="menu_item menu_collapse">
+                                    <p class="menu_link menu_collapse_link">
+                                        <span class="menu_link_svg">
+                                            <i class="fa-solid fa-cart-flatbed"></i>
+                                        </span>
+                                        <span class="menu_link_text">Inventory</span>
+                                    </p>
+                                    <ul class="submenu collapse">
+
+                                        <li class="menu_item">
+                                            <a href="#"  class="menu_link">
+                                                <span class="menu_link_svg">
+                                                    <i class="fa-solid fa-arrow-right"></i>
+                                                </span>
+                                                <span class="menu_link_text">Devices</span>
+                                            </a>
+                                        </li>
+
+                                        <li class="menu_item">
+                                            <a href="#"  class="menu_link">
+                                                <span class="menu_link_svg">
+                                                    <i class="fa-solid fa-arrow-right"></i>
+                                                </span>
+                                                <span class="menu_link_text">Groups</span>
+                                            </a>
+                                        </li>
+
+                                        <li class="menu_item">
+                                            <a href="#"  class="menu_link">
+                                                <span class="menu_link_svg">
+                                                    <i class="fa-solid fa-arrow-right"></i>
+                                                </span>
+                                                <span class="menu_link_text">Colors</span>
+                                            </a>
+                                        </li>
+
+                                        <li class="menu_item">
+                                            <a href="#"  class="menu_link">
+                                                <span class="menu_link_svg">
+                                                    <i class="fa-solid fa-arrow-right"></i>
+                                                </span>
+                                                <span class="menu_link_text">Credentials</span>
+                                            </a>
+                                        </li>
+
+                                    </ul>
+                                </li>
+
+                                <!-- Menu item -->
+                                <li class="menu_item menu_collapse">
+                                    <p class="menu_link menu_collapse_link">
+                                        <span class="menu_link_svg">
+                                            <i class="fa-solid fa-gears"></i>
+                                        </span>
+                                        <span class="menu_link_text">Automatization</span>
+                                    </p>
+                                    <ul class="submenu collapse">
+
+                                        <li class="menu_item">
+                                            <a href="#"  class="menu_link">
+                                                <span class="menu_link_svg">
+                                                    <i class="fa-solid fa-arrow-right"></i>
+                                                </span>
+                                                <span class="menu_link_text">Polices</span>
+                                            </a>
+                                        </li>
+
+                                        <li class="menu_item">
+                                            <a href="#"  class="menu_link">
+                                                <span class="menu_link_svg">
+                                                    <i class="fa-solid fa-arrow-right"></i>
+                                                </span>
+                                                <span class="menu_link_text">Templates</span>
+                                            </a>
+                                        </li>
+
+                                        <li class="menu_item">
+                                            <a href="#"  class="menu_link">
+                                                <span class="menu_link_svg">
+                                                    <i class="fa-solid fa-arrow-right"></i>
+                                                </span>
+                                                <span class="menu_link_text">Schedules</span>
+                                            </a>
+                                        </li>
+
+                                    </ul>
+                                </li>
+
+                                <!-- Menu item -->
+                                <li class="menu_item">
+                                    <a href="#" class="menu_link">
+                                        <span class="menu_link_svg">
+                                            <i class="fa-solid fa-sliders"></i>
+                                        </span>
+                                        <span class="menu_link_text">Settings</span>
+                                    </a>
+                                </li>
+
+                            </nav>
+
+                        </div>
+
+                    </div>
+
+                    <!-- xxx -->
+                    <div id="page_left_options">
+                        <p>page_left_options</p>
+                    </div>
+
+                </div>
+
+                <!-- All right site of page (Top panel and main page content). -->
+                <div id="page_right">
+
+                    <!-- main page content. -->
+                    <div id="page_content">
+
+                        <!-- xxx -->
+                        <div id="content">
+
+                            {{ output }}
+                            </br></br></br></br></br></br>
+                            {{ output2 }}
+                    
+                            <p>Collect output</p>
+                            <p id="collect_output"></p>
+                    
+                            <p>Logger output</p>
+                            <div id="logger_output"></div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+        <!-- JavaScript scripts -->
+        <script src="{% static 'js/base_main.js' %}"></script>
         
     </body>
 
