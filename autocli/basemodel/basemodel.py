@@ -5,8 +5,8 @@ from django.utils.translation import gettext_lazy as _
 from django.db import models
 
 # Managers Import:
+from .managers import ChangeLogManager
 from .managers import BasicManager
-
 
 # Validators Import:
 from .validators import DescriptionValueValidator
@@ -110,6 +110,9 @@ class BaseModel(SimpleBaseModel):
             'invalid': 'Enter the correct description value. It must contain 8 to 256 digits, letters and special characters -, _, . or spaces.',
         },
     )
+
+    # Model objects manager:
+    objects = ChangeLogManager()
 
     # Model representation:
     def __repr__(self) -> str:

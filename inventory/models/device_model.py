@@ -16,6 +16,9 @@ from inventory.validators import HostnameValueValidator
 # Constants Import:
 from inventory.constants import DEVICE_ICONS
 
+# Import change model:
+from changes.models.change_model import Change
+
 
 # Device model:
 class Device(BaseModel):
@@ -126,3 +129,13 @@ class Device(BaseModel):
         help_text=_('Check network device certificate during HTTPS connection.'),
         default=False
     )
+
+    def save(self, *args, **kwargs):
+        # Create change model:
+        change = Change.objects.create(
+            action=3,
+            model_name=self.class_name,
+            object_name=self.name
+        )
+        # Inherit from save method:
+        super().save(*args, **kwargs)

@@ -11,9 +11,9 @@ class BasicManager(Manager):
         ).get_queryset().filter(deleted=False)
 
 
-class ActiveManager(Manager):
+class ChangeLogManager(Manager):
 
     def get_queryset(self):
         return super(
-            ActiveManager, self
-        ).get_queryset().filter(deleted=False, status=1)
+            ChangeLogManager, self
+        ).get_queryset().filter(deleted=False, active=True)

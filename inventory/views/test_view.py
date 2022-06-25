@@ -13,6 +13,8 @@ from inventory.connections.apicon import ApiCon
 from inventory.tasks.collect_device_data_task import CollectDeviceDataTask
 from inventory.models.device_model import Device
 
+from django.core.exceptions import ValidationError
+
 # Logger initialization:
 logger = Logger('Page')
 
@@ -21,6 +23,9 @@ def logger_page(request):
         'output': 'Log page',
         'log': '',
     }
+
+    device = Device.objects.get(pk=1)
+
 
     # data['output'] = CollectDeviceDataTask.delay(1)
 
