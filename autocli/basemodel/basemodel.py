@@ -4,54 +4,18 @@ from django.utils.translation import gettext_lazy as _
 # Django Import:
 from django.db import models
 
+# Simple base model Import:
+from .simplebasemodel import SimpleBaseModel
+
+# Import change model:
+from changes.models.change_model import Change
+
 # Managers Import:
 from .managers import ChangeLogManager
-from .managers import BasicManager
 
 # Validators Import:
 from .validators import DescriptionValueValidator
 from .validators import NameValueValidator
-
-
-# Base models class:
-class SimpleBaseModel(models.Model):
-
-    class Meta:
-        
-        # Model name values:
-        verbose_name = _('Model')
-        verbose_name_plural = _('Models')
-
-        # Abstract class value:
-        abstract = True
-
-    # Class name value:
-    class_name = Meta.verbose_name
-
-    # Model data time information:
-    created = models.DateTimeField(
-        verbose_name=_('Created'),
-        help_text=_(f'{class_name} create date.'),
-        auto_now_add=True
-    )
-    updated = models.DateTimeField(
-        verbose_name=_('Updated'),
-        help_text=_(f'{class_name} last update date.'),
-        auto_now=True
-    )
-
-    # Model status values:
-    deleted = models.BooleanField(default=False)
-    
-    # Model objects manager:
-    objects = BasicManager()
-
-    # Model representation:
-    def __repr__(self) -> str:
-        return f'{self.pk}: {self.created}'
-
-    def __str__(self) -> str:
-        return  f'{self.pk}: {self.created}'
 
 
 # Base models class:
@@ -120,3 +84,31 @@ class BaseModel(SimpleBaseModel):
 
     def __str__(self) -> str:
         return  f'{self.pk}: {self.name}'
+
+    # def save(self, *args, **kwargs):
+        
+    #     # Create change model:
+    #     change = Change.objects.create(
+    #         action=3,
+    #         model_name=self.class_name,
+    #         object_name=self.name
+    #     )
+    #     # Inherit from save method:
+    #     super().save(*args, **kwargs)
+
+
+# class ObjectCustomManager(object):
+    
+#     def __init__(self, model):
+#         self.model = model
+      
+#     def __enter__(self):
+#         # Create change model:
+#         change = Change.objects.create(
+#             action=3,
+#             model_name=self.model.Meta.verbose_name,
+#             object_name=
+#         )
+  
+#     def __exit__(self):
+        

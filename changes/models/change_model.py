@@ -2,9 +2,6 @@
 from django.utils.translation import gettext_lazy as _
 from django.db import models
 
-# Base Model Import:
-from autocli.basemodel.basemodel import SimpleBaseModel
-
 # Django user model Import:
 from django.contrib.auth.models import User
 
@@ -17,7 +14,7 @@ ACTION = (
 )
 
 # Device model:
-class Change(SimpleBaseModel):
+class Change(models.Model):
     """ Xxx. """
 
     class Meta:
@@ -26,6 +23,17 @@ class Change(SimpleBaseModel):
         verbose_name = _('Change')
         verbose_name_plural = _('Changes')
 
+    # Model data time information:
+    created = models.DateTimeField(
+        verbose_name=_('Created'),
+        help_text=_('Change create date.'),
+        auto_now_add=True
+    )
+    updated = models.DateTimeField(
+        verbose_name=_('Updated'),
+        help_text=_('Change last update date.'),
+        auto_now=True
+    )
     
     # Corelation witch user model:
     administrator = models.ForeignKey(
@@ -70,3 +78,10 @@ class Change(SimpleBaseModel):
         null=True,
         blank=True
     )
+
+    # Model representation:
+    def __repr__(self) -> str:
+        return f'{self.pk}: {self.object_name}'
+
+    def __str__(self) -> str:
+        return  f'{self.pk}: {self.object_name}'

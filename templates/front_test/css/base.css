@@ -23,7 +23,7 @@
         flex-direction: row;
         background: var(--color_page_first);
         height: var(--size_page_top);
-        border-bottom: 1px solid var(--color_page_border);
+        border-bottom: 1px solid rgba(0, 0, 0, 0.1);
     }
 
     #page_left_logo {
@@ -43,7 +43,7 @@
         background: var(--color_background_second);
         width: var(--size_page_left);
         color: var(--color_font_white);
-        border-right: 1px solid var(--color_page_border);
+        border-right: 1px solid rgba(0, 0, 0, 0.1);
     }
 
     #page_left_logo {

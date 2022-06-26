@@ -10,12 +10,14 @@
         margin-bottom: var(--second_distance);
         background-color: var(--color_background_second);
         border-radius: 10px;
-        /* border: 1px solid rgba(0, 0, 0, 0.0625); */
-        box-shadow: 0.1rem 0.1rem 0.25rem #00000013, -0.1rem -0.1rem 0.25rem #00000013;
+        border: 1px solid var(--color_page_border);
     }
 
     .box_item_top {
         display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-around;
         padding: var(--size_medium);
     }
 
@@ -35,13 +37,11 @@
         color: var(--color_font_second)
     }
 
-    /*   -----   COLLRS BOXES   -----   */
+    /*   -----   COLORS BOXES   -----   */
 
         /*   -----   GREEN   -----   */
         .green_box .box_item_top {
-            background: var(--color_strong_green);
-            border-top-left-radius: 10px;
-            border-top-right-radius: 10px;
+            background: var(--color_light_green);
         }
 
 
@@ -62,7 +62,7 @@
         width: 100%;
         display: flex;
         flex-flow: row nowrap;
-        border-bottom: 1px solid rgba(0, 0, 0, 0.0625);
+        border-bottom: 1px solid var(--color_page_border);
     }
 
     .row_header {
@@ -80,8 +80,20 @@
     /*   -----   TABLE COLORS   -----   */
 
         /*   -----   GREEN   -----   */
+        /* .green_box .row .cell:first-child {
+            color: var(--color_strong_green);
+        } */
 
-    /*   -----   TABLE NAWIGATION   -----   */
+        .green_box .table_navigation_current {
+            color: var(--color_strong_green);
+            font-weight: bold;
+            text-decoration: underline;
+        }
+
+    /*   -----   TABLE NAVIGATION   -----   */
+    .table_navigation_link {
+        padding: 0px var(--size_medium);
+    }
     
     /*   -----   CELLS OPTIONS   -----   */
     .cell_2 {
@@ -122,7 +134,7 @@
         margin-left: var(--size_small);
     }
 
-        /*   -----   COLLRS BUTTONS   -----   */
+        /*   -----   COLORS BUTTONS   -----   */
         .blue_button {
             color: var(--color_strong_blue);
             background: var(--color_light_blue);
@@ -141,15 +153,3 @@
         .button:active {
             transform: scale(0.9);
         }
-
-
-/*   ------------------------------------   */
-/*   ----           FORMS           ----   */
-       
-       
-       
-    /*   -----   BUTTONS   -----   */
-    .object_form {
-        display: flex;
-        flex-direction: row;
-    }

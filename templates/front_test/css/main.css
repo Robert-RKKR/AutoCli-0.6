@@ -3,17 +3,15 @@
     /* Colors */
 
         /* Main colors */
-        --color_page_first: #455cc6;
+        --color_page_first: #226acf;
         --color_page_second: #5a71d9;
         --color_page_third: #717171;
-        --color_background_first: #f8f9fe;
+        --color_background_first: #f2f4f6;
         --color_background_second: #ffffff;
 
         /* Second colors */
         --color_page_shadow: #c2c0c0;
         --color_page_border: #e1e3e8;
-
-        --color_page_border: rgba(0, 0, 0, 0.1);
 
         /* Main font colors */
         --color_font_white: #f8f9fe;
