@@ -10,7 +10,11 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
+# Django Import:
+from django.conf.global_settings import LANGUAGES as DJANGO_LANGUAGES
+from django.utils.translation import gettext_lazy as _
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -197,11 +201,24 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 JAZZMIN_SETTINGS = {
+    # "language_chooser": True,
+    "navigation_expanded": True,
     "site_title": "AutoClo",
     "site_header": "RKKR",
     "icons": {
-        "inventory": "fas fa-users-cog",
-        "inventory.user": "fas fa-user",
-        "inventory.Group": "fas fa-users",
+        "inventory.Policy": "fas fa-user",
+        "inventory.Device": "fas fa-user",
+        "inventory.DeviceTypeTemplate": "fas fa-users",
     },
 }
+
+# English default
+LANGUAGES = DJANGO_LANGUAGES
+
+LANGUAGE_CODE = 'en'
+
+LANGUAGES = (
+    ('en', _('English')),
+    ('de', _('German')),
+    ('pl', _('Polish')),
+)

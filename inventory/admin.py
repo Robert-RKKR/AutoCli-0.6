@@ -27,7 +27,7 @@ class DeviceAdmin(BaseAdmin):
         'name', 'active', 'hostname', 'ssh_status', 'https_status', 'credential', 'device_type',
     )
     list_filter = (
-        'active', 'device_type', 'ssh_status', 'https_status',
+        'active', 'device_type', 'ssh_status', 'https_status', 'color',
     )
     search_fields = (
         'name', 'hostname',
@@ -36,7 +36,7 @@ class DeviceAdmin(BaseAdmin):
         'credential', 'device_type',
     )
     readonly_fields = (
-        'ssh_status', 'https_status',
+        'root', 'ssh_status', 'https_status',
     )
     fieldsets = (
         (_('Basic settings'), {
@@ -65,7 +65,7 @@ class DeviceGroupAdmin(BaseAdmin):
         'name', 'active', 'color', 'root_folder', 'credential',
     )
     list_filter = (
-        'active', 'credential', 'root_folder',
+        'active', 'credential', 'root_folder', 'color',
     )
     search_fields = (
         'name',
@@ -138,8 +138,35 @@ class DeviceCollectedDataAdmin(admin.ModelAdmin):
     )
     ordering = ('-pk',)
 
+
+@admin.register(DeviceCredential)
+class DeviceCredentialAdmin(BaseAdmin):
+
+    list_display = (
+        'name', 'active', 'username',
+    )
+    list_filter = (
+        'active', 'color',
+    )
+    search_fields = (
+        'name', 'username',
+    )
+    fieldsets = (
+        (_('Basic user information'), {
+            'classes': ('wide', 'extrapretty',),
+            'fields': ('name', 'username', 'ico', 'color',)
+        }),
+        (_('Credential status'), {
+            'classes': ('wide', 'extrapretty',),
+            'fields': ('root', 'active',)
+        }),
+        (_('Security',), {
+            'classes': ('collapse',),
+            'fields': ('password',),
+        }),
+    )
+
 # Register your models here:
-admin.site.register(DeviceCredential)
 admin.site.register(DeviceColor)
 admin.site.register(DeviceType)
 admin.site.register(DeviceUpdate)

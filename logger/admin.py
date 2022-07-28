@@ -14,11 +14,14 @@ class LogAdmin(admin.ModelAdmin):
         'pk', 'timestamp', 'severity', 'task_id', 'correlated_object', 'application', 'message',
     )
     list_filter = (
-        'severity',
+        'severity', 'application', 'user_message',
     )
     search_fields = (
-        'timestamp', 'message',
+        'timestamp', 'message', 'task_id',
     )
     ordering = (
-        '-pk', 'timestamp',
+        '-pk',
+    )
+    readonly_fields = (
+        'timestamp', 'severity', 'task_id', 'correlated_object', 'application', 'message', 'user_message',
     )

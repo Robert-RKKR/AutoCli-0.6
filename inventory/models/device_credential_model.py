@@ -54,7 +54,7 @@ class DeviceCredential(BaseModel):
     color = models.ForeignKey(
         DeviceColor,
         verbose_name=_('Color'),
-        help_text=_('Corelated color.'),
+        help_text=_('Correlated color.'),
         on_delete=models.CASCADE,
         null=True,
         blank=True
