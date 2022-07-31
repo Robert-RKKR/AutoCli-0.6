@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load static %}
+
+{% block content %}
+
+    <h3>{{ output }}</h3>
+    </br>
+    <p>-----------------------</p>
+    </br>
+    {% for device in devices %}
+
+        <li><a href="{% url 'inventory:device_one' device.pk %}">{{ device.name }}</a> - {{ device.hostname }}</li>
+
+    {% endfor %}
+
+{% endblock %}

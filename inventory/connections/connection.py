@@ -80,38 +80,38 @@ class Connection:
                     self.device_username = device.credential.username
                     self.device_password = device.credential.password
             except:
-                raise 'Provided device object is not compatible with connection class.'
+                raise TypeError('Provided device object is not compatible with connection class.')
 
         else:
-            raise 'The provided device variable must be a valid object of the Device class.'
+            raise TypeError('The provided device variable must be a valid object of the Device class.')
 
         # Verify if the specified taks_id variable is a string:
         if task_id is None or isinstance(task_id, str):
             # Celery task ID declaration:
             self.task_id = task_id
         else:
-            raise 'The provided task ID variable must be a string.'
+            raise TypeError('The provided task ID variable must be a string.')
 
         # Verify if the specified repeat connection variable is a integer:
         if repeat_connection is None or isinstance(repeat_connection, int):
             # Celery task ID declaration:
             self.repeat_connection = repeat_connection
         else:
-            raise 'The provided repeat connection variable must be a integer.'
+            raise TypeError('The provided repeat connection variable must be a integer.')
 
         # Verify if the specified repeat connection time variable is a integer:
         if repeat_connection_time is None or isinstance(repeat_connection_time, int):
             # Celery task ID declaration:
             self.repeat_connection_time = repeat_connection_time
         else:
-            raise 'The provided repeat connection variable must be a integer.'
+            raise TypeError('The provided repeat connection variable must be a integer.')
 
         # Verify if the specified headers variable is a dictionary:
         if headers is None or isinstance(headers, dict):
             # Celery task ID declaration:
             self.headers = headers
         else:
-            raise 'The provided headers variable must be a dictionary.'
+            raise TypeError('The provided headers variable must be a dictionary.')
 
         # Connection status declaration:
         self.connection_status = None

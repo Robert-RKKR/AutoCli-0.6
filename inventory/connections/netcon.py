@@ -51,8 +51,19 @@ class NetCon(Connection):
         Xxx.
     """
 
+    def test_connection(self):
+        """ Open test SSH connection. """
+
+        # Open a new SSH connection:
+        connection = self.open_connection()
+        # Return status:
+        if connection:
+            return True
+        else:
+            return False
+
     def open_connection(self):
-        """ Open a new SSH connection """
+        """ Open a new SSH connection. """
 
         # Check if device need autodetect process:
         if self.supported_device is None:

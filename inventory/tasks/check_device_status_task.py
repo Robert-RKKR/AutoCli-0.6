@@ -3,14 +3,11 @@ __author__ = 'Robert Tadeusz Kucharski'
 __version__ = '1.0'
 
 # Base task Import:
+from email import message
 from autocli.basetask.basetask import BaseTask
-
-# Models Import:
-from inventory.models.device_model import Device
 
 # NetCon Import:
 from inventory.connections.netcon import NetCon
-from inventory.connections.apicon import ApiCon
 
 # Celery application Import:
 from autocli.celery import app
@@ -42,63 +39,45 @@ class CheckDeviceStatus(BaseTask):
     description = 'Check status of device or devices, using SSH / HTTPS protocol.'
     logger_name = 'Check device status'
     # queue = 'status_check'
-    queue = 'collect_data'
+    queue = 'status_update'
 
     def _run(self, pk, *args, **kwargs):
         # Collect all device objects based on provided pk value:
         collected_objects = self._collect_device_objects(pk)
+        # Verify that the object was collected correctly:
+        if collected_objects:
 
-    def _collect_device_objects(self, pk):
-        """
-        Collect provided device or devices object.
+            # Iterate thru all collected device objects:
+            for collected_device_object in collected_objects:
 
-        Parameters:
-        -----------------
-        pk: integer, string or list
-            int = return one device data collection.
-            list = return multiple devices data collection.
-            str 'all' = return all active devices data collection.
+                # Update globally accessible variables:
+                self.corelate_object = collected_device_object
+                self.corelate_object_name = collected_device_object.name
 
-        Return:
-        --------
-        Iterable <class 'django.db.models.query.QuerySet'>
-        """
+                # Confect to device using NetCon class:
+                ssh_connection = NetCon(collected_device_object, self.task_id, 1).test_connection()
+                if ssh_connection:
+                    collected_device_object.ssh_status = True
+                    message = f"Status of device {self.corelate_object_name} was checked, device is active."
+                    # Send message to channel:
+                    self.send_message(message, self.queue, 2)
+                else:
+                    collected_device_object.ssh_status = False
+                    message = f"Status of device {self.corelate_object_name} was checked, device is not active."
+                    # Send message to channel:
+                    self.send_message(message, self.queue, 1)
+                # Update device object:
+                collected_device_object.save(update_fields=['ssh_status'])
+                # Log status update:
+                self.logger.info(message, self.task_id, self.corelate_object_name)
 
-        # Declare collected objects variable:
-        collected_objects = None
-
-        # (PK: Integer) Collect single device object:
-        if isinstance(pk, int):
-            collected_objects = self._collect_objects(Device, 'pk', pk)
-        
-        # (PK: List) Collect provided device objects from list of devices pk integers:
-        elif isinstance(pk, list):
-            # Check if list contains only integers:
-            check_status = True
-            for single_pk in pk:
-                if not isinstance(single_pk, int):
-                    # Log type error:
-                    self.logger.debug(
-                        f'Provided device PK value is not a integer.',
-                        self.task_id, self.corelate_object)
-                    check_status = False
-            # Collect data if check process passed:
-            if check_status:
-                collected_objects = self._collect_objects(Device, 'pk__in', pk)
-        
-        # (PK: String 'All') Collect all devices object:
-        elif pk == 'all':
-            collected_objects = self._collect_objects(Device, 'all')
-        
-        # Wrong data type error:
         else:
-            # Log type error:
-            self.logger.debug(
-                f'Provided device PK value is wrong type.',
-                self.task_id, self.corelate_object)
-
-        # Return all collected objects:
-        return collected_objects
+            # Log data collection error:
+            self.logger.warning('An error occurred during attempt to collect provided device/s, based on PK.',
+                self.task_id, self.corelate_object_name)
+            # Log data collection user error:
+            self.logger.warning('An error occurred during data collection (NR. 374521553764).',
+                self.task_id, self.corelate_object_name, True)
 
 # Task registration:
 CheckDeviceStatus = app.register_task(CheckDeviceStatus())

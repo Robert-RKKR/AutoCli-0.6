@@ -21,7 +21,7 @@ class Logger:
     -----------------
     application:
         Xxx.
-    user_message:
+    user_log:
         Xxx.
 
     Methods:
@@ -38,7 +38,7 @@ class Logger:
         Xxx.
     """
 
-    def __init__(self, application: str = 'NoName', user_message: bool = False) -> None:
+    def __init__(self, application: str = 'NoName') -> None:
         """ Log application acclivity. """
 
         # Verify if the application variable is a valid sting:
@@ -46,14 +46,8 @@ class Logger:
             self.application = application
         else:
             raise TypeError('The provided application variable must be string.')
-        
-        # Verify if the user message variable is a valid boolean:
-        if isinstance(user_message, bool):
-            self.user_message = user_message
-        else:
-            raise TypeError('The provided user message variable must be boolean.')
 
-    def critical(self, message: str, task_id: str = None, correlated_object: str = None, **kwarg) -> Log:
+    def critical(self, message: str, task_id: str = None, correlated_object: str = None, user_log: bool = False) -> Log:
         """
         Create a new log based on the following data:
 
@@ -68,9 +62,9 @@ class Logger:
         """
 
         # Run process of log and details log creation:
-        return self._run(CRITICAL, message, task_id, correlated_object)
+        return self._run(CRITICAL, message, task_id, correlated_object, user_log)
 
-    def error(self, message: str, task_id: str = None, correlated_object: str = None, **kwarg) -> Log:
+    def error(self, message: str, task_id: str = None, correlated_object: str = None, user_log: bool = False) -> Log:
         """
         Create a new log based on the following data:
 
@@ -85,9 +79,9 @@ class Logger:
         """
         
         # Run process of log and details log creation:
-        return self._run(ERROR, message, task_id, correlated_object)
+        return self._run(ERROR, message, task_id, correlated_object, user_log)
 
-    def warning(self, message: str, task_id: str = None, correlated_object: str = None, **kwarg) -> Log:
+    def warning(self, message: str, task_id: str = None, correlated_object: str = None, user_log: bool = False) -> Log:
         """
         Create a new log based on the following data:
 
@@ -102,9 +96,9 @@ class Logger:
         """
 
         # Run process of log and details log creation:
-        return self._run(WARNING, message, task_id, correlated_object)
+        return self._run(WARNING, message, task_id, correlated_object, user_log)
 
-    def info(self, message: str, task_id: str = None, correlated_object: str = None, **kwarg) -> Log:
+    def info(self, message: str, task_id: str = None, correlated_object: str = None, user_log: bool = False) -> Log:
         """
         Create a new log based on the following data:
 
@@ -119,9 +113,9 @@ class Logger:
         """
 
         # Run process of log and details log creation:
-        return self._run(INFO, message, task_id, correlated_object)
+        return self._run(INFO, message, task_id, correlated_object, user_log)
 
-    def debug(self, message: str, task_id: str = None, correlated_object: str = None, **kwarg) -> Log:
+    def debug(self, message: str, task_id: str = None, correlated_object: str = None, user_log: bool = False) -> Log:
         """
         Create a new log based on the following data:
 
@@ -136,9 +130,9 @@ class Logger:
         """
 
         # Run process of log and details log creation:
-        return self._run(DEBUG, message, task_id, correlated_object)
+        return self._run(DEBUG, message, task_id, correlated_object, user_log)
 
-    def _run(self, severity, message, task_id, correlated_object):
+    def _run(self, severity, message, task_id, correlated_object, user_log):
         """ Run process of log and details log creation. """
 
         # Check provided data:
@@ -150,12 +144,12 @@ class Logger:
         #     raise TypeError('The provided correlated object variable must be string.')
 
         # Create new log based on provided data:
-        log = self._create_log(severity, message, task_id, correlated_object)
+        log = self._create_log(severity, message, task_id, correlated_object, user_log)
 
         # return log:
         return log
 
-    def _create_log(self, severity, message, task_id, correlated_object):
+    def _create_log(self, severity, message, task_id, correlated_object, user_log):
         """ Create new log in Database """
 
         # Define new log:
@@ -164,7 +158,7 @@ class Logger:
         # Collect all log data:
         log_data = {
             'correlated_object': correlated_object,
-            'user_message': self.user_message,
+            'user_message': user_log,
             'application': self.application,
             'severity': severity,
             'message': message,

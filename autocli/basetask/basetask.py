@@ -15,6 +15,9 @@ import time
 # Application Import:
 from logger.logger import Logger
 
+# Models Import:
+from inventory.models.device_model import Device
+
 
 # Base task class
 class BaseTask(Task):
@@ -51,9 +54,9 @@ class BaseTask(Task):
         # Run task in delay:
         self._run(*args, **kwargs)
 
-    def send_message(self, message: str, channel: str):
+    def send_message(self, message: str, channel: str, severity: int = None):
         # Send message to async_to_sync:
-        async_to_sync(self.channel_layer.group_send)(channel, {'type': 'send_collect', 'text': message})
+        async_to_sync(self.channel_layer.group_send)(channel, {'type': 'send_collect', 'message': message, 'severity': severity})
 
     def _run(self, *args, **kwargs):
         return True
@@ -142,3 +145,55 @@ class BaseTask(Task):
             return False
         else:
             return True
+
+    def _collect_device_objects(self, pk):
+        """
+        Collect provided device or devices object.
+
+        Parameters:
+        -----------------
+        pk: integer, string or list
+            int = collecting data from one specific device, into data collection model.
+            list = collecting data from provided devices, into data collection model.
+            str 'all' = collecting data from all devices, into data collection model.
+
+        Return:
+        --------
+        Iterable <class 'django.db.models.query.QuerySet'>
+        """
+
+        # Declare collected objects variable:
+        collected_objects = None
+
+        # (PK: Integer) Collect single device object:
+        if isinstance(pk, int):
+            collected_objects = self._collect_objects(Device, 'pk', pk)
+        
+        # (PK: List) Collect provided device objects from list of devices pk integers:
+        elif isinstance(pk, list):
+            # Check if list contains only integers:
+            check_status = True
+            for single_pk in pk:
+                if not isinstance(single_pk, int):
+                    # Log type error:
+                    self.logger.error(
+                        f'Provided device PK value is not a integer.',
+                        self.task_id, self.corelate_object)
+                    check_status = False
+            # Collect data if check process passed:
+            if check_status:
+                collected_objects = self._collect_objects(Device, 'pk__in', pk)
+        
+        # (PK: String 'All') Collect all devices object:
+        elif pk == 'all':
+            collected_objects = self._collect_objects(Device, 'all')
+        
+        # Wrong data type error:
+        else:
+            # Log type error:
+            self.logger.error(
+                f'Provided device PK value is wrong type.',
+                self.task_id, self.corelate_object)
+
+        # Return all collected objects:
+        return collected_objects

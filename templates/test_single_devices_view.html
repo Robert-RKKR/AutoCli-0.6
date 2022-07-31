@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load static %}
+
+{% block content %}
+
+    <h3>{{ output }}</h3>
+    <p>-----------------------</p>
+    </br>
+
+    <li><strong>Hostname:</strong> {{ device.hostname }}</li>
+    <li><strong>SSH port:</strong> {{ device.ssh_port }}</li>
+    <li><strong>HTTPS port:</strong> {{ device.https_port }}</li>
+    <li><strong>Device type:</strong> {{ device.device_type }}</li>
+    <li><strong>SSH status:</strong> {{ device.ssh_status }}</li>
+    <li><strong>HTTPS status:</strong> {{ device.https_status }}</li>
+    <li><strong>Credential:</strong> {{ device.credential }}</li>
+    
+    </br>
+    <h3>Updates</h3>
+    <p>-----------------------</p>
+    </br>
+
+    {% for update in updates %}
+
+        <li>{{ update.created }} - {{ update.status }} {{ update.result_status }}</li>
+
+    {% endfor %}
+    
+    </br>
+    <h3>All collected data</h3>
+    <p>-----------------------</p>
+    </br>
+
+    {% for data in all_collected_data %}
+
+        <li>{{ data.command_name }} - {{ data.result_status }} - {{ data.raw_data_status }} {{ data.processed_data_status }}</li>
+
+    {% endfor %}
+    
+    </br>
+    <h3>All devices:</h3>
+    <p>-----------------------</p>
+    </br>
+    {% for device in devices %}
+
+        <li><a href="{% url 'inventory:device_one' device.pk %}">{{ device.name }}</a> - {{ device.hostname }}</li>
+
+    {% endfor %}
+
+{% endblock %}

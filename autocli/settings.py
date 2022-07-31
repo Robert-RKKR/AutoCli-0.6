@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 # Django Import:
 from django.conf.global_settings import LANGUAGES as DJANGO_LANGUAGES
 from django.utils.translation import gettext_lazy as _
+from .jazzmin import JAZZMIN_SETTINGS
 from pathlib import Path
 import os
 
@@ -200,17 +201,22 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
-JAZZMIN_SETTINGS = {
-    # "language_chooser": True,
-    "navigation_expanded": True,
-    "site_title": "AutoClo",
-    "site_header": "RKKR",
-    "icons": {
-        "inventory.Policy": "fas fa-user",
-        "inventory.Device": "fas fa-user",
-        "inventory.DeviceTypeTemplate": "fas fa-users",
-    },
+JAZZMIN_SETTINGS = JAZZMIN_SETTINGS
+JAZZMIN_UI_TWEAKS = {
+    "theme": "cosmo",
 }
+
+# {
+#     # "language_chooser": True,
+#     "navigation_expanded": True,
+#     "site_title": "AutoClo",
+#     "site_header": "RKKR",
+#     "icons": {
+#         "inventory.Policy": "fas fa-user",
+#         "inventory.Device": "fas fa-user",
+#         "inventory.DeviceTypeTemplate": "fas fa-users",
+#     },
+# }
 
 # English default
 LANGUAGES = DJANGO_LANGUAGES

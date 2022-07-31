@@ -101,7 +101,7 @@ class DeviceTypeTemplateAdmin(BaseAdmin):
     fieldsets = (
         (_('Basic settings'), {
             'classes': ('wide', 'extrapretty',),
-            'fields': ('name', 'description', 'template_type',)
+            'fields': ('name', 'description', 'device_type', 'template_type',)
         }),
         (_('Device template status'), {
             'classes': ('wide', 'extrapretty',),

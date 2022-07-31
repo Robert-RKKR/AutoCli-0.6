@@ -57,3 +57,17 @@
 .collapse {
     display: none!Important;
 }
+
+.red_message {
+    border: 1px solid var(--color_strong_red);
+    background: var(--color_light_red);
+    color: var(--color_strong_red);
+    padding: 20px;
+}
+
+.blue_message {
+    border: 1px solid var(--color_strong_blue);
+    background: var(--color_light_blue);
+    color: var(--color_strong_blue);
+    padding: 20px;
+}
